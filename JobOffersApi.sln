@@ -5,11 +5,11 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{FCA8CA8F-EE29-4CEA-8627-5EA7638B7C04}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modular.Shared.Tests", "src\Shared\Modular.Shared.Tests\Modular.Shared.Tests.csproj", "{3C49875F-386E-4C94-A80C-0C75C7A83BCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Shared.Tests", "src\Shared\JobOffertsApi.Shared.Tests\JobOffersApi.Shared.Tests.csproj", "{3C49875F-386E-4C94-A80C-0C75C7A83BCB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bootstrapper", "Bootstrapper", "{110B9A2A-E39B-4883-ACB6-7E05CE77AF9C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modular.Bootstrapper", "src\Bootstrapper\Modular.Bootstrapper\Modular.Bootstrapper.csproj", "{F478360B-DE13-4F0B-9649-C7D4F8539D28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Bootstrapper", "src\Bootstrapper\JobOffertsApi.Bootstrapper\JobOffersApi.Bootstrapper.csproj", "{F478360B-DE13-4F0B-9649-C7D4F8539D28}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{1BA5712D-3DD3-4246-A396-D732B128CB61}"
 EndProject
@@ -17,15 +17,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "First", "First", "{CEAF1A2F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{3C812292-89CC-482D-BC00-3DD04CA4496B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modular.Modules.Users.Api", "src\Modules\Users\Modular.Modules.Users.Api\Modular.Modules.Users.Api.csproj", "{3DBF494E-0153-495A-85B7-D23FBEDF5B51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Users.Api", "src\Modules\Users\JobOffertsApi.Modules.Users.Api\JobOffersApi.Modules.Users.Api.csproj", "{3DBF494E-0153-495A-85B7-D23FBEDF5B51}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modular.Modules.Users.Core", "src\Modules\Users\Modular.Modules.Users.Core\Modular.Modules.Users.Core.csproj", "{BFE2213C-D50C-4AF7-B201-85F4F199F949}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Users.Core", "src\Modules\Users\JobOffertsApi.Modules.Users.Core\JobOffersApi.Modules.Users.Core.csproj", "{BFE2213C-D50C-4AF7-B201-85F4F199F949}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modular.Modules.First.Api", "src\Modules\First\Modular.Modules.First.Api\Modular.Modules.First.Api.csproj", "{68D23AD7-DFC6-43F9-85DE-891C0BB10DEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobsOfferApi.Modules.First.Api", "src\Modules\First\JobOffertsApi.Modules.First.Api\JobsOfferApi.Modules.First.Api.csproj", "{68D23AD7-DFC6-43F9-85DE-891C0BB10DEF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modular.Abstractions", "src\Shared\Modular.Abstractions\Modular.Abstractions.csproj", "{1A85644E-CDF6-435A-84DF-AB8F6C807D05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Abstractions", "src\Shared\JobOffertsApi.Abstractions\JobOffersApi.Abstractions.csproj", "{1A85644E-CDF6-435A-84DF-AB8F6C807D05}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modular.Infrastructure", "src\Shared\Modular.Infrastructure\Modular.Infrastructure.csproj", "{9CB1B793-AA2A-465C-8B19-AAC69E0BFA8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Infrastructure", "src\Shared\JobOffertsApi.Infrastructure\JobOffersApi.Infrastructure.csproj", "{9CB1B793-AA2A-465C-8B19-AAC69E0BFA8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobOffersApi.Modules.Users.Infrastructure", "src\Modules\Users\JobOffersApi.Modules.Users.Infrastructure\JobOffersApi.Modules.Users.Infrastructure.csproj", "{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +123,18 @@ Global
 		{9CB1B793-AA2A-465C-8B19-AAC69E0BFA8F}.Release|x64.Build.0 = Release|Any CPU
 		{9CB1B793-AA2A-465C-8B19-AAC69E0BFA8F}.Release|x86.ActiveCfg = Release|Any CPU
 		{9CB1B793-AA2A-465C-8B19-AAC69E0BFA8F}.Release|x86.Build.0 = Release|Any CPU
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}.Debug|x64.Build.0 = Debug|Any CPU
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}.Debug|x86.Build.0 = Debug|Any CPU
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}.Release|x64.ActiveCfg = Release|Any CPU
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}.Release|x64.Build.0 = Release|Any CPU
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}.Release|x86.ActiveCfg = Release|Any CPU
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +149,7 @@ Global
 		{68D23AD7-DFC6-43F9-85DE-891C0BB10DEF} = {CEAF1A2F-AFD5-4545-9E3D-53126DF1AB7F}
 		{1A85644E-CDF6-435A-84DF-AB8F6C807D05} = {FCA8CA8F-EE29-4CEA-8627-5EA7638B7C04}
 		{9CB1B793-AA2A-465C-8B19-AAC69E0BFA8F} = {FCA8CA8F-EE29-4CEA-8627-5EA7638B7C04}
+		{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D} = {3C812292-89CC-482D-BC00-3DD04CA4496B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8CD70520-1B2F-47CC-BC8E-4A4AAF2A763C}
