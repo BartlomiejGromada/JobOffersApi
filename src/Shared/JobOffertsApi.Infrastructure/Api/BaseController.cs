@@ -1,13 +1,13 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Infrastructure.Api;
-using JobOffersApi.Abstractions.Dispatchers;
+using Microsoft.AspNetCore.Mvc;
 
-namespace JobOffersApi.Modules.Users.Api.Controllers;
+namespace JobOffersApi.Abstractions.Api;
 
 [ApiController]
 [Route("[controller]")]
 [ProducesDefaultContentType]
-internal abstract class BaseController : ControllerBase
+public abstract class BaseController : ControllerBase
 {
     public readonly IDispatcher dispatcher;
     protected BaseController(IDispatcher dispatcher)

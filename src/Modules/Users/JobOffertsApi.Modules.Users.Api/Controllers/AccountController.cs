@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Abstractions.Dispatchers;
-using System;
 using JobOffersApi.Modules.Users.Core.Commands;
 using JobOffersApi.Modules.Users.Core.Queries;
 using JobOffersApi.Modules.Users.Core.DTO;
 using Swashbuckle.AspNetCore.Annotations;
 using JobOffersApi.Modules.Users.Core.Storages;
+using JobOffersApi.Abstractions.Api;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
