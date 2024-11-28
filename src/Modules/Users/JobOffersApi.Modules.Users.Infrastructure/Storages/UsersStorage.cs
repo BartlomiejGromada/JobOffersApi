@@ -42,7 +42,7 @@ internal sealed class UsersStorage : IUsersStorage
         }
 
         return await users
-            .OrderByDescending(keySelector: x => x.CreatedAt)
+            .OrderByDescending(x => x.CreatedAt)
             .Select(x => x.AsDto())
             .PaginateAsync(query, cancellationToken);
     }

@@ -1,4 +1,4 @@
-﻿namespace JobOffersApi.Modules.JobOffers.Core.Entities.JobApplications;
+﻿namespace JobOffersApi.Modules.JobOffers.Core.Entities.JobMenus;
 
 internal enum Availability
 {

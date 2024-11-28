@@ -1,7 +1,8 @@
 ﻿using JobOffersApi.Abstractions.Core;
+using JobOffersApi.Modules.JobOffers.Core.Entities.JobMenus;
 using JobOffersApi.Modules.JobOffers.Core.Exceptions;
 
-namespace JobOffersApi.Modules.JobOffers.Core.Entities.JobApplications;
+namespace JobOffersApi.Modules.JobOffers.Core.Entities.ValueObjects;
 
 internal class Disposition : ValueObject
 {
@@ -28,6 +29,7 @@ internal class Disposition : ValueObject
 
     protected override IEnumerable<object?> GetAtomicValues()
     {
-        yield return new object?[] { Availability, Date };
+        yield return Availability;
+        yield return Date;
     }
 }

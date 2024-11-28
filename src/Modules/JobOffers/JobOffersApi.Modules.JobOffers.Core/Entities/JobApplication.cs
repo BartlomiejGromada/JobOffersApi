@@ -1,28 +1,31 @@
 ﻿using JobOffersApi.Abstractions.Core;
-using JobOffersApi.Modules.JobOffers.Core.Entities.JobsOffers;
+using JobOffersApi.Modules.JobOffers.Core.Entities.JobMenus;
+using JobOffersApi.Modules.JobOffers.Core.Entities.ValueObjects;
 
-namespace JobOffersApi.Modules.JobOffers.Core.Entities.JobApplications;
+namespace JobOffersApi.Modules.JobOffers.Core.Entities;
 
 internal class JobApplication : Entity<Guid>
 {
+    private JobApplication()
+    {
+        // EF Core needs it
+    }
     public JobApplication(
-        Guid candidateId,
-        string candidateFirstName, 
-        string candidateLastName,
-        JobOffer jobOffer, 
-        Guid jobOfferId, 
-        string? messageToEmployer,
-        Disposition disposition, 
-        FinancialExpectations? financialExpectations, 
-        ContractType? preferredContract, 
-        JobApplicationStatus status,
-        DateTimeOffset createdAt,
-        byte[] cV)
+       Guid candidateId,
+       string candidateFirstName,
+       string candidateLastName,
+       Guid jobOfferId,
+       string? messageToEmployer,
+       Disposition disposition,
+       FinancialCondition? financialExpectations,
+       ContractType? preferredContract,
+       JobApplicationStatus status,
+       DateTimeOffset createdAt,
+       byte[] cv)
     {
         CandidateId = candidateId;
         CandidateFirstName = candidateFirstName;
         CandidateLastName = candidateLastName;
-        JobOffer = jobOffer;
         JobOfferId = jobOfferId;
         MessageToEmployer = messageToEmployer;
         Disposition = disposition;
@@ -30,12 +33,7 @@ internal class JobApplication : Entity<Guid>
         PreferredContract = preferredContract;
         Status = status;
         CreatedAt = createdAt;
-        CV = cV;
-    }
-
-    private JobApplication()
-    {
-        // EF Core needs it
+        CV = cv;
     }
 
     public Guid CandidateId { get; private set; }
@@ -45,7 +43,7 @@ internal class JobApplication : Entity<Guid>
     public Guid JobOfferId { get; private set; }
     public string? MessageToEmployer { get; private set; }
     public Disposition Disposition { get; private set; }
-    public FinancialExpectations? FinancialExpectations { get; private set; }
+    public FinancialCondition? FinancialExpectations { get; private set; }
     public ContractType? PreferredContract { get; private set; }
     public JobApplicationStatus Status { get; private set; }
     public DateTimeOffset CreatedAt { get; private set; }

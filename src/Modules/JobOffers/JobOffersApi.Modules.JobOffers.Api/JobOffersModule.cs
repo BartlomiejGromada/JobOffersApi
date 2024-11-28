@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using JobOffersApi.Abstractions.Modules;
+using JobOffersApi.Modules.JobOffers.Core;
+using JobOffersApi.Modules.JobOffers.Infrastructure;
 
-namespace JobsOfferApi.Modules.First.Api;
+namespace JobsOfferApi.Modules.JobOffers.Api;
 
 internal class JobOffersModule : IModule
 {
@@ -15,6 +17,8 @@ internal class JobOffersModule : IModule
 
     public void Register(IServiceCollection services)
     {
+        services.AddCore();
+        services.AddInfrastructure();
     }
 
     public void Use(IApplicationBuilder app)

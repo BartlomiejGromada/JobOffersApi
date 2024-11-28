@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\JobOffertsApi.Infrastructure\JobOffersApi.Infrastructure.csproj" />
+    <ProjectReference Include="..\JobOffersApi.Modules.JobOffers.Core\JobOffersApi.Modules.JobOffers.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -6,4 +6,25 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="module.jobOffers.development.json" />
+    <None Remove="module.jobOffers.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="module.jobOffers.development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="module.jobOffers.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\JobOffertsApi.Abstractions\JobOffersApi.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\Shared\JobOffertsApi.Infrastructure\JobOffersApi.Infrastructure.csproj" />
+    <ProjectReference Include="..\JobOffersApi.Modules.JobOffers.Core\JobOffersApi.Modules.JobOffers.Core.csproj" />
+    <ProjectReference Include="..\JobOffersApi.Modules.JobOffers.Infrastructure\JobOffersApi.Modules.JobOffers.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
