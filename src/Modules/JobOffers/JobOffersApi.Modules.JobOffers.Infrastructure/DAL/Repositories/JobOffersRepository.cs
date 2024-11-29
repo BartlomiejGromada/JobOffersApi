@@ -23,4 +23,10 @@ internal class JobOffersRepository : IJobOffersRepository
         await _jobOffers.AddAsync(jobOffer, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task UpdateAsync(JobOffer jobOffer, CancellationToken cancellationToken = default)
+    {
+        _context.Update(jobOffer);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
 }

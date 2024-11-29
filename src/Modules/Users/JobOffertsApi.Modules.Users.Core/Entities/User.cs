@@ -20,7 +20,7 @@ internal sealed class User : AggregateRoot<Guid>
         string lastName,
         Role role,
         DateOnly dateOfBirth,
-        DateTime createdAt)
+        DateTimeOffset createdAt)
     {
         Email = email;
         HashedPassword = hashedPassword;
@@ -55,7 +55,7 @@ internal sealed class User : AggregateRoot<Guid>
 
     public void SetState(UserState state)
     {
-        if (HasRole(Role.Admin))
+        if (HasRole(Roles.Admin))
         {
             throw new UserStateCannotBeChangedException(state.ToString(), Id);
         }

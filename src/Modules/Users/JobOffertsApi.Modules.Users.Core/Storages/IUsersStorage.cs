@@ -1,6 +1,7 @@
 ﻿using JobOffersApi.Abstractions.Queries;
 using JobOffersApi.Modules.Users.Core.DTO;
 using JobOffersApi.Modules.Users.Core.Queries;
+using JobOffersApi.Modules.Users.Integration.DTO;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

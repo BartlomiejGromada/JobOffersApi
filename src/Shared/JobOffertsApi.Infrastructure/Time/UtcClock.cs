@@ -5,5 +5,7 @@ namespace JobOffersApi.Infrastructure.Time;
 
 public class UtcClock : IClock
 {
-    public DateTimeOffset CurrentDate() => DateTimeOffset.UtcNow;
+    public DateTime CurrentDate() => DateTime.UtcNow;
+
+    public DateTimeOffset CurrentDateOffset() => DateTimeOffset.UtcNow;
 }

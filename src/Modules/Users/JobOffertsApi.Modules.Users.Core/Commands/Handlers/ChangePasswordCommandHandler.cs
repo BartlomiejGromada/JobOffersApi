@@ -7,6 +7,7 @@ using JobOffersApi.Modules.Users.Core.Exceptions;
 using JobOffersApi.Modules.Users.Core.Repositories;
 using JobOffersApi.Abstractions;
 using JobOffersApi.Abstractions.Commands;
+using JobOffersApi.Modules.Users.Integration.Exceptions;
 
 namespace JobOffersApi.Modules.Users.Core.Commands.Handlers;
 

@@ -3,9 +3,9 @@ using JobOffersApi.Infrastructure.MsSqlServer;
 using JobOffersApi.Modules.Users.Core.DTO;
 using JobOffersApi.Modules.Users.Core.Entities;
 using JobOffersApi.Modules.Users.Core.Queries;
-using JobOffersApi.Modules.Users.Core.Queries.Handlers;
 using JobOffersApi.Modules.Users.Core.Storages;
 using JobOffersApi.Modules.Users.Infrastructure.DAL;
+using JobOffersApi.Modules.Users.Integration.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobOffersApi.Modules.Users.Infrastructure.Storages;

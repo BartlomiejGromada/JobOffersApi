@@ -5,6 +5,7 @@ using JobOffersApi.Modules.Users.Core;
 using JobOffersApi.Abstractions.Modules;
 using JobOffersApi.Modules.Users.Infrastructure;
 using JobOffersApi.Infrastructure.Events;
+using JobOffersApi.Modules.Users.Integration;
 
 namespace JobOffersApi.Modules.Users.Api;
 
@@ -21,6 +22,7 @@ internal class UsersModule : IModule
     {
         services.AddCore();
         services.AddInfrastructure();
+        services.AddIntegration();
     }
     
     public void Use(IApplicationBuilder app)

@@ -1,14 +1,12 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using JobOffersApi.Modules.Users.Core.Entities;
 using JobOffersApi.Modules.Users.Core.Events;
-using JobOffersApi.Modules.Users.Core.Exceptions;
 using JobOffersApi.Modules.Users.Core.Repositories;
 using JobOffersApi.Abstractions;
 using JobOffersApi.Abstractions.Commands;
 using JobOffersApi.Abstractions.Messaging;
+using JobOffersApi.Modules.Users.Integration.Exceptions;
 
 namespace JobOffersApi.Modules.Users.Core.Commands.Handlers;
 

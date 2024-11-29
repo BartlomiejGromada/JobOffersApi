@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using JobOffersApi.Modules.Users.Core.DTO;
-using JobOffersApi.Modules.Users.Core.Entities;
+using JobOffersApi.Modules.Users.Integration.DTO;
 
-namespace JobOffersApi.Modules.Users.Core.Queries.Handlers;
+namespace JobOffersApi.Modules.Users.Core.Entities;
 
 internal static class Extensions
 {
@@ -11,7 +11,7 @@ internal static class Extensions
         [UserState.Active] = UserState.Active.ToString().ToLowerInvariant(),
         [UserState.Locked] = UserState.Locked.ToString().ToLowerInvariant()
     };
-    
+
     public static UserDto AsDto(this User user)
         => user.Map<UserDto>();
 
@@ -32,6 +32,7 @@ internal static class Extensions
             LastName = user.LastName,
             DateOfBirth = user.DateOfBirth,
             RoleName = user.Role.Name,
+            IsLocked = user.IsLocked,
             CreatedAt = user.CreatedAt
         };
 }

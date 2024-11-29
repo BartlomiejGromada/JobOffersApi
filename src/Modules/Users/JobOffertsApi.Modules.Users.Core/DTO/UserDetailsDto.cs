@@ -1,3 +1,4 @@
+using JobOffersApi.Modules.Users.Integration.DTO;
 using System;
 using System.Collections.Generic;
 

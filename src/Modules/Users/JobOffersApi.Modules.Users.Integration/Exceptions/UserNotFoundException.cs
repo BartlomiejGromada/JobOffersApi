@@ -1,9 +1,8 @@
-﻿using System;
-using JobOffersApi.Abstractions.Exceptions;
+﻿using JobOffersApi.Abstractions.Exceptions;
 
-namespace JobOffersApi.Modules.Users.Core.Exceptions;
+namespace JobOffersApi.Modules.Users.Integration.Exceptions;
 
-internal class UserNotFoundException : ModularException
+public class UserNotFoundException : ModularException
 {
     public string Email { get; }
     public Guid UserId { get; }

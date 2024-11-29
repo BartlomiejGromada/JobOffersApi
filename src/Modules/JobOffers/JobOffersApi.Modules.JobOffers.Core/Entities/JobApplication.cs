@@ -19,7 +19,6 @@ internal class JobApplication : Entity<Guid>
        Disposition disposition,
        FinancialCondition? financialExpectations,
        ContractType? preferredContract,
-       JobApplicationStatus status,
        DateTimeOffset createdAt,
        byte[] cv)
     {
@@ -31,7 +30,7 @@ internal class JobApplication : Entity<Guid>
         Disposition = disposition;
         FinancialExpectations = financialExpectations;
         PreferredContract = preferredContract;
-        Status = status;
+        Status = JobApplicationStatus.Submitted;
         CreatedAt = createdAt;
         CV = cv;
     }

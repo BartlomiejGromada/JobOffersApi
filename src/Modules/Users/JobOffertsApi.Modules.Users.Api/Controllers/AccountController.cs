@@ -10,6 +10,8 @@ using JobOffersApi.Modules.Users.Core.DTO;
 using Swashbuckle.AspNetCore.Annotations;
 using JobOffersApi.Modules.Users.Core.Storages;
 using JobOffersApi.Abstractions.Api;
+using JobOffersApi.Modules.Users.Integration.Queries;
+using JobOffersApi.Modules.Users.Integration.DTO;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 

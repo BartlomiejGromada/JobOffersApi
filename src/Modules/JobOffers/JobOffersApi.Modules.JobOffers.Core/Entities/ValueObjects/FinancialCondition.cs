@@ -17,7 +17,10 @@ internal class FinancialCondition : ValueObject
         SalaryPeriod = salaryPeriod;
     }
 
-    private FinancialCondition() { }
+    private FinancialCondition()
+    {
+        // EF Core needs it
+    }
 
     public Money Value { get; private set; }
     public SalaryType SalaryType { get; private set; }

@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging;
 using JobOffersApi.Modules.Users.Core.Entities;
 using JobOffersApi.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using JobOffersApi.Abstractions.Core;
 
 namespace JobOffersApi.Modules.Users.Infrastructure.DAL;
 
@@ -29,9 +30,9 @@ internal sealed class UsersInitializer : IInitializer
 
     private async Task AddRolesAsync()
     {
-        await _dbContext.Roles.AddAsync(new Role(Role.Admin, new List<string>() { "users" }));
-        await _dbContext.Roles.AddAsync(new Role(Role.Employer, new List<string>() { }));
-        await _dbContext.Roles.AddAsync(new Role(Role.Candidate, new List<string>() { }));
+        await _dbContext.Roles.AddAsync(new Role(Roles.Admin, new List<string>() { "users" }));
+        await _dbContext.Roles.AddAsync(new Role(Roles.Employer, new List<string>() { }));
+        await _dbContext.Roles.AddAsync(new Role(Roles.Candidate, new List<string>() { }));
 
         _logger.LogInformation("Initialized roles.");
     }

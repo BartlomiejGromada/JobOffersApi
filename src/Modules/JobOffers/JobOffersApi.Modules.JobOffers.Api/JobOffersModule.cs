@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using JobOffersApi.Abstractions.Modules;
 using JobOffersApi.Modules.JobOffers.Core;
 using JobOffersApi.Modules.JobOffers.Infrastructure;
+using JobOffersApi.Modules.Users.Integration;
 
 namespace JobsOfferApi.Modules.JobOffers.Api;
 

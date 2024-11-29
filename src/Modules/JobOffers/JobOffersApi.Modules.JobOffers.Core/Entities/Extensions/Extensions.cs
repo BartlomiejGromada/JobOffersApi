@@ -1,7 +1,7 @@
 ﻿using JobOffersApi.Modules.JobOffers.Core.DTO;
-using JobOffersApi.Modules.JobOffers.Core.Entities;
+using JobOffersApi.Modules.JobOffers.Core.Entities.ValueObjects;
 
-namespace JobOffersApi.Modules.JobOffers.Core.Queries.Handlers;
+namespace JobOffersApi.Modules.JobOffers.Core.Entities.Extensions;
 
 internal static class Extensions
 {
@@ -27,4 +27,11 @@ internal static class Extensions
             Attributes = jobOffer.JobAttributes.ToList(),
             ValidityInDays = jobOffer.ValidityInDays
         };
+
+    public static FinancialCondition ToValueObject(this AddFinancialExpectationsDto dto)
+        => new(
+            dto.Value,
+            dto.ConcurrencyCode,
+            dto.SalaryType,
+            dto.SalaryPeriod);
 }

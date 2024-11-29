@@ -4,10 +4,6 @@ namespace JobOffersApi.Modules.Users.Core.Entities;
 
 internal class Role
 {
-    public const string Employer = "employer";
-    public const string Candidate = "candidate";
-    public const string Admin = "admin";
-
     private readonly List<User> _users = new();
     private readonly List<string> _permissions;
 

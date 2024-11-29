@@ -1,5 +1,6 @@
 ﻿using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Modules.JobOffers.Core.Entities.ValueObjects;
+using JobOffersApi.Modules.JobOffers.Core.Exceptions;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobOffersApi.Modules.JobOffers.Core.Entities;
@@ -53,5 +54,28 @@ internal class JobOffer : AggregateRoot<Guid>
 
     [NotMapped]
     public DateTimeOffset EndDate => CreatedAt.AddDays(ValidityInDays);
+
+    public bool UserAlreadyApplied(Guid userId) 
+        => JobApplications.Any(ja => ja.CandidateId == userId);
+
+    public void ApplyForJob(JobApplication jobApplication)
+    {
+        var candidateId = jobApplication.CandidateId;
+
+        if(UserAlreadyApplied(candidateId))
+        {
+            throw new UserAlreadyAppliedForJobException(candidateId, Id);
+        }
+
+        var jobOfferEndDate = EndDate;
+        var appliedAt = jobApplication.CreatedAt;
+
+        if(jobOfferEndDate < appliedAt) 
+        {
+            throw new JobOfferExpiredException(jobOfferEndDate);
+        }
+
+        jobApplications.Add(jobApplication);
+    }
 
 }

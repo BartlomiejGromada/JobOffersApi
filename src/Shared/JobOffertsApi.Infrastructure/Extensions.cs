@@ -33,6 +33,9 @@ using JobOffersApi.Infrastructure.Storage;
 using JobOffersApi.Infrastructure.Time;
 using JobOffersApi.Infrastructure.Converters;
 using System.Text.Json.Serialization;
+using JobOffersApi.Abstractions.Helpers;
+using JobOffersApi.Infrastructure.Helpers;
+using FluentValidation.AspNetCore;
 
 namespace JobOffersApi.Infrastructure;
 
@@ -86,6 +89,7 @@ public static class Extensions
         services.AddSingleton<IRequestStorage, RequestStorage>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddSingleton<IJsonSerializer, SystemTextJsonSerializer>();
+        services.AddSingleton<IFileHelper, FileHelper>();
         services.AddModuleInfo(modules);
         services.AddModuleRequests(assemblies);
         services.AddAuth(modules);
@@ -123,6 +127,11 @@ public static class Extensions
                  options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
                  options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
              });
+
+        services.AddFluentValidationAutoValidation(config =>
+        {
+            config.DisableDataAnnotationsValidation = true;
+        });
 
         return services;
     }

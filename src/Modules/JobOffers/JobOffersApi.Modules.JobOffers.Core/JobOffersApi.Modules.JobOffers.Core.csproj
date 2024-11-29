@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\JobOffertsApi.Abstractions\JobOffersApi.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Users\JobOffersApi.Modules.Users.Integration\JobOffersApi.Modules.Users.Integration.csproj" />
   </ItemGroup>
 
 </Project>

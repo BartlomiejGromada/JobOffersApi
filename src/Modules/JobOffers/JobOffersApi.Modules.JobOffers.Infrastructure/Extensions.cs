@@ -5,6 +5,8 @@ using JobOffersApi.Infrastructure.MsSqlServer;
 using JobOffersApi.Modules.JobOffers.Core.Repositories;
 using JobOffersApi.Modules.Users.Infrastructure.DAL.Repositories;
 using JobOffersApi.Modules.Users.Infrastructure.DAL;
+using JobOffersApi.Modules.JobOffers.Core.Storages;
+using JobOffersApi.Modules.JobOffers.Infrastructure.Storages;
 
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.JobOffers.Api")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.JobOffers.Tests.Integration")]
@@ -19,6 +21,7 @@ internal static class Extensions
     {
         return services
                 .AddScoped<IJobOffersRepository, JobOffersRepository>()
+                .AddScoped<IJobOffersStorage, JobOffersStorage>()
                 .AddMsSqlServer<JobOffersDbContext>()
                 .AddOutbox<JobOffersDbContext>()
                 .AddUnitOfWork<JobOffersUnitOfWork>();

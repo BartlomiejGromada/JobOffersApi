@@ -8,6 +8,11 @@ public class Money : ValueObject
     public decimal Amount { get; private set; }
     public CurrencyCode Currency { get; private set; }
 
+    private Money()
+    {
+        // EF core needs it
+    }
+
     public Money(decimal amount, CurrencyCode currency)
     {
         if (amount < 0)
