@@ -10,9 +10,11 @@ using JobOffersApi.Modules.Users.Core.DTO;
 using JobOffersApi.Modules.Users.Core.Queries;
 using JobOffersApi.Abstractions.Api;
 using JobOffersApi.Modules.Users.Integration.DTO;
+using JobOffersApi.Abstractions.Core;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
+[Route("users")]
 [Authorize(Policy)]
 internal class UsersController : BaseController
 {
@@ -24,6 +26,7 @@ internal class UsersController : BaseController
     
 
     [HttpGet("{userId:guid}")]
+    [Authorize(Roles = $"{Roles.Admin}")]
     [SwaggerOperation("Get user details")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -33,6 +36,7 @@ internal class UsersController : BaseController
         => OkOrNotFound(await dispatcher.QueryAsync(new GetUserDetailsQuery { UserId = userId }));
 
     [HttpGet]
+    [Authorize(Roles = $"{Roles.Admin}")]
     [SwaggerOperation("Browse users")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

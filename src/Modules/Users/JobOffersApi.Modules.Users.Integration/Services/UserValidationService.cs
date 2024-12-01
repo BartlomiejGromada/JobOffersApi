@@ -5,7 +5,7 @@ using JobOffersApi.Modules.Users.Integration.Queries;
 
 namespace JobOffersApi.Modules.Users.Integration.Services;
 
-internal class UserValidationService : IUserValidationService
+internal class UserValidationService : IUsersService
 {
     private readonly IDispatcher _dispatcher;
 
@@ -14,7 +14,7 @@ internal class UserValidationService : IUserValidationService
         _dispatcher = dispatcher;
     }
 
-    public async Task<UserDto> ValidateAsync(Guid userId, CancellationToken cancellationToken = default)
+    public async Task<UserDto> GetAsync(Guid userId, CancellationToken cancellationToken = default)
     {
         var user = await _dispatcher.QueryAsync(new GetUserQuery { UserId = userId }, cancellationToken);
 

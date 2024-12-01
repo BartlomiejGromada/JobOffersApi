@@ -22,6 +22,7 @@ internal static class Extensions
         return services
                 .AddScoped<IJobOffersRepository, JobOffersRepository>()
                 .AddScoped<IJobOffersStorage, JobOffersStorage>()
+                .AddScoped<IJobApplicationsStorage, JobApplicationsStorage>()
                 .AddMsSqlServer<JobOffersDbContext>()
                 .AddOutbox<JobOffersDbContext>()
                 .AddUnitOfWork<JobOffersUnitOfWork>();

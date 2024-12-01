@@ -1,11 +1,11 @@
 ﻿using JobOffersApi.Abstractions.Queries;
-using JobOffersApi.Modules.JobOffers.Core.DTO;
+using JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 
 namespace JobOffersApi.Modules.JobOffers.Core.Queries;
 
-internal class GetJobOfferQuery : IQuery<JobOfferDetailsDto?>
+internal class JobOfferQuery : IQuery<JobOfferDetailsDto?>
 {
-    public GetJobOfferQuery(Guid id)
+    public JobOfferQuery(Guid id)
     {
         Id = id;
     }

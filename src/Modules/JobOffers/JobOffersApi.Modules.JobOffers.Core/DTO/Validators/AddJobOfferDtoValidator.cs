@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
-using JobOffersApi.Modules.JobOffers.Core.Entities;
+using JobOffersApi.Abstractions.Core;
+using JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 
 namespace JobOffersApi.Modules.JobOffers.Core.DTO.Validators;
 
@@ -8,47 +9,27 @@ internal class AddJobOfferDtoValidator : AbstractValidator<AddJobOfferDto>
     public AddJobOfferDtoValidator()
     {
         RuleFor(x => x.Title)
-            .NotEmpty()
-            .WithMessage("ewew");
+            .NotEmpty().WithMessage(errorMessage: Errors.Required)
+            .MaximumLength(300).WithMessage(Errors.MaxLengthExceeded(300));
 
         RuleFor(x => x.DescriptionHtml)
-            .NotEmpty()
-            .WithMessage("ewewew");
+            .NotEmpty().WithMessage(errorMessage: Errors.Required);
 
         RuleFor(x => x.Location)
             .SetValidator(new LocationValidator());
 
-        RuleFor(x => x.FinancialCondition)
-            .Must(x =>
-            {
-                if (x is null)
-                {
-                    return true;
-                }
-
-                return x.Value != null
-                   && x.SalaryType != null
-                   && x.SalaryPeriod != null;
-            })
-            .WithMessage("qqqq")
-            .ChildRules(value =>
-             {
-                 value.RuleFor(x => x.Value)
-                      .GreaterThan(0)
-                      .WithMessage("Value must be greater than 0.");
-             });
+        RuleFor(x => x.FinancialConditions)
+            .Must(x => x.All(v => v.Value > 0)).WithMessage(errorMessage: Errors.GreaterThen(0))
+            .When(x => x is not null); ;
 
         RuleFor(x => x.CompanyId)
-            .NotNull()
-            .WithMessage("company-id-must-be-not-null");
+            .NotNull().WithMessage(errorMessage: Errors.Required);
 
         RuleFor(x => x.CompanyName)
-            .NotEmpty()
-            .WithMessage("company-name-must-be-not-empty");
+            .NotEmpty().WithMessage(errorMessage: Errors.Required);
 
         RuleFor(x => x.Attributes)
-            .NotEmpty()
-            .WithMessage("attributes-list-must-contain-at-least-one-element");
+            .NotEmpty().WithMessage(errorMessage: Errors.Required);
 
         RuleFor(x => x.ValidityInDays)
             .Must(x =>
@@ -59,45 +40,36 @@ internal class AddJobOfferDtoValidator : AbstractValidator<AddJobOfferDto>
                 }
 
                 return x > 0;
-            });
+            }).WithMessage(errorMessage: Errors.GreaterThen(0));
     }
 }
 
-internal class LocationValidator : AbstractValidator<Location>
+internal class LocationValidator : AbstractValidator<AddLocationDto>
 {
     public LocationValidator()
     {
         RuleFor(x => x.Country)
-            .NotEmpty()
-            .WithMessage("Country is required.")
-            .MaximumLength(100)
-            .WithMessage("Country name cannot exceed 100 characters.");
+            .NotEmpty().WithMessage(errorMessage: Errors.Required)
+            .MaximumLength(100).WithMessage(Errors.MaxLengthExceeded(100));
 
         RuleFor(x => x.City)
-            .NotEmpty()
-            .WithMessage("City is required.")
-            .MaximumLength(100)
-            .WithMessage("City name cannot exceed 100 characters.");
+            .NotEmpty().WithMessage(errorMessage: Errors.Required)
+            .MaximumLength(100).WithMessage(Errors.MaxLengthExceeded(100));
 
         RuleFor(x => x.Street)
-            .MaximumLength(100)
-            .WithMessage("Street name cannot exceed 100 characters.")
+            .MaximumLength(200).WithMessage(errorMessage: Errors.MaxLengthExceeded(200))
             .When(x => !string.IsNullOrEmpty(x.Street));
 
         RuleFor(x => x.HouseNumber)
-            .NotEmpty()
-            .WithMessage("House number is required.")
-            .MaximumLength(20)
-            .WithMessage("House number cannot exceed 20 characters.");
+            .NotEmpty().WithMessage(errorMessage: Errors.Required)
+            .MaximumLength(20).WithMessage(Errors.MaxLengthExceeded(20));
 
         RuleFor(x => x.ApartmentNumber)
-            .MaximumLength(10)
-            .WithMessage("Apartment number cannot exceed 10 characters.")
+            .MaximumLength(10).WithMessage(errorMessage: Errors.MaxLengthExceeded(10))
             .When(x => !string.IsNullOrEmpty(x.ApartmentNumber));
 
         RuleFor(x => x.PostalCode)
-            .MaximumLength(20)
-            .WithMessage("Postal code cannot exceed 20 characters.")
+            .MaximumLength(20).WithMessage(errorMessage: Errors.MaxLengthExceeded(20))
             .When(x => !string.IsNullOrEmpty(x.PostalCode));
     }
 }

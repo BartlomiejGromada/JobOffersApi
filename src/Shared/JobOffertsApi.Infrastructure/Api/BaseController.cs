@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobOffersApi.Abstractions.Api;
 
 [ApiController]
-[Route("[controller]")]
 [ProducesDefaultContentType]
 public abstract class BaseController : ControllerBase
 {

@@ -11,6 +11,7 @@ internal class JobOffer : AggregateRoot<Guid>
 
     private List<JobApplication> jobApplications = new();
     private List<JobAttribute> jobAttributes = new();
+    private List<FinancialCondition> financialConditions = new();
 
     private JobOffer()
     {
@@ -21,39 +22,35 @@ internal class JobOffer : AggregateRoot<Guid>
         string title,
         string descriptionHtml,
         Location location,
-        FinancialCondition? financialCondition,
-        DateTimeOffset createdAt,
+        DateTimeOffset createdDate,
         Guid companyId,
         string companyName,
         List<JobAttribute> attributes,
+        List<FinancialCondition>? conditions = null,
         int? validityInDays = null)
     {
         Title = title;
         DescriptionHtml = descriptionHtml;
         Location = location;
-        FinancialCondition = financialCondition;
-        CreatedAt = createdAt;
+        CreatedDate = createdDate;
+        ExpirationDate = CreatedDate.AddDays(validityInDays ?? DefaultValidityInDays);
         CompanyId = companyId;
         CompanyName = companyName;
+        financialConditions = conditions ?? new List<FinancialCondition>();
         jobAttributes = attributes;
-        ValidityInDays = validityInDays ?? DefaultValidityInDays;
     }
 
     public string Title { get; private set; }
     public string DescriptionHtml { get; private set; }
     public Location Location { get; private set; }
-    public FinancialCondition? FinancialCondition { get; private set; }
-    public DateTimeOffset CreatedAt { get; private set; }
-    public int ValidityInDays { get; private set; }
+    public DateTimeOffset CreatedDate { get; private set; }
+    public DateTimeOffset ExpirationDate { get; private set; }
     public Guid CompanyId { get; private set; }
     public string CompanyName { get; private set; }
 
     public IReadOnlyCollection<JobApplication> JobApplications => jobApplications;
     public IReadOnlyCollection<JobAttribute> JobAttributes => jobAttributes;
-
-
-    [NotMapped]
-    public DateTimeOffset EndDate => CreatedAt.AddDays(ValidityInDays);
+    public IReadOnlyCollection<FinancialCondition> FinancialConditions => financialConditions;
 
     public bool UserAlreadyApplied(Guid userId) 
         => JobApplications.Any(ja => ja.CandidateId == userId);
@@ -67,12 +64,11 @@ internal class JobOffer : AggregateRoot<Guid>
             throw new UserAlreadyAppliedForJobException(candidateId, Id);
         }
 
-        var jobOfferEndDate = EndDate;
         var appliedAt = jobApplication.CreatedAt;
 
-        if(jobOfferEndDate < appliedAt) 
+        if(ExpirationDate < appliedAt) 
         {
-            throw new JobOfferExpiredException(jobOfferEndDate);
+            throw new JobOfferExpiredException(ExpirationDate);
         }
 
         jobApplications.Add(jobApplication);

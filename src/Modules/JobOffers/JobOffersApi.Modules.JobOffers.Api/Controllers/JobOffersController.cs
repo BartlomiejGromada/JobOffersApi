@@ -6,15 +6,15 @@ using JobOffersApi.Abstractions.Api;
 using Swashbuckle.AspNetCore.Annotations;
 using JobOffersApi.Modules.JobOffers.Core.Queries;
 using JobOffersApi.Abstractions.Queries;
-using JobOffersApi.Modules.JobOffers.Core.DTO;
 using JobOffersApi.Modules.JobOffers.Core.Commands;
 using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Abstractions.Contexts;
-using FluentValidation;
-
+using JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
+using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
+[Route("job-offers")]
 [Authorize(Policy)]
 internal class JobOffersController : BaseController
 {
@@ -31,7 +31,7 @@ internal class JobOffersController : BaseController
     [SwaggerOperation("Get job offers")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<Paged<JobOfferDto>>> GetPagedAsync(
-        [FromQuery] BrowseJobOffersQuery query,
+        [FromQuery] JobOffersQuery query,
         CancellationToken cancellationToken = default)
             => Ok(await dispatcher.QueryAsync(query, cancellationToken));
 
@@ -44,24 +44,17 @@ internal class JobOffersController : BaseController
     public async Task<ActionResult<JobOfferDetailsDto>> GetAsync(
         [FromRoute] Guid id,
          CancellationToken cancellationToken = default)
-            => OkOrNotFound(await dispatcher.QueryAsync(new GetJobOfferQuery(id), cancellationToken));
+            => OkOrNotFound(await dispatcher.QueryAsync(new JobOfferQuery(id), cancellationToken));
 
     [HttpPost]
     [Authorize(Roles = $"{Roles.Admin},{Roles.Employer}")]
     [SwaggerOperation("Add job offer")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<JobOfferDetailsDto>> AddAsync(
+    public async Task<ActionResult> AddAsync(
         [FromBody] AddJobOfferDto dto,
-        [FromServices] IValidator<AddJobOfferDto> validator,
         CancellationToken cancellationToken = default)
     {
-        var validationResult = validator.Validate(dto);
-        if (!validationResult.IsValid)
-        {
-            return BadRequest(validationResult.Errors);
-        }
-
         var userId = _context.Identity.Id;
 
         await dispatcher.SendAsync(
@@ -77,9 +70,9 @@ internal class JobOffersController : BaseController
     [SwaggerOperation("Apply for job offer")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<JobOfferDetailsDto>> ApplyAsync(
+    public async Task<ActionResult> ApplyAsync(
       [FromRoute] Guid id,
-      [FromForm] ApplyForJobDto dto,
+      [FromForm] AddJobApplicationDto dto,
       CancellationToken cancellationToken = default)
     {
         var userId = _context.Identity.Id;
@@ -90,7 +83,4 @@ internal class JobOffersController : BaseController
 
         return Created("", null);
     }
-
-    // TODO: Dodanie modułu z firmami
-    // TODO: Dodanie endpointa do usera (admin może wyłączyć konto dla usera)
 }

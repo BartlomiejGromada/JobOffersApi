@@ -1,5 +1,5 @@
 ﻿using JobOffersApi.Abstractions.Commands;
-using JobOffersApi.Modules.JobOffers.Core.DTO;
+using JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 
 namespace JobOffersApi.Modules.JobOffers.Core.Commands;
 

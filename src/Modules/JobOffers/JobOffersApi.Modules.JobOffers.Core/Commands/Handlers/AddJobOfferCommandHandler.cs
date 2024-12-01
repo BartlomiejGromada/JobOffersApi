@@ -2,8 +2,8 @@
 using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Abstractions.Messaging;
 using JobOffersApi.Abstractions.Time;
+using JobOffersApi.Modules.JobOffers.Core.DTO.Extensions;
 using JobOffersApi.Modules.JobOffers.Core.Entities;
-using JobOffersApi.Modules.JobOffers.Core.Entities.Extensions;
 using JobOffersApi.Modules.JobOffers.Core.Repositories;
 using JobOffersApi.Modules.Users.Core.Events;
 using JobOffersApi.Modules.Users.Integration.Services;
@@ -16,7 +16,7 @@ internal class AddJobOfferCommandHandler : ICommandHandler<AddJobOfferCommand>
     private readonly IJobOffersRepository _repository;
     private readonly IDispatcher _dispatcher;
     private readonly IClock _clock;
-    private readonly IUserValidationService _userValidationService;
+    private readonly IUsersService _usersService;
     private readonly IMessageBroker _messageBroker;
     private readonly ILogger<AddJobOfferCommandHandler> _logger;
 
@@ -24,38 +24,28 @@ internal class AddJobOfferCommandHandler : ICommandHandler<AddJobOfferCommand>
         IJobOffersRepository repository,
         IDispatcher dispatcher,
         IClock clock,
-        IUserValidationService userValidationService,
+        IUsersService usersService,
         IMessageBroker messageBroker,
         ILogger<AddJobOfferCommandHandler> logger)
     {
         _repository = repository;
         _dispatcher = dispatcher;
         _clock = clock;
-        _userValidationService = userValidationService;
+        _usersService = usersService;
         _messageBroker = messageBroker;
         _logger = logger;
     }
 
     public async Task HandleAsync(AddJobOfferCommand command, CancellationToken cancellationToken = default)
     {
-        var user = await _userValidationService.ValidateAsync(command.EmployerId, cancellationToken);
+        // TODO: company pobierać z modułu firmy i
+        // sprawdzić czy user ma dostęp do tej firmy
+
+        var userDto = await _usersService.GetAsync(command.EmployerId, cancellationToken);
 
         var dto = command.Dto;
-        // TODO: company pobierać z modułu firmy i sprawdzić czy user ma dostęp do tej firmy
 
-        var financailCondition = dto.FinancialCondition is not null ? 
-            dto.FinancialCondition.ToValueObject() : null;
-
-        var jobOffer = new JobOffer(
-            dto.Title,
-            dto.DescriptionHtml,
-            dto.Location,
-            financailCondition,
-            _clock.CurrentDate(),
-            dto.CompanyId,
-            dto.CompanyName,
-            dto.Attributes,
-            dto.ValidityInDays);
+        var jobOffer = dto.ToEntity(_clock.CurrentDateOffset());
 
         await _repository.AddAsync(jobOffer, cancellationToken);
 

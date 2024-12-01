@@ -15,6 +15,7 @@ using JobOffersApi.Modules.Users.Integration.DTO;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
+[Route("accounts")]
 internal class AccountController : BaseController
 {
     private const string AccessTokenCookie = "__access-token";

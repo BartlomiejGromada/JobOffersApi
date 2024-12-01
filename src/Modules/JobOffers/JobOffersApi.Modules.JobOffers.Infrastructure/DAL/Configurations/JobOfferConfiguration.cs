@@ -27,7 +27,7 @@ internal sealed class JobOfferConfiguration : IEntityTypeConfiguration<JobOffer>
             cb.Property(y => y.PostalCode).HasMaxLength(15).IsRequired(required: false);
         });
 
-        builder.OwnsOne(x => x.FinancialCondition, cb =>
+        builder.OwnsMany(x => x.FinancialConditions, cb =>
         {
             cb.OwnsOne(y => y.Value, vCb =>
             {
@@ -37,10 +37,10 @@ internal sealed class JobOfferConfiguration : IEntityTypeConfiguration<JobOffer>
             cb.Property(y => y.SalaryPeriod).HasMaxLength(maxLength: 30).HasConversion<string>();
         });
 
-        builder.Property(x => x.CreatedAt)
+        builder.Property(x => x.CreatedDate)
             .IsRequired();
 
-        builder.Property(x => x.ValidityInDays)
+        builder.Property(x => x.ExpirationDate)
             .IsRequired();
 
         builder.Property(x => x.CompanyId)

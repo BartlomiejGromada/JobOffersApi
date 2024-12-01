@@ -4,16 +4,18 @@ using JobOffersApi.Modules.Users.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migrations
+namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migartions
 {
     [DbContext(typeof(JobOffersDbContext))]
-    partial class JobOffersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241130123507_JobOffersDbContext_InitSchema")]
+    partial class JobOffersDbContext_InitSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,20 +124,20 @@ namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
+                    b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("DescriptionHtml")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("ExpirationDate")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(350)
                         .HasColumnType("nvarchar(350)");
-
-                    b.Property<int>("ValidityInDays")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -243,10 +245,16 @@ namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migrations
 
             modelBuilder.Entity("JobOffersApi.Modules.JobOffers.Core.Entities.JobOffer", b =>
                 {
-                    b.OwnsOne("JobOffersApi.Modules.JobOffers.Core.Entities.ValueObjects.FinancialCondition", "FinancialCondition", b1 =>
+                    b.OwnsMany("JobOffersApi.Modules.JobOffers.Core.Entities.ValueObjects.FinancialCondition", "FinancialConditions", b1 =>
                         {
                             b1.Property<Guid>("JobOfferId")
                                 .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"), 1L, 1);
 
                             b1.Property<string>("SalaryPeriod")
                                 .IsRequired()
@@ -258,9 +266,9 @@ namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migrations
                                 .HasMaxLength(20)
                                 .HasColumnType("nvarchar(20)");
 
-                            b1.HasKey("JobOfferId");
+                            b1.HasKey("JobOfferId", "Id");
 
-                            b1.ToTable("JobOffers", "jobOffers");
+                            b1.ToTable("JobOffers_FinancialConditions", "jobOffers");
 
                             b1.WithOwner()
                                 .HasForeignKey("JobOfferId");
@@ -270,6 +278,9 @@ namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migrations
                                     b2.Property<Guid>("FinancialConditionJobOfferId")
                                         .HasColumnType("uniqueidentifier");
 
+                                    b2.Property<int>("FinancialConditionId")
+                                        .HasColumnType("int");
+
                                     b2.Property<decimal>("Amount")
                                         .HasColumnType("decimal(18,2)");
 
@@ -278,12 +289,12 @@ namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migrations
                                         .HasMaxLength(10)
                                         .HasColumnType("nvarchar(10)");
 
-                                    b2.HasKey("FinancialConditionJobOfferId");
+                                    b2.HasKey("FinancialConditionJobOfferId", "FinancialConditionId");
 
-                                    b2.ToTable("JobOffers", "jobOffers");
+                                    b2.ToTable("JobOffers_FinancialConditions", "jobOffers");
 
                                     b2.WithOwner()
-                                        .HasForeignKey("FinancialConditionJobOfferId");
+                                        .HasForeignKey("FinancialConditionJobOfferId", "FinancialConditionId");
                                 });
 
                             b1.Navigation("Value")
@@ -330,7 +341,7 @@ namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migrations
                                 .HasForeignKey("JobOfferId");
                         });
 
-                    b.Navigation("FinancialCondition");
+                    b.Navigation("FinancialConditions");
 
                     b.Navigation("Location")
                         .IsRequired();

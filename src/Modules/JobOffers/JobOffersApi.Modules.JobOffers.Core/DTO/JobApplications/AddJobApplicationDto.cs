@@ -1,11 +1,9 @@
-﻿using JobOffersApi.Abstractions.Core;
-using JobOffersApi.Modules.JobOffers.Core.Entities.Enums;
-using JobOffersApi.Modules.JobOffers.Core.Entities.JobMenus;
+﻿using JobOffersApi.Modules.JobOffers.Core.Entities.JobMenus;
 using Microsoft.AspNetCore.Http;
 
-namespace JobOffersApi.Modules.JobOffers.Core.DTO;
+namespace JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
 
-internal class ApplyForJobDto
+internal class AddJobApplicationDto
 {
     public string? MessageToEmployer { get; init; }
     public Availability Availability { get; init; }

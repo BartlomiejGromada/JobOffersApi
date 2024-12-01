@@ -9,6 +9,7 @@ using JobOffersApi.Abstractions.Api;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
+[Route("passwords")]
 internal class PasswordController : BaseController
 {
 

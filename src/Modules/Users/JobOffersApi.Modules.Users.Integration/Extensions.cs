@@ -8,7 +8,7 @@ internal static class Extensions
 {
     public static IServiceCollection AddIntegration(this IServiceCollection services)
     {
-        services.AddScoped<IUserValidationService, UserValidationService>();
+        services.AddScoped<IUsersService, UserValidationService>();
         return services;
     }
 }

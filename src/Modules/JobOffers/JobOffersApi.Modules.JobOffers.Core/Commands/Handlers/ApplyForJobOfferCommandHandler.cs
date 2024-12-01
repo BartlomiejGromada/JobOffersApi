@@ -3,8 +3,8 @@ using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Abstractions.Helpers;
 using JobOffersApi.Abstractions.Messaging;
 using JobOffersApi.Abstractions.Time;
+using JobOffersApi.Modules.JobOffers.Core.DTO.Extensions;
 using JobOffersApi.Modules.JobOffers.Core.Entities;
-using JobOffersApi.Modules.JobOffers.Core.Entities.Extensions;
 using JobOffersApi.Modules.JobOffers.Core.Entities.ValueObjects;
 using JobOffersApi.Modules.JobOffers.Core.Exceptions;
 using JobOffersApi.Modules.JobOffers.Core.Repositories;
@@ -24,7 +24,7 @@ internal sealed class ApplyForJobOfferCommandHandler : ICommandHandler<ApplyForJ
     private readonly IDispatcher _dispatcher;
     private readonly IClock _clock;
     private readonly IMessageBroker _messageBroker;
-    private readonly IUserValidationService _userValidationService;
+    private readonly IUsersService _userValidationService;
     private readonly ILogger<ApplyForJobOfferCommandHandler> _logger;
 
     public ApplyForJobOfferCommandHandler(
@@ -33,7 +33,7 @@ internal sealed class ApplyForJobOfferCommandHandler : ICommandHandler<ApplyForJ
         IDispatcher dispatcher,
         IClock clock,
         IMessageBroker messageBroker,
-        IUserValidationService userValidationService,
+        IUsersService userValidationService,
         ILogger<ApplyForJobOfferCommandHandler> logger)
     {
         _repository = repository;
@@ -50,7 +50,7 @@ internal sealed class ApplyForJobOfferCommandHandler : ICommandHandler<ApplyForJ
         var cvBytes = await _fileHelper.ConvertToByteArrayAsync(
             command.Dto.CV, cancellationToken);
 
-        var user = await _userValidationService.ValidateAsync(command.CandidateId, cancellationToken);
+        var user = await _userValidationService.GetAsync(command.CandidateId, cancellationToken);
         var jobOffer = await ValidateJobOfferAsync(command.JobOfferId, cancellationToken);
 
         var jobApplication = CreateJobApplication(

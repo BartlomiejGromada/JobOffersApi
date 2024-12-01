@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using FluentValidation;
-using JobOffersApi.Modules.JobOffers.Core.DTO;
+using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
+using JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 using JobOffersApi.Modules.JobOffers.Core.DTO.Validators;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +17,7 @@ internal static class Extensions
     public static IServiceCollection AddCore(this IServiceCollection services)
     {
         services.AddScoped<IValidator<AddJobOfferDto>, AddJobOfferDtoValidator>();
+        services.AddScoped<IValidator<AddJobApplicationDto>, AddJobApplicationDtoValidator>();
 
         return services;
     }

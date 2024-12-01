@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migrations
+namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migartions
 {
-    public partial class JobOffersContext_InitSchema : Migration
+    public partial class JobOffersDbContext_InitSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,12 +40,8 @@ namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migrations
                     Location_HouseNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Location_ApartmentNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Location_PostalCode = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    FinancialCondition_Value_Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    FinancialCondition_Value_Currency = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    FinancialCondition_SalaryType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    FinancialCondition_SalaryPeriod = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    ValidityInDays = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ExpirationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CompanyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
                 },
@@ -115,6 +111,31 @@ namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "JobOffers_FinancialConditions",
+                schema: "jobOffers",
+                columns: table => new
+                {
+                    JobOfferId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Value_Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Value_Currency = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    SalaryType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    SalaryPeriod = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobOffers_FinancialConditions", x => new { x.JobOfferId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_JobOffers_FinancialConditions_JobOffers_JobOfferId",
+                        column: x => x.JobOfferId,
+                        principalSchema: "jobOffers",
+                        principalTable: "JobOffers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_JobApplications_JobOfferId",
                 schema: "jobOffers",
@@ -136,6 +157,10 @@ namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "JobAttributeJobOffer",
+                schema: "jobOffers");
+
+            migrationBuilder.DropTable(
+                name: "JobOffers_FinancialConditions",
                 schema: "jobOffers");
 
             migrationBuilder.DropTable(
