@@ -43,6 +43,7 @@ internal class JobApplicationsStorage : IJobApplicationsStorage
 
         return jobApplications.Map(x => new JobApplicationDto
         {
+            CandidateId = x.CandidateId,
             CandidateFirstName = x.CandidateFirstName,
             CandidateLastName = x.CandidateLastName,
             MessageToEmployer = x.MessageToEmployer,
@@ -79,7 +80,8 @@ internal class JobApplicationsStorage : IJobApplicationsStorage
 
         return jobApp is not null ?
             new JobApplicationDto
-            {
+            {   
+                CandidateId = jobApp.CandidateId,
                 CandidateFirstName = jobApp.CandidateFirstName,
                 CandidateLastName = jobApp.CandidateLastName,
                 MessageToEmployer = jobApp.MessageToEmployer,

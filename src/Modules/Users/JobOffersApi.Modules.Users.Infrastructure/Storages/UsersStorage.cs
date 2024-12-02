@@ -54,4 +54,12 @@ internal sealed class UsersStorage : IUsersStorage
 
         return user?.AsDto();
     }
+
+    public async Task<UserDto?> GetAsync(string email, CancellationToken cancellationToken = default)
+    {
+        var user = await _users
+        .SingleOrDefaultAsync(x => x.Email == email, cancellationToken);
+
+        return user?.AsDto();
+    }
 }

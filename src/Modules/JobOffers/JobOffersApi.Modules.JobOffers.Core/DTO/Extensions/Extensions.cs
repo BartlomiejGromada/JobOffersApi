@@ -109,6 +109,7 @@ internal static class Extensions
     public static JobApplicationDto ToDto(this JobApplication ja)
         => new()
         {
+            CandidateId = ja.CandidateId,
             CandidateFirstName = ja.CandidateFirstName,
             CandidateLastName = ja.CandidateLastName,
             MessageToEmployer = ja.MessageToEmployer,

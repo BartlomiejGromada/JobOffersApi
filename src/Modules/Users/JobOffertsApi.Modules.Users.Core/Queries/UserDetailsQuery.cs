@@ -4,7 +4,7 @@ using JobOffersApi.Abstractions.Queries;
 
 namespace JobOffersApi.Modules.Users.Core.Queries;
 
-internal class GetUserDetailsQuery : IQuery<UserDetailsDto?>
+internal class UserDetailsQuery : IQuery<UserDetailsDto?>
 {
     public Guid UserId { get; set; }
 }

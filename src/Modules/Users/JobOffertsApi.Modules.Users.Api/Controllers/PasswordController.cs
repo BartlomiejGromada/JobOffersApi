@@ -6,6 +6,7 @@ using JobOffersApi.Abstractions.Dispatchers;
 using Swashbuckle.AspNetCore.Annotations;
 using JobOffersApi.Modules.Users.Core.Commands;
 using JobOffersApi.Abstractions.Api;
+using JobOffersApi.Modules.Users.Core.DTO;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
@@ -22,9 +23,9 @@ internal class PasswordController : BaseController
     [SwaggerOperation("Change password")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> ChangeAsync(ChangePasswordCommand command)
+    public async Task<ActionResult> ChangeAsync([FromBody] ChangePasswordDto dto)
     {
-        await dispatcher.SendAsync(command);
+        await dispatcher.SendAsync(new ChangePasswordCommand(dto.Email, dto.CurrentPassword, dto.NewPassword));
         return NoContent();
     }
 }

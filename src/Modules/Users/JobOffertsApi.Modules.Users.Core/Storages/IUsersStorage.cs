@@ -13,4 +13,5 @@ internal interface IUsersStorage
     public Task<UserDetailsDto?> GetDetailsAsync(Guid userId, CancellationToken cancellationToken = default);
     public Task<Paged<UserDto>> GetPagedAsync(BrowseUsers query, CancellationToken cancellationToken = default);
     public Task<UserDto?> GetAsync(Guid userId, CancellationToken cancellationToken = default);
+    public Task<UserDto?> GetAsync(string email, CancellationToken cancellationToken = default);
 }

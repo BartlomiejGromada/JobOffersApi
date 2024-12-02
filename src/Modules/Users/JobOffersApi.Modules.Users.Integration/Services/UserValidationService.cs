@@ -16,7 +16,7 @@ internal class UserValidationService : IUsersService
 
     public async Task<UserDto> GetAsync(Guid userId, CancellationToken cancellationToken = default)
     {
-        var user = await _dispatcher.QueryAsync(new GetUserQuery { UserId = userId }, cancellationToken);
+        var user = await _dispatcher.QueryAsync(new UserQuery { UserId = userId }, cancellationToken);
 
         if (user is null)
         {

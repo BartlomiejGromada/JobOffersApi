@@ -4,6 +4,7 @@ namespace JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
 
 internal class JobApplicationDto
 {
+    public Guid CandidateId { get; init; }
     public string CandidateFirstName { get; init; }
     public string CandidateLastName { get; init; }
     public string? MessageToEmployer { get; init; }

@@ -1,7 +1,6 @@
 ﻿using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Modules.JobOffers.Core.Entities.ValueObjects;
 using JobOffersApi.Modules.JobOffers.Core.Exceptions;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobOffersApi.Modules.JobOffers.Core.Entities;
 

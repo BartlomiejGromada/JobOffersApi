@@ -2,10 +2,10 @@
 
 namespace JobOffersApi.Modules.JobOffers.Core.Exceptions;
 
-internal class JobOfferExpiredException : ModularException
+internal class JobOfferNotFoundException : ModularException
 {
-    public JobOfferExpiredException(DateTimeOffset endDate)
-        : base($"Job offer expired at: {endDate:dd-MM-yyyy HH:mm}")
+    public JobOfferNotFoundException(Guid id)
+        : base($"Job offer with id: {id} not found")
     {
     }
 }

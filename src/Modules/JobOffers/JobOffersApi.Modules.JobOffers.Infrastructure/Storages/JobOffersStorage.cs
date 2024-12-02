@@ -76,4 +76,11 @@ internal class JobOffersStorage : IJobOffersStorage
 
         return jobOffer?.ToDetailsDto();
     }
+
+    public async Task<JobOfferDto?> GetAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var jobOffer = await _jobOffers.SingleOrDefaultAsync(jo => jo.Id == id, cancellationToken);
+
+        return jobOffer?.ToDto();
+    }
 }

@@ -12,6 +12,7 @@ using JobOffersApi.Modules.Users.Core.Storages;
 using JobOffersApi.Abstractions.Api;
 using JobOffersApi.Modules.Users.Integration.Queries;
 using JobOffersApi.Modules.Users.Integration.DTO;
+using System.Threading;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
@@ -39,17 +40,26 @@ internal class AccountController : BaseController
     [SwaggerOperation("Get account")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<UserDto>> GetAsync()
-        => OkOrNotFound(await dispatcher.QueryAsync(new GetUserQuery { UserId = _context.Identity.Id }));
+    public async Task<ActionResult<UserDto>> GetAsync(CancellationToken cancellationToken = default)
+        => OkOrNotFound(await dispatcher.QueryAsync(
+            new UserQuery { UserId = _context.Identity.Id }, cancellationToken));
 
 
     [HttpPost("sign-up")]
     [SwaggerOperation("Sign up")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> SignUpAsync(SignUpCommand command)
+    public async Task<ActionResult> SignUpAsync([FromBody] SignUpDto dto,
+        CancellationToken cancellationToken = default)
     {
-        await dispatcher.SendAsync(command);
+        await dispatcher.SendAsync(new SignUpCommand(
+            dto.Email,
+            dto.Password,
+            dto.RepeatPassword,
+            dto.FirstName,
+            dto.LastName,
+            dto.Role,
+            dto.DateOfBirth), cancellationToken);
 
         return NoContent();
     }
@@ -58,12 +68,15 @@ internal class AccountController : BaseController
     [SwaggerOperation("Sign in")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<UserDetailsDto>> SignInAsync(SignInCommand command)
+    public async Task<ActionResult<UserDetailsDto>> SignInAsync(SignInDto dto,
+        CancellationToken cancellationToken = default)
     {
-        await dispatcher.SendAsync(command);
+        var command = new SignInCommand(dto.Email, dto.Password);
+        await dispatcher.SendAsync(command, cancellationToken);
 
         var jwt = _userRequestStorage.GetToken(command.Id);
-        var user = await dispatcher.QueryAsync(new GetUserDetailsQuery { UserId = jwt.UserId });
+        var user = await dispatcher.QueryAsync(
+            new UserDetailsQuery { UserId = jwt.UserId }, cancellationToken);
         AddCookie(AccessTokenCookie, jwt.AccessToken);
 
         return Ok(user);
@@ -75,9 +88,10 @@ internal class AccountController : BaseController
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult> SignOutAsync()
+    public async Task<ActionResult> SignOutAsync(CancellationToken cancellationToken = default)
     {
-        await dispatcher.SendAsync(new SignOutCommand(_context.Identity.Id));
+        await dispatcher.SendAsync(new SignOutCommand(_context.Identity.Id),
+            cancellationToken);
         DeleteCookie(AccessTokenCookie);
 
         return NoContent();

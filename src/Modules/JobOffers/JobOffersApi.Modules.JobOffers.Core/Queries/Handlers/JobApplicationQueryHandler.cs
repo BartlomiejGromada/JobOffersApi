@@ -1,5 +1,7 @@
 ﻿using JobOffersApi.Abstractions.Queries;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
+using JobOffersApi.Modules.JobOffers.Core.Exceptions;
+using JobOffersApi.Modules.JobOffers.Core.Services;
 using JobOffersApi.Modules.JobOffers.Core.Storages;
 
 namespace JobOffersApi.Modules.JobOffers.Core.Queries.Handlers;
@@ -7,18 +9,25 @@ namespace JobOffersApi.Modules.JobOffers.Core.Queries.Handlers;
 internal class JobApplicationQueryHandler : IQueryHandler<JobApplicationQuery, JobApplicationDto?>
 {
     private readonly IJobApplicationsStorage _storage;
+    private readonly IJobOffersService _service;
 
-    public JobApplicationQueryHandler(IJobApplicationsStorage storage)
+    public JobApplicationQueryHandler(IJobApplicationsStorage storage, IJobOffersService service)
     {
         _storage = storage;
+        _service = service;
     }
 
     public async Task<JobApplicationDto?> HandleAsync(JobApplicationQuery query, CancellationToken cancellationToken = default)
     {
-        //TODO: Validation after added Companies module
+        await _service.ValidateAccessAsync(query.JobOfferId, query.InvokerId, query.InvokerRole, cancellationToken);
 
-        var dto = await _storage.GetAsync(query.JobOfferId, query.JobApplicationId, cancellationToken);
+        var jobApplication = await _storage.GetAsync(query.JobOfferId, query.JobApplicationId, cancellationToken);
 
-        return dto;
+        if(jobApplication?.CandidateId != query.InvokerId)
+        {
+            throw new InvalidAccessToJobApplicationException(query.JobApplicationId, query.InvokerId);
+        }
+
+        return jobApplication;
     }
 }

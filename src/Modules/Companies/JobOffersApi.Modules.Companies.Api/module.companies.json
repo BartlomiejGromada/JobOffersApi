@@ -1,0 +1,8 @@
+{
+  "companies": {
+    "module": {
+      "name": "companies",
+      "enabled": true
+    }
+  }
+}

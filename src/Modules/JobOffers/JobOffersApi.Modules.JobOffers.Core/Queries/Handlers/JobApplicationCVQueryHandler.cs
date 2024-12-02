@@ -1,4 +1,6 @@
 ﻿using JobOffersApi.Abstractions.Queries;
+using JobOffersApi.Modules.JobOffers.Core.Exceptions;
+using JobOffersApi.Modules.JobOffers.Core.Services;
 using JobOffersApi.Modules.JobOffers.Core.Storages;
 
 namespace JobOffersApi.Modules.JobOffers.Core.Queries.Handlers;
@@ -6,18 +8,27 @@ namespace JobOffersApi.Modules.JobOffers.Core.Queries.Handlers;
 internal sealed class JobApplicationCVQueryHandler : IQueryHandler<JobApplicationCVQuery, byte[]?>
 {
     private readonly IJobApplicationsStorage _storage;
+    private readonly IJobOffersService _service;
 
-    public JobApplicationCVQueryHandler(IJobApplicationsStorage storage)
+    public JobApplicationCVQueryHandler(
+        IJobApplicationsStorage storage,
+        IJobOffersService service)
     {
         _storage = storage;
+        _service = service;
     }
 
     public async Task<byte[]?> HandleAsync(JobApplicationCVQuery query, CancellationToken cancellationToken = default)
     {
-        //TODO: Validation after added Companies module
+        await _service.ValidateAccessAsync(query.JobOfferId, query.InvokerId, query.InvokerRole);
 
-        var cv = await _storage.GetCVAsync(query.JobOfferId, query.JobApplicationId, cancellationToken);
+        var jobApplication = await _storage.GetAsync(query.JobOfferId, query.JobApplicationId, cancellationToken);
 
-        return cv;
+        if (jobApplication?.CandidateId != query.InvokerId)
+        {
+            throw new InvalidAccessToJobApplicationException(query.JobApplicationId, query.InvokerId);
+        }
+
+        return await _storage.GetCVAsync(query.JobOfferId, query.JobApplicationId, cancellationToken);
     }
 }

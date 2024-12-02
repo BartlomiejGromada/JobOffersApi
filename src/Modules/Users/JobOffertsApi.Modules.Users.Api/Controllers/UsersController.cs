@@ -33,7 +33,7 @@ internal class UsersController : BaseController
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<UserDetailsDto>> GetAsync(Guid userId)
-        => OkOrNotFound(await dispatcher.QueryAsync(new GetUserDetailsQuery { UserId = userId }));
+        => OkOrNotFound(await dispatcher.QueryAsync(new UserDetailsQuery { UserId = userId }));
 
     [HttpGet]
     [Authorize(Roles = $"{Roles.Admin}")]

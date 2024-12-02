@@ -6,15 +6,17 @@ namespace JobOffersApi.Modules.JobOffers.Core.Queries;
 
 internal class JobApplicationsQuery : PagedQuery<JobApplicationDto>
 {
-    public JobApplicationsQuery(Guid jobOfferId, Guid employerId, BrowseApplicationsQuery browseQuery)
+    public JobApplicationsQuery(Guid jobOfferId, Guid invokerId, string invokerRole, BrowseApplicationsQuery browseQuery)
     {
         JobOfferId = jobOfferId;
-        EmployerId = employerId;
+        InvokerId = invokerId;
+        InvokerRole = invokerRole;
         BrowseQuery = browseQuery;
     }
 
     public Guid JobOfferId { get; init; }
-    public Guid EmployerId { get; init; }
+    public Guid InvokerId { get; init; }
+    public string InvokerRole { get; init; }
     public BrowseApplicationsQuery BrowseQuery { get; init; }
 }
 

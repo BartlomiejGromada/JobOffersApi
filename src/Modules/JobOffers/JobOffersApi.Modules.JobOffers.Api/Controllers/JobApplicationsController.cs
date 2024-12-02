@@ -25,7 +25,7 @@ internal class JobApplicationsController : BaseController
     }
 
     [HttpGet("job-offers/{id:guid}/job-applications")]
-    [Authorize(Roles = $"{Roles.Admin}, {Roles.Employer}")]
+    [Authorize(Roles = $"{Roles.Admin},{Roles.Employer}")]
     [SwaggerOperation("Get job applications")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<Paged<JobApplicationDto>>> GetPagedAsync(
@@ -33,11 +33,11 @@ internal class JobApplicationsController : BaseController
         [FromQuery] BrowseApplicationsQuery query,
         CancellationToken cancellationToken = default)
             => Ok(await dispatcher.QueryAsync(
-                    new JobApplicationsQuery(id, _context.Identity.Id, query), cancellationToken));
+                    new JobApplicationsQuery(id, _context.Identity.Id, _context.Identity.Role, query), cancellationToken));
 
 
     [HttpGet("job-offers/{id:guid}/job-applications/{appId:guid}")]
-    [Authorize(Roles = $"{Roles.Admin},{Roles.Employer}")]
+    [Authorize(Roles = $"{Roles.Admin},{Roles.Employer},{Roles.Candidate}")]
     [SwaggerOperation("Get job applications")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -45,11 +45,13 @@ internal class JobApplicationsController : BaseController
         [FromRoute] Guid id,
         [FromRoute] Guid appId,
         CancellationToken cancellationToken = default)
-        => OkOrNotFound(await dispatcher.QueryAsync(new JobApplicationQuery(id, appId), cancellationToken));
+
+        => OkOrNotFound(await dispatcher.QueryAsync(
+            new JobApplicationQuery(id, appId, _context.Identity.Id, _context.Identity.Role), cancellationToken));
 
 
     [HttpGet("job-offers/{id:guid}/job-applications/{appId:guid}/cv")]
-    [Authorize(Roles = $"{Roles.Admin},{Roles.Employer}")]
+    [Authorize(Roles = $"{Roles.Admin},{Roles.Employer},{Roles.Candidate}")]
     [SwaggerOperation("Get CV from job application")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -59,7 +61,7 @@ internal class JobApplicationsController : BaseController
         CancellationToken cancellationToken = default)
     {
         var cvBytes = await dispatcher.QueryAsync(
-            new JobApplicationCVQuery(id, appId), cancellationToken);
+            new JobApplicationCVQuery(id, appId, _context.Identity.Id, _context.Identity.Role), cancellationToken);
 
         if(cvBytes is null)
         {

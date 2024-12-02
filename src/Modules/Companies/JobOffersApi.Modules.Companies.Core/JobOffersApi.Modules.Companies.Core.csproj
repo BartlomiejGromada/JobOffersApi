@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\JobOffertsApi.Abstractions\JobOffersApi.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Users\JobOffersApi.Modules.Users.Integration\JobOffersApi.Modules.Users.Integration.csproj" />
+  </ItemGroup>
+
 </Project>

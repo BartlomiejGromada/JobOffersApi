@@ -8,4 +8,5 @@ internal interface IJobOffersStorage
 {
     public Task<Paged<JobOfferDto>> GetPagedAsync(JobOffersQuery query, CancellationToken cancellationToken = default);
     public Task<JobOfferDetailsDto?> GetDetailsAsync(Guid id, CancellationToken cancellationToken = default);
+    public Task<JobOfferDto?> GetAsync(Guid id, CancellationToken cancellationToken = default);
 }

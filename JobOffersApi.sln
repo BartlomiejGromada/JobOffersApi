@@ -37,11 +37,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Companies", "Companies", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Users.Integration", "src\Modules\Users\JobOffersApi.Modules.Users.Integration\JobOffersApi.Modules.Users.Integration.csproj", "{670F14B5-CA16-4EAE-82F6-305976B7B8F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobOffersApi.Modules.Companies.Core", "src\Modules\Companies\JobOffersApi.Modules.Companies.Core\JobOffersApi.Modules.Companies.Core.csproj", "{9CC4EA66-609F-4655-B031-1BE2ADD28449}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Companies.Core", "src\Modules\Companies\JobOffersApi.Modules.Companies.Core\JobOffersApi.Modules.Companies.Core.csproj", "{9CC4EA66-609F-4655-B031-1BE2ADD28449}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobOffersApi.Modules.Companies.Api", "src\Modules\Companies\JobOffersApi.Modules.Companies.Api\JobOffersApi.Modules.Companies.Api.csproj", "{56ECB503-E132-4097-BB71-355A1C475BCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Companies.Api", "src\Modules\Companies\JobOffersApi.Modules.Companies.Api\JobOffersApi.Modules.Companies.Api.csproj", "{56ECB503-E132-4097-BB71-355A1C475BCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobOffersApi.Modules.Comapnies.Infrastructure", "src\Modules\Companies\JobOffersApi.Modules.Comapnies.Infrastructure\JobOffersApi.Modules.Comapnies.Infrastructure.csproj", "{DAF82B15-42B1-44B7-842C-9D1152D97754}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Companies.Infrastructure", "src\Modules\Companies\JobOffersApi.Modules.Comapnies.Infrastructure\JobOffersApi.Modules.Companies.Infrastructure.csproj", "{DAF82B15-42B1-44B7-842C-9D1152D97754}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobOffersApi.Modules.Companies.Integration", "src\Modules\Companies\JobOffersApi.Modules.Companies.Integration\JobOffersApi.Modules.Companies.Integration.csproj", "{3915E565-0F3E-4221-A8E2-4DDF46A686D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E0363CD9-A123-4766-B98A-E766691254E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -221,6 +225,18 @@ Global
 		{DAF82B15-42B1-44B7-842C-9D1152D97754}.Release|x64.Build.0 = Release|Any CPU
 		{DAF82B15-42B1-44B7-842C-9D1152D97754}.Release|x86.ActiveCfg = Release|Any CPU
 		{DAF82B15-42B1-44B7-842C-9D1152D97754}.Release|x86.Build.0 = Release|Any CPU
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0}.Debug|x64.Build.0 = Debug|Any CPU
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0}.Debug|x86.Build.0 = Debug|Any CPU
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0}.Release|x64.ActiveCfg = Release|Any CPU
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0}.Release|x64.Build.0 = Release|Any CPU
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0}.Release|x86.ActiveCfg = Release|Any CPU
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -243,6 +259,7 @@ Global
 		{9CC4EA66-609F-4655-B031-1BE2ADD28449} = {A1F4A1CF-D333-4881-80B9-290EB2379456}
 		{56ECB503-E132-4097-BB71-355A1C475BCE} = {A1F4A1CF-D333-4881-80B9-290EB2379456}
 		{DAF82B15-42B1-44B7-842C-9D1152D97754} = {A1F4A1CF-D333-4881-80B9-290EB2379456}
+		{3915E565-0F3E-4221-A8E2-4DDF46A686D0} = {A1F4A1CF-D333-4881-80B9-290EB2379456}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8CD70520-1B2F-47CC-BC8E-4A4AAF2A763C}

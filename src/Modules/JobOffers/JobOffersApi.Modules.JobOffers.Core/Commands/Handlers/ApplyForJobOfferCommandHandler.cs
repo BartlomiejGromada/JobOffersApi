@@ -1,17 +1,13 @@
 ﻿using JobOffersApi.Abstractions.Commands;
-using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Abstractions.Helpers;
 using JobOffersApi.Abstractions.Messaging;
 using JobOffersApi.Abstractions.Time;
 using JobOffersApi.Modules.JobOffers.Core.DTO.Extensions;
 using JobOffersApi.Modules.JobOffers.Core.Entities;
-using JobOffersApi.Modules.JobOffers.Core.Entities.ValueObjects;
 using JobOffersApi.Modules.JobOffers.Core.Exceptions;
 using JobOffersApi.Modules.JobOffers.Core.Repositories;
 using JobOffersApi.Modules.Users.Core.Events;
 using JobOffersApi.Modules.Users.Integration.DTO;
-using JobOffersApi.Modules.Users.Integration.Exceptions;
-using JobOffersApi.Modules.Users.Integration.Queries;
 using JobOffersApi.Modules.Users.Integration.Services;
 using Microsoft.Extensions.Logging;
 
@@ -21,7 +17,6 @@ internal sealed class ApplyForJobOfferCommandHandler : ICommandHandler<ApplyForJ
 {
     private readonly IJobOffersRepository _repository;
     private readonly IFileHelper _fileHelper;
-    private readonly IDispatcher _dispatcher;
     private readonly IClock _clock;
     private readonly IMessageBroker _messageBroker;
     private readonly IUsersService _userValidationService;
@@ -30,7 +25,6 @@ internal sealed class ApplyForJobOfferCommandHandler : ICommandHandler<ApplyForJ
     public ApplyForJobOfferCommandHandler(
         IJobOffersRepository repository,
         IFileHelper fileHelper,
-        IDispatcher dispatcher,
         IClock clock,
         IMessageBroker messageBroker,
         IUsersService userValidationService,
@@ -38,7 +32,6 @@ internal sealed class ApplyForJobOfferCommandHandler : ICommandHandler<ApplyForJ
     {
         _repository = repository;
         _fileHelper = fileHelper;
-        _dispatcher = dispatcher;
         _clock = clock;
         _messageBroker = messageBroker;
         _userValidationService = userValidationService;

@@ -2,7 +2,6 @@
 using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Abstractions.Time;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
-using JobOffersApi.Modules.JobOffers.Core.Entities.JobMenus;
 
 namespace JobOffersApi.Modules.JobOffers.Core.DTO.Validators;
 

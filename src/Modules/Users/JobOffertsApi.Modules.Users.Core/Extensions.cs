@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using JobOffersApi.Modules.Users.Core.Entities;
 using JobOffersApi.Infrastructure;
+using FluentValidation;
+using JobOffersApi.Modules.Users.Core.Validators;
+using JobOffersApi.Modules.Users.Core.DTO;
 
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Users.Api")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Users.Infrastructure")]
@@ -18,6 +21,10 @@ internal static class Extensions
     {
         var registrationOptions = services.GetOptions<RegistrationOptions>("users:registration");
         services.AddSingleton(registrationOptions);
+
+        services.AddTransient<IValidator<ChangePasswordDto>, ChangePasswordDtoValidator>();
+        services.AddTransient<IValidator<SignUpDto>, SignUpDtoValidator>();
+        services.AddTransient<IValidator<SignInDto>, SignInDtoValidator>();
 
         return services
                 .AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
