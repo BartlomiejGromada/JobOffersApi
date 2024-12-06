@@ -45,8 +45,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Compan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Companies.Integration", "src\Modules\Companies\JobOffersApi.Modules.Companies.Integration\JobOffersApi.Modules.Companies.Integration.csproj", "{3915E565-0F3E-4221-A8E2-4DDF46A686D0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E0363CD9-A123-4766-B98A-E766691254E7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobOffersApi.Modules.JobOffers.Tests.Unit", "src\Modules\JobOffers\JobOffersApi.Modules.JobOffers.Tests\JobOffersApi.Modules.JobOffers.Tests.Unit.csproj", "{5AF6E420-5631-4388-9EAA-37F3A7A70313}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobOffersApi.Modules.Users.Tests.Unit", "src\Modules\Users\JobOffersApi.Modules.Users.Tests\JobOffersApi.Modules.Users.Tests.Unit.csproj", "{11F0E0E8-4A80-41B2-B174-3E46C2DCD8C2}"

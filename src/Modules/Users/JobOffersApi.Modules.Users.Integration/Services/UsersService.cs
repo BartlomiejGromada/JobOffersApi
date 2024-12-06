@@ -5,11 +5,11 @@ using JobOffersApi.Modules.Users.Integration.Queries;
 
 namespace JobOffersApi.Modules.Users.Integration.Services;
 
-internal class UserValidationService : IUsersService
+internal class UsersService : IUsersService
 {
     private readonly IDispatcher _dispatcher;
 
-    public UserValidationService(IDispatcher dispatcher)
+    public UsersService(IDispatcher dispatcher)
     {
         _dispatcher = dispatcher;
     }
