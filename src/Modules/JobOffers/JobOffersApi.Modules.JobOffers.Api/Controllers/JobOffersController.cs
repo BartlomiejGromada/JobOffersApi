@@ -64,6 +64,22 @@ internal class JobOffersController : BaseController
         return Created("", null);
     }
 
+    [HttpDelete("{id:guid}")]
+    [Authorize(Roles = $"{Roles.Admin},{Roles.Employer}")]
+    [SwaggerOperation("Remove job offer")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> RemoveAsync(
+        [FromRoute] Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        await dispatcher.SendAsync(
+            new RemoveJobOfferCommand(id, _context.Identity.Id, _context.Identity.Role),
+            cancellationToken);
+
+        return NoContent();
+    }
+
 
     [HttpPost("{id:guid}/apply")]
     [Authorize(Roles = $"{Roles.Candidate}")]
@@ -82,5 +98,22 @@ internal class JobOffersController : BaseController
             cancellationToken);
 
         return Created("", null);
+    }
+
+    [HttpDelete("{id:guid}/job-application/{jobApplicationId:guid}")]
+    [Authorize(Roles = $"{Roles.Candidate}")]
+    [SwaggerOperation("Unapply from job offer")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> UnapplyAsync(
+      [FromRoute] Guid id,
+      [FromRoute] Guid jobApplicationId,
+      CancellationToken cancellationToken = default)
+    {
+        await dispatcher.SendAsync(
+            new UnapplyFromJobOfferCommand(id, jobApplicationId, _context.Identity.Id),
+            cancellationToken);
+
+        return NoContent();
     }
 }

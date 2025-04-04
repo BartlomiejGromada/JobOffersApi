@@ -54,6 +54,8 @@ internal class JobOffer : AggregateRoot<Guid>
     public bool UserAlreadyApplied(Guid userId) 
         => JobApplications.Any(ja => ja.CandidateId == userId);
 
+    public bool UserDidNotApply(Guid userId) => !UserAlreadyApplied(userId);
+
     public void ApplyForJob(JobApplication jobApplication)
     {
         var candidateId = jobApplication.CandidateId;
@@ -73,4 +75,15 @@ internal class JobOffer : AggregateRoot<Guid>
         jobApplications.Add(jobApplication);
     }
 
+    public void UnapplyFromJob(JobApplication jobApplication)
+    {
+        var candidateId = jobApplication.CandidateId;
+
+        if (UserDidNotApply(candidateId))
+        {
+            throw new UserDidNotApplyForJobException(candidateId, Id);
+        }
+
+        jobApplications.Remove(jobApplication);
+    }
 }

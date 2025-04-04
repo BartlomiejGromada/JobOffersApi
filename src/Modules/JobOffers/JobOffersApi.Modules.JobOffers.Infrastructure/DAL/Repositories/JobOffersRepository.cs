@@ -29,4 +29,10 @@ internal class JobOffersRepository : IJobOffersRepository
         _context.Update(jobOffer);
         await _context.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task RemoveAsync(JobOffer jobOffer, CancellationToken cancellationToken = default)
+    {
+        _context.Remove(jobOffer);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
 }

@@ -31,14 +31,40 @@ internal class CompaniesController : BaseController
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> AddAsync(
-      [FromRoute] Guid id,
+      [FromRoute] Guid companyId,
       [FromBody] AddEmployerToCompanyDto dto,
       CancellationToken cancellationToken = default)
     {
         await dispatcher.SendAsync(
-            new AddEmployerToCompanyCommand(id, dto.UserEmail, dto.Position, _context.Identity.Id, _context.Identity.Role),
+            new AddEmployerToCompanyCommand(
+                companyId,
+                dto.UserEmail,
+                dto.Position,
+                _context.Identity.Id,
+                _context.Identity.Role),
             cancellationToken);
 
         return Created("", null);
+    }
+
+    [HttpDelete("{companyId:guid}/employers/{employerId:guid}")]
+    [Authorize(Roles = $"{Roles.Admin},{Roles.Employer}")]
+    [SwaggerOperation("Remove employer from company")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> DeleteAsync(
+      [FromRoute] Guid companyId,
+      [FromRoute] Guid employerId,
+      CancellationToken cancellationToken = default)
+    {
+        await dispatcher.SendAsync(
+            new RemoveEmployerFromCompanyCommand(
+                companyId,
+                employerId,
+                _context.Identity.Id,
+                _context.Identity.Role),
+            cancellationToken);
+
+        return NoContent();
     }
 }

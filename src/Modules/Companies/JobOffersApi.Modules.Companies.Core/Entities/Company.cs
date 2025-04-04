@@ -39,4 +39,14 @@ internal class Company : AggregateRoot<Guid>
             position,
             date));
     }
+
+    public void RemoveEmployer(Guid employerId)
+    {
+        var toRemove = companiesEmployers.First(ce => ce.Employer.Id == employerId);
+        if (toRemove is null)
+        {
+            throw new EmployeeNotBelongToCompanyException(employerId, Id);
+        }
+        companiesEmployers.Remove(toRemove);
+    }
 }
