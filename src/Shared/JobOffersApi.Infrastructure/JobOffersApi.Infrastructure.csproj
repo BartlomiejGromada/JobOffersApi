@@ -30,7 +30,7 @@
 </ItemGroup>
 
 <ItemGroup>
-  <ProjectReference Include="..\JobOffertsApi.Abstractions\JobOffersApi.Abstractions.csproj" />
+  <ProjectReference Include="..\JobOffersApi.Abstractions\JobOffersApi.Abstractions.csproj" />
 </ItemGroup>
 
 </Project>

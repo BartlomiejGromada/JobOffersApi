@@ -10,8 +10,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\JobOffertsApi.Abstractions\JobOffersApi.Abstractions.csproj" />
-      <ProjectReference Include="..\..\..\Shared\JobOffertsApi.Infrastructure\JobOffersApi.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\..\Shared\JobOffersApi.Abstractions\JobOffersApi.Abstractions.csproj" />
+      <ProjectReference Include="..\..\..\Shared\JobOffersApi.Infrastructure\JobOffersApi.Infrastructure.csproj" />
       <ProjectReference Include="..\JobOffersApi.Modules.Users.Integration\JobOffersApi.Modules.Users.Integration.csproj" />
     </ItemGroup>
 

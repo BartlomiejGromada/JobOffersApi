@@ -5,23 +5,23 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{FCA8CA8F-EE29-4CEA-8627-5EA7638B7C04}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Shared.Tests", "src\Shared\JobOffertsApi.Shared.Tests\JobOffersApi.Shared.Tests.csproj", "{3C49875F-386E-4C94-A80C-0C75C7A83BCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Shared.Tests", "src\Shared\JobOffersApi.Shared.Tests\JobOffersApi.Shared.Tests.csproj", "{3C49875F-386E-4C94-A80C-0C75C7A83BCB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bootstrapper", "Bootstrapper", "{110B9A2A-E39B-4883-ACB6-7E05CE77AF9C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Bootstrapper", "src\Bootstrapper\JobOffertsApi.Bootstrapper\JobOffersApi.Bootstrapper.csproj", "{F478360B-DE13-4F0B-9649-C7D4F8539D28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Bootstrapper", "src\Bootstrapper\JobOffersApi.Bootstrapper\JobOffersApi.Bootstrapper.csproj", "{F478360B-DE13-4F0B-9649-C7D4F8539D28}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{1BA5712D-3DD3-4246-A396-D732B128CB61}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{3C812292-89CC-482D-BC00-3DD04CA4496B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Users.Api", "src\Modules\Users\JobOffertsApi.Modules.Users.Api\JobOffersApi.Modules.Users.Api.csproj", "{3DBF494E-0153-495A-85B7-D23FBEDF5B51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Users.Api", "src\Modules\Users\JobOffersApi.Modules.Users.Api\JobOffersApi.Modules.Users.Api.csproj", "{3DBF494E-0153-495A-85B7-D23FBEDF5B51}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Users.Core", "src\Modules\Users\JobOffertsApi.Modules.Users.Core\JobOffersApi.Modules.Users.Core.csproj", "{BFE2213C-D50C-4AF7-B201-85F4F199F949}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Users.Core", "src\Modules\Users\JobOffersApi.Modules.Users.Core\JobOffersApi.Modules.Users.Core.csproj", "{BFE2213C-D50C-4AF7-B201-85F4F199F949}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Abstractions", "src\Shared\JobOffertsApi.Abstractions\JobOffersApi.Abstractions.csproj", "{1A85644E-CDF6-435A-84DF-AB8F6C807D05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Abstractions", "src\Shared\JobOffersApi.Abstractions\JobOffersApi.Abstractions.csproj", "{1A85644E-CDF6-435A-84DF-AB8F6C807D05}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Infrastructure", "src\Shared\JobOffertsApi.Infrastructure\JobOffersApi.Infrastructure.csproj", "{9CB1B793-AA2A-465C-8B19-AAC69E0BFA8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Infrastructure", "src\Shared\JobOffersApi.Infrastructure\JobOffersApi.Infrastructure.csproj", "{9CB1B793-AA2A-465C-8B19-AAC69E0BFA8F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Users.Infrastructure", "src\Modules\Users\JobOffersApi.Modules.Users.Infrastructure\JobOffersApi.Modules.Users.Infrastructure.csproj", "{F689DB9C-EDAA-4FAE-BBF8-99E3FCFC8D7D}"
 EndProject
@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Compan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Companies.Api", "src\Modules\Companies\JobOffersApi.Modules.Companies.Api\JobOffersApi.Modules.Companies.Api.csproj", "{56ECB503-E132-4097-BB71-355A1C475BCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Companies.Infrastructure", "src\Modules\Companies\JobOffersApi.Modules.Comapnies.Infrastructure\JobOffersApi.Modules.Companies.Infrastructure.csproj", "{DAF82B15-42B1-44B7-842C-9D1152D97754}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Companies.Infrastructure", "src\Modules\Companies\JobOffersApi.Modules.Companies.Infrastructure\JobOffersApi.Modules.Companies.Infrastructure.csproj", "{DAF82B15-42B1-44B7-842C-9D1152D97754}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobOffersApi.Modules.Companies.Integration", "src\Modules\Companies\JobOffersApi.Modules.Companies.Integration\JobOffersApi.Modules.Companies.Integration.csproj", "{3915E565-0F3E-4221-A8E2-4DDF46A686D0}"
 EndProject

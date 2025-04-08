@@ -1,18 +1,100 @@
-version: '3'
-
 services:
-  postgres:
-    image: postgres
-    shm_size: '4gb'
-    container_name: postgres
-    restart: unless-stopped
-    environment:
-      - POSTGRES_HOST_AUTH_METHOD=trust
-    ports:
-      - 5432:5432
-    volumes:
-      - postgres:/var/lib/postgresql/data
+    sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        container_name: sqlServer_jobOffersApi
+        environment:
+            ACCEPT_EULA: "Y"
+            SA_PASSWORD: "Str0ng_P@ssword123"
+        ports:
+            - "1433:1433"
+        volumes:
+            - sql_data:/var/opt/mssql
+        networks:
+            - backend
+
+    joboffers-api:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: joboffers-api
+        depends_on:
+            - sqlserver
+        ports:
+            - "5001:80"
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+
+            # Connection string
+            - msSqlServer__connectionString=Server=sqlserver,1433;Database=JobOffersApi;User Id=sa;Password=Str0ng_P@ssword123;
+
+            # app
+            - app__name=JobOffersApi
+
+            # auth
+            - auth__issuerSigningKey=fa5DRdkVwZeQnrDAcBrHCYwAWd6y2crPUbSZq4zUWBRFwDfKDXQWH38vZRfv
+            - auth__issuer=jobOffersApi
+            - auth__validIssuer=jobOffersApi
+            - auth__validateAudience=false
+            - auth__validateIssuer=true
+            - auth__validateLifetime=true
+            - auth__expiry=07.00:00:00
+            - auth__cookie__httpOnly=true
+            - auth__cookie__sameSite=unspecified
+            - auth__cookie__secure=false
+
+            # cors
+            - cors__allowCredentials=true
+            - cors__allowedOrigins__0=http://localhost:3000
+            - cors__allowedMethods__0=POST
+            - cors__allowedMethods__1=PUT
+            - cors__allowedMethods__2=DELETE
+            - cors__allowedHeaders__0=Content-Type
+            - cors__allowedHeaders__1=Authorization
+            - cors__exposedHeaders__0=Resource-ID
+
+            # logger
+            - logger__level=information
+            - logger__overrides__Microsoft.EntityFrameworkCore.Database.Command=Warning
+            - logger__overrides__Microsoft.EntityFrameworkCore.Infrastructure=Warning
+            - logger__excludePaths__0=/
+            - logger__excludePaths__1=/ping
+            - logger__excludePaths__2=/metrics
+            - logger__excludeProperties__0=api_key
+            - logger__excludeProperties__1=access_key
+            - logger__excludeProperties__2=ApiKey
+            - logger__excludeProperties__3=ApiSecret
+            - logger__excludeProperties__4=ClientId
+            - logger__excludeProperties__5=ClientSecret
+            - logger__excludeProperties__6=ConnectionString
+            - logger__excludeProperties__7=Password
+            - logger__excludeProperties__8=Email
+            - logger__excludeProperties__9=Login
+            - logger__excludeProperties__10=Secret
+            - logger__excludeProperties__11=Token
+            - logger__console__enabled=true
+            - logger__file__enabled=true
+            - logger__file__path=logs/logs.txt
+            - logger__file__interval=day
+            - logger__seq__enabled=true
+            - logger__seq__url=http://localhost:5341
+            - logger__seq__apiKey=secret
+
+            # messaging
+            - messaging__useAsyncDispatcher=false
+
+            # outbox
+            - outbox__enabled=false
+            - outbox__interval=00:00:01
+
+            # security
+            - security__encryption__enabled=true
+            - security__encryption__key=3Lt2jm83Gmb8Ja3jQPkBVuApzbF8DVPX
+        networks:
+            - backend
+
 
 volumes:
-  postgres:
-    driver: local
+    sql_data:
+    
+networks:
+    backend:

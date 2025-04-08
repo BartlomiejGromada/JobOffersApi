@@ -2,4 +2,4 @@
 
 namespace JobOffersApi.Modules.JobOffers.Core.Events;
 
-internal record JobOffeRemoved(Guid InvokerId, Guid jobOfferId) : IEvent
+internal record JobOffeRemoved(Guid InvokerId, Guid jobOfferId) : IEvent;

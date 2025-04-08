@@ -19,9 +19,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Companies\JobOffersApi.Modules.Companies.Api\JobOffersApi.Modules.Companies.Api.csproj" />
     <ProjectReference Include="..\..\Modules\JobOffers\JobOffersApi.Modules.JobOffers.Api\JobOffersApi.Modules.JobOffers.Api.csproj" />
-    <ProjectReference Include="..\..\Modules\Users\JobOffertsApi.Modules.Users.Api\JobOffersApi.Modules.Users.Api.csproj" />
-    <ProjectReference Include="..\..\Shared\JobOffertsApi.Abstractions\JobOffersApi.Abstractions.csproj" />
-    <ProjectReference Include="..\..\Shared\JobOffertsApi.Infrastructure\JobOffersApi.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Users\JobOffersApi.Modules.Users.Api\JobOffersApi.Modules.Users.Api.csproj" />
+    <ProjectReference Include="..\..\Shared\JobOffersApi.Abstractions\JobOffersApi.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Shared\JobOffersApi.Infrastructure\JobOffersApi.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

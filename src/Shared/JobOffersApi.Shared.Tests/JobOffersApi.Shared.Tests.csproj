@@ -13,7 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Bootstrapper\JobOffertsApi.Bootstrapper\JobOffersApi.Bootstrapper.csproj" />
+      <ProjectReference Include="..\..\Bootstrapper\JobOffersApi.Bootstrapper\JobOffersApi.Bootstrapper.csproj" />
     </ItemGroup>
 
 </Project>
