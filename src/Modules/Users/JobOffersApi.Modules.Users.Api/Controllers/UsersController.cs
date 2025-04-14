@@ -7,14 +7,14 @@ using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Abstractions.Queries;
 using Swashbuckle.AspNetCore.Annotations;
 using JobOffersApi.Modules.Users.Core.DTO;
-using JobOffersApi.Modules.Users.Core.Queries;
 using JobOffersApi.Abstractions.Api;
 using JobOffersApi.Modules.Users.Integration.DTO;
 using JobOffersApi.Abstractions.Core;
+using JobOffersApi.Modules.Users.Application.Queries;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
-[Route("users")]
+[Route("api/users")]
 [Authorize(Policy)]
 internal class UsersController : BaseController
 {

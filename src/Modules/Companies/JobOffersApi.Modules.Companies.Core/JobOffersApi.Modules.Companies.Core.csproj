@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\JobOffersApi.Abstractions\JobOffersApi.Abstractions.csproj" />
-    <ProjectReference Include="..\..\Users\JobOffersApi.Modules.Users.Integration\JobOffersApi.Modules.Users.Integration.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,6 @@
 using JobOffersApi.Infrastructure.MsSqlServer;
 using JobOffersApi.Modules.Users.Core.DTO;
 using JobOffersApi.Modules.Users.Core.Entities;
-using JobOffersApi.Modules.Users.Core.Queries;
 using JobOffersApi.Modules.Users.Core.Storages;
 using JobOffersApi.Modules.Users.Infrastructure.DAL;
 using JobOffersApi.Modules.Users.Integration.DTO;
@@ -27,24 +26,29 @@ internal sealed class UsersStorage : IUsersStorage
         return user?.AsDetailsDto();
     }
 
-    public async Task<Paged<UserDto>> GetPagedAsync(BrowseUsers query, CancellationToken cancellationToken = default)
+    public async Task<Paged<UserDto>> GetPagedAsync(
+        string? email,
+        string? role,
+        int page,
+        int results,
+        CancellationToken cancellationToken = default)
     {
         var users = _users;
 
-        if (!string.IsNullOrWhiteSpace(query.Email))
+        if (!string.IsNullOrWhiteSpace(email))
         {
-            users = users.Where(x => x.Email == query.Email);
+            users = users.Where(x => x.Email == email);
         }
 
-        if (!string.IsNullOrWhiteSpace(query.Role))
+        if (!string.IsNullOrWhiteSpace(role))
         {
-            users = users.Where(x => x.RoleId == query.Role);
+            users = users.Where(x => x.RoleId == role);
         }
 
         return await users
             .OrderByDescending(x => x.CreatedAt)
             .Select(x => x.AsDto())
-            .PaginateAsync(query, cancellationToken);
+            .PaginateAsync(page, results, cancellationToken);
     }
 
     public async Task<UserDto?> GetAsync(Guid userId, CancellationToken cancellationToken = default)

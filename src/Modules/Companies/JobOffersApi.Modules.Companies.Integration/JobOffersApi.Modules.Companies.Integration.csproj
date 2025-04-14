@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JobOffersApi.Modules.Companies.Core\JobOffersApi.Modules.Companies.Core.csproj" />
+    <ProjectReference Include="..\JobOffersApi.Modules.Companies.Application\JobOffersApi.Modules.Companies.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 using JobOffersApi.Abstractions.Modules;
+using JobOffersApi.Modules.Companies.Application;
 using JobOffersApi.Modules.Companies.Core;
 using JobOffersApi.Modules.Companies.Infrastructure;
 using JobOffersApi.Modules.Companies.Integration;
@@ -20,6 +21,7 @@ internal class CompaniesModule : IModule
     {
         services.AddCore();
         services.AddInfrastructure();
+        services.AddApplication();
         services.AddIntegration();
     }
 

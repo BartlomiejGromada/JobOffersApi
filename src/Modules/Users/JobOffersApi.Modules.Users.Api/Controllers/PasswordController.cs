@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using JobOffersApi.Abstractions.Dispatchers;
 using Swashbuckle.AspNetCore.Annotations;
-using JobOffersApi.Modules.Users.Core.Commands;
 using JobOffersApi.Abstractions.Api;
 using JobOffersApi.Modules.Users.Core.DTO;
+using JobOffersApi.Modules.Users.Application.Commands;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
-[Route("passwords")]
+[Route("api/passwords")]
 internal class PasswordController : BaseController
 {
 

@@ -4,8 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using JobOffersApi.Modules.Users.Core;
 using JobOffersApi.Abstractions.Modules;
 using JobOffersApi.Modules.Users.Infrastructure;
-using JobOffersApi.Infrastructure.Events;
 using JobOffersApi.Modules.Users.Integration;
+using JobOffersApi.Modules.Users.Application;
 
 namespace JobOffersApi.Modules.Users.Api;
 
@@ -22,6 +22,7 @@ internal class UsersModule : IModule
     {
         services.AddCore();
         services.AddInfrastructure();
+        services.AddApplication();
         services.AddIntegration();
     }
     

@@ -4,7 +4,6 @@ using JobOffersApi.Infrastructure.MsSqlServer;
 using JobOffersApi.Modules.JobOffers.Core.DTO.Extensions;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 using JobOffersApi.Modules.JobOffers.Core.Entities;
-using JobOffersApi.Modules.JobOffers.Core.Queries;
 using JobOffersApi.Modules.JobOffers.Core.Storages;
 using JobOffersApi.Modules.Users.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
@@ -22,50 +21,60 @@ internal class JobOffersStorage : IJobOffersStorage
         _clock = clock;
     }
 
-    public async Task<Paged<JobOfferDto>> GetPagedAsync(JobOffersQuery query, CancellationToken cancellationToken = default)
+    public async Task<Paged<JobOfferDto>> GetPagedAsync(
+        string? title,
+        DateTimeOffset? createdFrom,
+        DateTimeOffset? createdTo,
+        string? companyName,
+        List<JobAttribute>? jobAttributes,
+        string? city,
+        bool? onlyUnexpiredOffers,
+        int page,
+        int results,
+        CancellationToken cancellationToken = default)
     {
         var jobOffers = _jobOffers;
 
-        if (query.OnlyUnexpiredOffers is true)
+        if (onlyUnexpiredOffers is true)
         {
             var today = _clock.CurrentDateOffset();
             jobOffers = jobOffers.Where(jo => jo.ExpirationDate >= today);
         }
 
-        if (!string.IsNullOrEmpty(query.Title)) 
+        if (!string.IsNullOrEmpty(title)) 
         {
-            jobOffers = jobOffers.Where(jo => jo.Title.ToLower().Contains(query.Title.ToLower()));
+            jobOffers = jobOffers.Where(jo => jo.Title.ToLower().Contains(title.ToLower()));
         }
 
-        if (query.CreatedFrom.HasValue)
+        if (createdFrom.HasValue)
         {
-            jobOffers = jobOffers.Where(jo => jo.CreatedDate.Date >= query.CreatedFrom.Value);
+            jobOffers = jobOffers.Where(jo => jo.CreatedDate.Date >= createdFrom.Value);
         }
 
-        if (query.CreatedTo.HasValue)
+        if (createdTo.HasValue)
         {
-            jobOffers = jobOffers.Where(jo => jo.CreatedDate.Date <= query.CreatedTo.Value);
+            jobOffers = jobOffers.Where(jo => jo.CreatedDate.Date <= createdTo.Value);
         }
 
-        if (!string.IsNullOrEmpty(query.CompanyName))
+        if (!string.IsNullOrEmpty(companyName))
         {
-            jobOffers = jobOffers.Where(jo => jo.CompanyName.ToLower().Contains(query.CompanyName.ToLower()));
+            jobOffers = jobOffers.Where(jo => jo.CompanyName.ToLower().Contains(companyName.ToLower()));
         }
 
-        if (query.JobAttributes.Any())
+        if (jobAttributes is not null && jobAttributes.Any())
         {
-            jobOffers = jobOffers.Where(jo => jo.JobAttributes.Any(ja => query.JobAttributes.Contains(ja)));
+            jobOffers = jobOffers.Where(jo => jo.JobAttributes.Any(ja => jobAttributes.Contains(ja)));
         }
 
-        if (!string.IsNullOrEmpty(query.City))
+        if (!string.IsNullOrEmpty(city))
         {
-            jobOffers = jobOffers.Where(jo => jo.Location.City.ToLower().Equals(query.City.ToLower()));
+            jobOffers = jobOffers.Where(jo => jo.Location.City.ToLower().Equals(city.ToLower()));
         }
 
         return await jobOffers
             .OrderByDescending(jo => jo.CreatedDate)
             .Select(jo => jo.ToDto())
-            .PaginateAsync(query, cancellationToken);
+            .PaginateAsync(page, results, cancellationToken);
     }
 
     public async Task<JobOfferDetailsDto?> GetDetailsAsync(Guid id, CancellationToken cancellationToken = default)

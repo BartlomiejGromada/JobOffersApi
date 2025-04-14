@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Abstractions.Dispatchers;
-using JobOffersApi.Modules.Users.Core.Commands;
-using JobOffersApi.Modules.Users.Core.Queries;
 using JobOffersApi.Modules.Users.Core.DTO;
 using Swashbuckle.AspNetCore.Annotations;
 using JobOffersApi.Modules.Users.Core.Storages;
@@ -13,10 +11,12 @@ using JobOffersApi.Abstractions.Api;
 using JobOffersApi.Modules.Users.Integration.Queries;
 using JobOffersApi.Modules.Users.Integration.DTO;
 using System.Threading;
+using JobOffersApi.Modules.Users.Application.Commands;
+using JobOffersApi.Modules.Users.Application.Queries;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
-[Route("accounts")]
+[Route("api/accounts")]
 internal class AccountController : BaseController
 {
     private const string AccessTokenCookie = "__access-token";

@@ -1,12 +1,13 @@
 using System.Runtime.CompilerServices;
 using FluentValidation;
-using JobOffersApi.Modules.Companies.Core.DTO;
 using JobOffersApi.Modules.Companies.Core.DTO.Validators;
+using JobOffersApi.Modules.Companies.Core.DTO;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Api")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Infrastructure")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Integration")]
+[assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Application")]
+[assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Api")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Tests.Integration")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Tests.Unit")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

@@ -23,8 +23,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\JobOffersApi.Abstractions\JobOffersApi.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Shared\JobOffersApi.Infrastructure\JobOffersApi.Infrastructure.csproj" />
+    <ProjectReference Include="..\JobOffersApi.Modules.Companies.Application\JobOffersApi.Modules.Companies.Application.csproj" />
     <ProjectReference Include="..\JobOffersApi.Modules.Companies.Infrastructure\JobOffersApi.Modules.Companies.Infrastructure.csproj" />
-    <ProjectReference Include="..\JobOffersApi.Modules.Companies.Core\JobOffersApi.Modules.Companies.Core.csproj" />
     <ProjectReference Include="..\JobOffersApi.Modules.Companies.Integration\JobOffersApi.Modules.Companies.Integration.csproj" />
   </ItemGroup>
 

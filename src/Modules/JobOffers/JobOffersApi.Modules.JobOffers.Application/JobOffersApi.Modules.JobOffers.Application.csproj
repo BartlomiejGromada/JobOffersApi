@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\JobOffersApi.Abstractions\JobOffersApi.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Companies\JobOffersApi.Modules.Companies.Integration\JobOffersApi.Modules.Companies.Integration.csproj" />
+    <ProjectReference Include="..\..\Users\JobOffersApi.Modules.Users.Integration\JobOffersApi.Modules.Users.Integration.csproj" />
+    <ProjectReference Include="..\JobOffersApi.Modules.JobOffers.Core\JobOffersApi.Modules.JobOffers.Core.csproj" />
+  </ItemGroup>
+
+</Project>

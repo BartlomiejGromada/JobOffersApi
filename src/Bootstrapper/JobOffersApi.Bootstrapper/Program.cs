@@ -17,3 +17,9 @@ public class Program
             .ConfigureModules()
             .UseLogging();
 }
+
+// TODO: 
+// - nowe funcjonalnoœci zgonde z prac¹
+// - dodaæ dla kazdego modulu warstwê aplikacji
+// - poprawiæ Dockera
+// - wersjonowanie dodaæ moze - wtedy dopisac do rozdzailu 6 wersjonowanie api

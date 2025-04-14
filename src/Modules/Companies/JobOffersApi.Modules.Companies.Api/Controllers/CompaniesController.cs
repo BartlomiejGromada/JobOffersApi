@@ -2,7 +2,7 @@
 using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Abstractions.Dispatchers;
-using JobOffersApi.Modules.Companies.Core.Commands;
+using JobOffersApi.Modules.Companies.Application.Commands;
 using JobOffersApi.Modules.Companies.Core.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +12,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace JobOffersApi.Modules.Companies.Api.Controllers;
 
 
-[Route("companies")]
+[Route("api/companies")]
 [Authorize(Policy)]
 internal class CompaniesController : BaseController
 {

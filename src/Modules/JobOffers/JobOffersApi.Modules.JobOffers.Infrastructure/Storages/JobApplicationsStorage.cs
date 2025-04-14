@@ -3,7 +3,6 @@ using JobOffersApi.Infrastructure.MsSqlServer;
 using JobOffersApi.Modules.JobOffers.Core.DTO.Extensions;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
 using JobOffersApi.Modules.JobOffers.Core.Entities;
-using JobOffersApi.Modules.JobOffers.Core.Queries;
 using JobOffersApi.Modules.JobOffers.Core.Storages;
 using JobOffersApi.Modules.Users.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
@@ -20,11 +19,15 @@ internal class JobApplicationsStorage : IJobApplicationsStorage
     }
 
     public async Task<Paged<JobApplicationDto>> GetPagedAsync(
-        JobApplicationsQuery query,
+        Guid jobOfferId,
+        Guid invokerId,
+        string invokerRole,
+        int page,
+        int results,
         CancellationToken cancellationToken = default)
     {
         var jobApplications = await _jobOffers
-            .Where(jo => jo.Id == query.JobOfferId)
+            .Where(jo => jo.Id == jobOfferId)
             .SelectMany(jo => jo.JobApplications)
             .Select(ja => new
             {
@@ -39,7 +42,7 @@ internal class JobApplicationsStorage : IJobApplicationsStorage
                 ja.CreatedAt
             })
             .OrderByDescending(ja => ja.CreatedAt)
-            .PaginateAsync(query, cancellationToken);
+            .PaginateAsync(page, results, cancellationToken);
 
         return jobApplications.Map(x => new JobApplicationDto
         {

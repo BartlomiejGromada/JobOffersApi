@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.JobOffers.Api")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.JobOffers.Infrastructure")]
+[assembly: InternalsVisibleTo("JobOffersApi.Modules.JobOffers.Application")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.JobOffers.Tests.Integration")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.JobOffers.Tests.Unit")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Abstractions.Api;
 using Swashbuckle.AspNetCore.Annotations;
-using JobOffersApi.Modules.JobOffers.Core.Queries;
 using JobOffersApi.Abstractions.Queries;
 using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
+using JobOffersApi.Modules.JobOffers.Application.Queries;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
-[Route("")]
+[Route("api/job-offers")]
 [Authorize(Policy)]
 internal class JobApplicationsController : BaseController
 {
@@ -24,7 +24,7 @@ internal class JobApplicationsController : BaseController
         _context = context;
     }
 
-    [HttpGet("job-offers/{id:guid}/job-applications")]
+    [HttpGet("{id:guid}/job-applications")]
     [Authorize(Roles = $"{Roles.Admin},{Roles.Employer}")]
     [SwaggerOperation("Get job applications")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -36,7 +36,7 @@ internal class JobApplicationsController : BaseController
                     new JobApplicationsQuery(id, _context.Identity.Id, _context.Identity.Role, query), cancellationToken));
 
 
-    [HttpGet("job-offers/{id:guid}/job-applications/{appId:guid}")]
+    [HttpGet("{id:guid}/job-applications/{appId:guid}")]
     [Authorize(Roles = $"{Roles.Admin},{Roles.Employer},{Roles.Candidate}")]
     [SwaggerOperation("Get job applications")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -50,7 +50,7 @@ internal class JobApplicationsController : BaseController
             new JobApplicationQuery(id, appId, _context.Identity.Id, _context.Identity.Role), cancellationToken));
 
 
-    [HttpGet("job-offers/{id:guid}/job-applications/{appId:guid}/cv")]
+    [HttpGet("{id:guid}/job-applications/{appId:guid}/cv")]
     [Authorize(Roles = $"{Roles.Admin},{Roles.Employer},{Roles.Candidate}")]
     [SwaggerOperation("Get CV from job application")]
     [ProducesResponseType(StatusCodes.Status200OK)]

@@ -4,17 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Abstractions.Api;
 using Swashbuckle.AspNetCore.Annotations;
-using JobOffersApi.Modules.JobOffers.Core.Queries;
 using JobOffersApi.Abstractions.Queries;
-using JobOffersApi.Modules.JobOffers.Core.Commands;
 using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
+using JobOffersApi.Modules.JobOffers.Application.Queries;
+using JobOffersApi.Modules.JobOffers.Application.Commands;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
-[Route("job-offers")]
+[Route("api/job-offers")]
 [Authorize(Policy)]
 internal class JobOffersController : BaseController
 {
@@ -47,7 +47,7 @@ internal class JobOffersController : BaseController
             => OkOrNotFound(await dispatcher.QueryAsync(new JobOfferQuery(id), cancellationToken));
 
     [HttpPost]
-    [Authorize(Roles = $"{Roles.Admin},{Roles.Employer}")]
+    [Authorize(Roles = $"{Roles.OwnerCompany}, {Roles.Admin},{Roles.Employer}")]
     [SwaggerOperation("Add job offer")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -1,6 +1,4 @@
-﻿using JobOffersApi.Modules.Companies.Core.Entities;
-
-namespace JobOffersApi.Modules.Companies.Core.DTO;
+﻿namespace JobOffersApi.Modules.Companies.Core.DTO;
 
 internal class CompanyDto
 {
