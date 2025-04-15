@@ -8,9 +8,8 @@ internal sealed class AddEmployerToCompanyDtoValidator : AbstractValidator<AddEm
 {
     public AddEmployerToCompanyDtoValidator()
     {
-        RuleFor(x => x.UserEmail)
-            .NotEmpty().WithMessage(Errors.Required)
-            .EmailAddress().WithMessage(Errors.InvalidValue);
+        RuleFor(x => x.UserId)
+            .NotEmpty().WithMessage(Errors.Required);
 
         RuleFor(x => x.Position)
             .NotEmpty().WithMessage(Errors.Required);
