@@ -1,12 +1,15 @@
 ﻿using JobOffersApi.Abstractions.Commands;
+using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Abstractions.Exceptions;
+using JobOffersApi.Abstractions.Messaging;
 using JobOffersApi.Abstractions.Time;
 using JobOffersApi.Modules.Companies.Core.Entities;
+using JobOffersApi.Modules.Companies.Core.Events;
 using JobOffersApi.Modules.Companies.Core.Exceptions;
 using JobOffersApi.Modules.Companies.Core.Repositories;
-using JobOffersApi.Modules.Companies.Core.Storages;
+using JobOffersApi.Modules.Companies.Core.Services;
 using JobOffersApi.Modules.Users.Integration.Queries;
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +21,9 @@ internal sealed class AddEmployerToCompanyCommandHandler : ICommandHandler<AddEm
     private readonly IEmployersRepository _employersRepository;
     private readonly IClock _clock;
     private readonly IDispatcher _dispatcher;
-    private readonly ICompaniesStorage _companiesStorage;
+    private readonly IContext _context;
+    private readonly IAuthorizationCompanyService _authorizationCompanyService;
+    private readonly IMessageBroker _messageBroker;
     private readonly ILogger<AddEmployerToCompanyCommandHandler> _logger;
 
     public AddEmployerToCompanyCommandHandler(
@@ -26,46 +31,43 @@ internal sealed class AddEmployerToCompanyCommandHandler : ICommandHandler<AddEm
         IEmployersRepository employersRepository,
         IClock clock,
         IDispatcher dispatcher,
+        IContext context,
+        IAuthorizationCompanyService authorizationCompanyService,
         ILogger<AddEmployerToCompanyCommandHandler> logger,
-        ICompaniesStorage companiesStorage)
+        IMessageBroker messageBroker)
     {
         _companiesRepository = companiesRepository;
         _employersRepository = employersRepository;
         _clock = clock;
         _dispatcher = dispatcher;
+        _context = context;
+        _authorizationCompanyService = authorizationCompanyService;
         _logger = logger;
-        _companiesStorage = companiesStorage;
+        _messageBroker = messageBroker;
     }
 
     public async Task HandleAsync(AddEmployerToCompanyCommand command, CancellationToken cancellationToken = default)
     {
-        var company = await _companiesRepository.GetAsync(command.CompanyId, cancellationToken);
+        var invokerId = _context.Identity.Id;
+        var isWorkingInCompany = await _authorizationCompanyService.IsWorkingInCompanyAsync(
+            command.CompanyId, invokerId, cancellationToken);
 
-        if (company is null)
+        if(!isWorkingInCompany)
         {
-            throw new CompanyNotFoundException(command.CompanyId);
-        }
-
-        if (command.InvokerRole != Roles.Admin)
-        {
-            var hasAccess = await _companiesStorage.IsWorkingAsync(company.Id, command.InvokerId, cancellationToken);
-            if(!hasAccess)
-            {
-                throw new UnauthorizedCompanyAccessException(company.Id, command.InvokerId);
-            }
+            throw new EmployeeNotBelongToCompanyException(invokerId, command.CompanyId);
         }
 
         var user = await _dispatcher.QueryAsync(
-            new UserQueryByEmail { Email = command.UserEmail }, cancellationToken);
+            new UserQuery { UserId = command.UserId }, cancellationToken);
 
         if(user is null)
         {
-            throw new UserNotFoundException(command.UserEmail);
+            throw new UserNotFoundException(command.UserId);
         }
 
-        if(user.RoleName != Roles.Employer)
+        if(user.RoleName != Roles.Employer || user.RoleName != Roles.OwnerCompany)
         {
-            throw new InvalidUserRoleException("A user with a role other than employer cannot be added to a company.");
+            throw new InvalidUserRoleException("A user with a role other than employer or owner-company cannot be added to a company.");
         }
 
         var employer = await _employersRepository.GetAsync(user.Id, cancellationToken);
@@ -74,14 +76,19 @@ internal sealed class AddEmployerToCompanyCommandHandler : ICommandHandler<AddEm
         {
             employer = new Employer(user.Id, user.FirstName, user.LastName,
                 user.DateOfBirth, _clock.CurrentDateOffset());
+
             await _employersRepository.AddAsync(employer, cancellationToken);
         }
 
-        company.AddEmployer(employer, command.Position, _clock.CurrentDateOffset());
+        var company = await _companiesRepository.GetAsync(command.CompanyId, cancellationToken);
+        company!.AddEmployer(employer, command.Position, _clock.CurrentDateOffset());
 
         await _companiesRepository.UpdateAsync(company, cancellationToken);
 
-        _logger.LogInformation($"Employer with email: {command.UserEmail} " +
+        await _messageBroker.PublishAsync(
+                new EmployerAddedToCompany(command.UserId, command.CompanyId), cancellationToken);
+
+        _logger.LogInformation($"Employer with id: {command.UserId} " +
             $"was successfully added to company with id: {command.CompanyId}.");
     }
 }

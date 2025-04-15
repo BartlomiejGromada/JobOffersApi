@@ -6,21 +6,15 @@ internal class AddEmployerToCompanyCommand : ICommand
 {
     public AddEmployerToCompanyCommand(
         Guid companyId,
-        string userEmail, 
-        string position, 
-        Guid invokerId,
-        string invokerRole)
+        Guid userId, 
+        string position)
     {
         CompanyId = companyId;
-        UserEmail = userEmail;
+        UserId = userId;
         Position = position;
-        InvokerId = invokerId;
-        InvokerRole = invokerRole;
     }
 
     public Guid CompanyId { get; init; }
-    public string UserEmail { get; init; }
+    public Guid UserId { get; init; }
     public string Position { get; init; }
-    public Guid InvokerId { get; init; }
-    public string InvokerRole { get; init; }
 }

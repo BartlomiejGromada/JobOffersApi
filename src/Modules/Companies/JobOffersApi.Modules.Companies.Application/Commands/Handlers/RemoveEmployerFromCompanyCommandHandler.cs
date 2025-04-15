@@ -1,10 +1,16 @@
 ﻿using JobOffersApi.Abstractions.Commands;
+using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Abstractions.Core;
+using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Abstractions.Exceptions;
+using JobOffersApi.Abstractions.Messaging;
 using JobOffersApi.Abstractions.Time;
+using JobOffersApi.Modules.Companies.Core.Events;
 using JobOffersApi.Modules.Companies.Core.Exceptions;
 using JobOffersApi.Modules.Companies.Core.Repositories;
+using JobOffersApi.Modules.Companies.Core.Services;
 using JobOffersApi.Modules.Companies.Core.Storages;
+using JobOffersApi.Modules.Users.Integration.Queries;
 using Microsoft.Extensions.Logging;
 
 namespace JobOffersApi.Modules.Companies.Application.Commands.Handlers;
@@ -13,53 +19,63 @@ internal sealed class RemoveEmployerFromCompanyCommandHandler
     : ICommandHandler<RemoveEmployerFromCompanyCommand>
 {
     private readonly ICompaniesRepository _companiesRepository;
-    private readonly IEmployersStorage _employersStorage;
-    private readonly ICompaniesStorage _companiesStorage;
+    private readonly IDispatcher _dispatcher;
+    private readonly IMessageBroker _messageBroker;
+    private readonly IContext _context;
+    private readonly IAuthorizationCompanyService _authorizationCompanyService;
     private readonly ILogger<RemoveEmployerFromCompanyCommandHandler> _logger;
 
     public RemoveEmployerFromCompanyCommandHandler(
         ICompaniesRepository companiesRepository,
-        IEmployersStorage employersStorage,
         IClock clock,
-        ICompaniesStorage companiesStorage,
+        IDispatcher dispatcher,
+        IMessageBroker messageBroker,
+        IContext context,
+        IAuthorizationCompanyService authorizationCompanyService,
         ILogger<RemoveEmployerFromCompanyCommandHandler> logger)
     {
         _companiesRepository = companiesRepository;
-        _employersStorage = employersStorage;
-        _companiesStorage = companiesStorage;
+        _dispatcher = dispatcher;
+        _messageBroker = messageBroker;
+        _context = context;
+        _authorizationCompanyService = authorizationCompanyService;
         _logger = logger;
     }
 
     public async Task HandleAsync(RemoveEmployerFromCompanyCommand command, CancellationToken cancellationToken = default)
     {
-        var company = await _companiesRepository.GetAsync(command.CompanyId, cancellationToken);
+        var invokerId = _context.Identity.Id;
+        var isWorkingInCompany = await _authorizationCompanyService.IsWorkingInCompanyAsync(
+            command.CompanyId, invokerId, cancellationToken);
 
-        if (company is null)
+        if (!isWorkingInCompany)
         {
-            throw new CompanyNotFoundException(command.CompanyId);
+            throw new EmployeeNotBelongToCompanyException(invokerId, command.CompanyId);
         }
 
-        if (command.InvokerRole != Roles.Admin)
-        {
-            var hasAccess = await _companiesStorage.IsWorkingAsync(company.Id, command.InvokerId, cancellationToken);
-            if (!hasAccess)
-            {
-                throw new UnauthorizedCompanyAccessException(company.Id, command.InvokerId);
-            }
-        }
+        var user = await _dispatcher.QueryAsync(
+                 new UserQuery { UserId = command.EmployerId }, cancellationToken);
 
-        var employer = await _employersStorage.GetByIdAsync(command.EmployerId, cancellationToken);
-
-        if (employer is null)
+        if (user is null)
         {
             throw new UserNotFoundException(command.EmployerId);
         }
 
-        company.RemoveEmployer(command.EmployerId);
+        if (user.RoleName != Roles.Employer)
+        {
+            throw new InvalidUserRoleException("A user with a role other than employer cannot be removed from a company.");
+        }
+
+        var company = await _companiesRepository.GetAsync(command.CompanyId, cancellationToken);
+       
+        company!.RemoveEmployer(command.EmployerId);
 
         await _companiesRepository.UpdateAsync(company, cancellationToken);
 
-        _logger.LogInformation($"Employer with id: {employer.Id} " +
+        await _messageBroker.PublishAsync(
+                new EmployerRemovedFromCompany(command.EmployerId, command.CompanyId), cancellationToken);
+
+        _logger.LogInformation($"Employer with id: {command.EmployerId} " +
             $"was successfully removed from company with id: {command.CompanyId}.");
     }
 }

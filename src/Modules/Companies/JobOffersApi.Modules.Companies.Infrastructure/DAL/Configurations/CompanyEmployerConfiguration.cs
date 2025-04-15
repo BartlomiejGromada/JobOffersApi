@@ -24,5 +24,13 @@ internal sealed class CompanyEmployerConfiguration : IEntityTypeConfiguration<Co
         builder.HasOne(x => x.Employer)
             .WithMany(y => y.CompaniesEmployers)
             .HasForeignKey(x => x.EmployerId);
+
+
+        builder.Navigation(c => c.Company)
+            .AutoInclude();
+
+
+        builder.Navigation(c => c.Employer)
+            .AutoInclude();
     }
 }

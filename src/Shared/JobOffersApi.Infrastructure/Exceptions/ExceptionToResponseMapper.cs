@@ -15,6 +15,8 @@ public class ExceptionToResponseMapper : IExceptionToResponseMapper
         {
             ModularException ex => new ExceptionResponse(new ErrorsResponse(new Error(GetErrorCode(ex), ex.Message))
                 , HttpStatusCode.BadRequest),
+            ForbiddenException ex => new ExceptionResponse(new ErrorsResponse(new Error(GetErrorCode(ex), ex.Message))
+                , HttpStatusCode.Forbidden),
             _ => new ExceptionResponse(new ErrorsResponse(new Error("error", "There was an error.")),
                 HttpStatusCode.InternalServerError)
         };

@@ -34,7 +34,7 @@ internal sealed class JobOffersService : IJobOffersService
             return;
         }
 
-        if(userRole == Roles.Employer)
+        if(userRole == Roles.Employer || userRole == Roles.OwnerCompany)
         {
             var hasAccess = await _companiesService.HasAccessAsync(jobOffer.CompanyId, userId, cancellationToken);
             if (!hasAccess)

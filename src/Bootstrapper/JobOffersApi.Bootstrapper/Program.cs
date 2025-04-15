@@ -20,6 +20,6 @@ public class Program
 
 // TODO: 
 // - nowe funcjonalnoœci zgonde z prac¹
-// - dodaæ dla kazdego modulu warstwê aplikacji
+// - IHttpContextAccessor _httpContextAccessor w pliku RemoveCompanyCommandHandler [lepiej zrobic role]; 
 // - poprawiæ Dockera
 // - wersjonowanie dodaæ moze - wtedy dopisac do rozdzailu 6 wersjonowanie api

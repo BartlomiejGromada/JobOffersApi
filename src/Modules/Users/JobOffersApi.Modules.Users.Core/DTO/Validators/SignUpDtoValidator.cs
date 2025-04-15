@@ -28,7 +28,7 @@ internal sealed class SignUpDtoValidator : AbstractValidator<SignUpDto>
            .MaximumLength(150).WithMessage(Errors.MaxLengthExceeded(150));
 
         RuleFor(x => x.Role)
-            .IsInEnum().WithMessage(Errors.InvalidValue);
+            .NotEmpty().WithMessage(Errors.InvalidValue);
 
         RuleFor(x => x.DateOfBirth)
             .NotNull().WithMessage(Errors.Required)

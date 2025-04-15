@@ -8,15 +8,18 @@ internal sealed class CompanyConfiguration : IEntityTypeConfiguration<Company>
 {
     public void Configure(EntityTypeBuilder<Company> builder)
     {
-        builder.HasKey(x => x.Id);
+        builder.HasKey(c => c.Id);
 
-        builder.Property(x => x.Name)
+        builder.Property(c => c.Name)
             .IsRequired();
 
-        builder.Property(x => x.Description)
+        builder.Property(c => c.Description)
             .IsRequired();
 
-        builder.Property(x => x.CreatedDate)
+        builder.Property(c => c.CreatedDate)
             .IsRequired();
+
+        builder.Navigation(c => c.CompaniesEmployers)
+            .AutoInclude();
     }
 }

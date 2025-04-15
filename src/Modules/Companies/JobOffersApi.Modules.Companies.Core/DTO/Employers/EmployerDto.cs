@@ -1,4 +1,4 @@
-﻿namespace JobOffersApi.Modules.Companies.Core.DTO;
+﻿namespace JobOffersApi.Modules.Companies.Core.DTO.Employers;
 
 internal class EmployerDto
 {

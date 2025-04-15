@@ -1,18 +1,18 @@
 ﻿using FluentValidation;
 using JobOffersApi.Abstractions.Core;
-using JobOffersApi.Modules.Companies.Core.DTO.Employers;
+using JobOffersApi.Modules.Companies.Core.DTO.Companies;
 
 namespace JobOffersApi.Modules.Companies.Core.DTO.Validators;
 
-internal sealed class AddEmployerToCompanyDtoValidator : AbstractValidator<AddEmployerToCompanyDto>
+internal sealed class AddCompanyDtoValidator : AbstractValidator<AddCompanyDto>
 {
-    public AddEmployerToCompanyDtoValidator()
+    public AddCompanyDtoValidator()
     {
-        RuleFor(x => x.UserEmail)
+        RuleFor(x => x.Name)
             .NotEmpty().WithMessage(Errors.Required)
             .EmailAddress().WithMessage(Errors.InvalidValue);
 
-        RuleFor(x => x.Position)
+        RuleFor(x => x.Description)
             .NotEmpty().WithMessage(Errors.Required);
     }
 }

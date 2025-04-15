@@ -1,4 +1,4 @@
-﻿using JobOffersApi.Modules.Companies.Core.DTO;
+﻿using JobOffersApi.Modules.Companies.Core.DTO.Employers;
 using JobOffersApi.Modules.Companies.Core.DTO.Extensions;
 using JobOffersApi.Modules.Companies.Core.Entities;
 using JobOffersApi.Modules.Companies.Core.Storages;
