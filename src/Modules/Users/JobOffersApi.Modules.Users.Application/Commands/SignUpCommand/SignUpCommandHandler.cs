@@ -11,7 +11,7 @@ using JobOffersApi.Abstractions.Time;
 using JobOffersApi.Abstractions.Kernel;
 using JobOffersApi.Modules.Users.Core;
 
-namespace JobOffersApi.Modules.Users.Application.Commands.Handlers;
+namespace JobOffersApi.Modules.Users.Application.Commands.SignUpCommand;
 
 internal sealed class SignUpCommandHandler : ICommandHandler<SignUpCommand>
 {
@@ -50,14 +50,14 @@ internal sealed class SignUpCommandHandler : ICommandHandler<SignUpCommand>
         {
             throw new SignUpDisabledException();
         }
-        
+
         var email = command.Email.ToLowerInvariant();
         var provider = email.Split("@").Last();
         if (_registrationOptions.InvalidEmailProviders?.Any(x => provider.Contains(x)) is true)
         {
             throw new InvalidEmailException(email);
         }
-        
+
         var user = await _userRepository.GetAsync(email);
         if (user is not null)
         {
@@ -72,7 +72,7 @@ internal sealed class SignUpCommandHandler : ICommandHandler<SignUpCommand>
 
         user = new User(
             command.Email,
-            password, 
+            password,
             command.FirstName,
             command.LastName,
             role,

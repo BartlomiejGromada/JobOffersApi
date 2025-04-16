@@ -7,7 +7,7 @@ using JobOffersApi.Modules.Users.Core.Entities;
 using JobOffersApi.Modules.Users.Integration.Exceptions;
 using JobOffersApi.Modules.Users.Core.Exceptions;
 
-namespace JobOffersApi.Modules.Users.Application.Commands.Handlers;
+namespace JobOffersApi.Modules.Users.Application.Commands.ChangePasswordCommand;
 
 internal sealed class ChangePasswordCommandHandler : ICommandHandler<ChangePasswordCommand>
 {

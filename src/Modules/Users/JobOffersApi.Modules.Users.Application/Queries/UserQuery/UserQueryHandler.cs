@@ -3,9 +3,9 @@ using JobOffersApi.Modules.Users.Core.Storages;
 using JobOffersApi.Modules.Users.Integration.Queries;
 using JobOffersApi.Modules.Users.Integration.DTO;
 
-namespace JobOffersApi.Modules.Users.Application.Queries.Handlers;
+namespace JobOffersApi.Modules.Users.Application.Queries.UserQuery;
 
-internal sealed class UserQueryHandler : IQueryHandler<UserQuery, UserDto?>
+internal sealed class UserQueryHandler : IQueryHandler<Integration.Queries.UserQuery, UserDto?>
 {
     private readonly IUsersStorage _storage;
 
@@ -14,7 +14,7 @@ internal sealed class UserQueryHandler : IQueryHandler<UserQuery, UserDto?>
         _storage = storage;
     }
 
-    public Task<UserDto?> HandleAsync(UserQuery query, CancellationToken cancellationToken = default)
+    public Task<UserDto?> HandleAsync(Integration.Queries.UserQuery query, CancellationToken cancellationToken = default)
         => _storage.GetAsync(query.UserId, cancellationToken);
 }
 

@@ -4,7 +4,7 @@ using JobOffersApi.Modules.Users.Core.DTO;
 using JobOffersApi.Abstractions.Queries;
 using JobOffersApi.Modules.Users.Core.Storages;
 
-namespace JobOffersApi.Modules.Users.Application.Queries.Handlers;
+namespace JobOffersApi.Modules.Users.Application.Queries.UserDetailsQuery;
 
 internal sealed class UserDetailsQueryHandler : IQueryHandler<UserDetailsQuery, UserDetailsDto?>
 {

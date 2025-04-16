@@ -11,8 +11,10 @@ using JobOffersApi.Abstractions.Api;
 using JobOffersApi.Modules.Users.Integration.Queries;
 using JobOffersApi.Modules.Users.Integration.DTO;
 using System.Threading;
-using JobOffersApi.Modules.Users.Application.Commands;
-using JobOffersApi.Modules.Users.Application.Queries;
+using JobOffersApi.Modules.Users.Application.Commands.SignUpCommand;
+using JobOffersApi.Modules.Users.Application.Commands.SignInCommand;
+using JobOffersApi.Modules.Users.Application.Commands.SignOutCommand;
+using JobOffersApi.Modules.Users.Application.Queries.UserDetailsQuery;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 

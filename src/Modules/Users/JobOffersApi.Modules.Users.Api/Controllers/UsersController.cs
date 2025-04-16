@@ -11,6 +11,8 @@ using JobOffersApi.Abstractions.Api;
 using JobOffersApi.Modules.Users.Integration.DTO;
 using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Modules.Users.Application.Queries;
+using JobOffersApi.Modules.Users.Application.Queries.BrowseUsers;
+using JobOffersApi.Modules.Users.Application.Queries.UserDetailsQuery;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 

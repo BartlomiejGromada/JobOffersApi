@@ -6,14 +6,13 @@ using JobOffersApi.Abstractions.Dispatchers;
 using Swashbuckle.AspNetCore.Annotations;
 using JobOffersApi.Abstractions.Api;
 using JobOffersApi.Modules.Users.Core.DTO;
-using JobOffersApi.Modules.Users.Application.Commands;
+using JobOffersApi.Modules.Users.Application.Commands.ChangePasswordCommand;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
 [Route("api/passwords")]
 internal class PasswordController : BaseController
 {
-
     public PasswordController(IDispatcher dispatcher) : base(dispatcher)
     {
     }

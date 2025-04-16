@@ -14,7 +14,7 @@ using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Modules.Users.Core.Events;
 using JobOffersApi.Abstractions.Messaging;
 
-namespace JobOffersApi.Modules.Users.Application.Commands.Handlers;
+namespace JobOffersApi.Modules.Users.Application.Commands.SignInCommand;
 
 internal sealed class SignInCommandHandler : ICommandHandler<SignInCommand>
 {
@@ -27,7 +27,7 @@ internal sealed class SignInCommandHandler : ICommandHandler<SignInCommand>
     private readonly IMessageBroker _messageBroker;
 
     public SignInCommandHandler(
-        IUsersRepository userRepository, 
+        IUsersRepository userRepository,
         IAuthManager authManager,
         IPasswordHasher<User> passwordHasher,
         IUserRequestStorage userRequestStorage,
@@ -51,7 +51,7 @@ internal sealed class SignInCommandHandler : ICommandHandler<SignInCommand>
 
         bool isValidPassword = _passwordHasher.VerifyHashedPassword
             (user: default,
-            user.HashedPassword, 
+            user.HashedPassword,
             command.Password) == PasswordVerificationResult.Success;
 
         if (!isValidPassword)
@@ -65,7 +65,7 @@ internal sealed class SignInCommandHandler : ICommandHandler<SignInCommand>
         };
 
         var jwt = _authManager.CreateToken(
-            user.Id, 
+            user.Id,
             user.Role.Name,
             claims: claims);
 

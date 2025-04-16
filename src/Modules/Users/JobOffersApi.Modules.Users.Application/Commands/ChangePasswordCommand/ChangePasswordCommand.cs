@@ -1,6 +1,6 @@
 ﻿using JobOffersApi.Abstractions.Commands;
 
-namespace JobOffersApi.Modules.Users.Application.Commands;
+namespace JobOffersApi.Modules.Users.Application.Commands.ChangePasswordCommand;
 
 internal record ChangePasswordCommand(
     string Email,

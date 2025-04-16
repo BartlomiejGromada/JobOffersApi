@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using JobOffersApi.Abstractions.Commands;
 
-namespace JobOffersApi.Modules.Users.Application.Commands.Handlers;
+namespace JobOffersApi.Modules.Users.Application.Commands.SignOutCommand;
 
 internal sealed class SignOutCommandHandler : ICommandHandler<SignOutCommand>
 {
@@ -11,7 +11,7 @@ internal sealed class SignOutCommandHandler : ICommandHandler<SignOutCommand>
     {
         _logger = logger;
     }
-    
+
     public async Task HandleAsync(SignOutCommand command, CancellationToken cancellationToken = default)
     {
         await Task.CompletedTask;

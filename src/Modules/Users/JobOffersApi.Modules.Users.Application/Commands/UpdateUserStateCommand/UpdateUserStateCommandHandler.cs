@@ -5,9 +5,8 @@ using JobOffersApi.Abstractions;
 using JobOffersApi.Abstractions.Commands;
 using JobOffersApi.Abstractions.Messaging;
 using JobOffersApi.Modules.Users.Integration.Exceptions;
-using JobOffersApi.Modules.Users.Application.Commands;
 
-namespace JobOffersApi.Modules.Users.Core.Commands.Handlers;
+namespace JobOffersApi.Modules.Users.Application.Commands.UpdateUserStateCommand;
 
 internal sealed class UpdateUserStateCommandHandler : ICommandHandler<UpdateUserStateCommand>
 {
@@ -33,7 +32,7 @@ internal sealed class UpdateUserStateCommandHandler : ICommandHandler<UpdateUser
         {
             return;
         }
-        
+
         user.SetState(command.State);
 
         await _userRepository.UpdateAsync(user);

@@ -9,7 +9,7 @@ public class UsersTests
     [Fact]
     public void Should_Block_User_End_With_Success()
     {
-        // Act
+        // Arrange
         var user = new User(
             string.Empty,
             "12121@@2323ddfd",
@@ -19,7 +19,7 @@ public class UsersTests
             DateOnly.MinValue,
             DateTimeOffset.Now);
 
-        // Arrange
+        // Act
         user.SetState(UserState.Locked);
 
         // Assert
@@ -29,7 +29,7 @@ public class UsersTests
     [Fact]
     public void Should_UnBlock_User_End_With_Success()
     {
-        // Act
+        // Arrange
         var user = new User(
             string.Empty,
             "12121@@2323ddfd",
@@ -41,7 +41,7 @@ public class UsersTests
 
         user.SetState(UserState.Locked);
 
-        // Arrange
+        // Act
         user.SetState(UserState.Active);
 
         // Assert
@@ -51,7 +51,7 @@ public class UsersTests
     [Fact]
     public void Should_Change_User_State_Throw_Exception()
     {
-        // Act
+        // Arrange
         var user = new User(
             string.Empty,
             "12121@@2323ddfd",
@@ -61,7 +61,7 @@ public class UsersTests
             DateOnly.MinValue,
             DateTimeOffset.Now);
 
-        // Arrange & Assert
+        // Act & Assert
         var exception = Assert.Throws<UserStateCannotBeChangedException>(() =>
           user.SetState(UserState.Active)
       );

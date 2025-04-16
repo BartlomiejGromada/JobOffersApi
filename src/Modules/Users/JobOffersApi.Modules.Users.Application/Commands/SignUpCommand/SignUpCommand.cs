@@ -1,7 +1,7 @@
 ﻿using System;
 using JobOffersApi.Abstractions.Commands;
 
-namespace JobOffersApi.Modules.Users.Application.Commands;
+namespace JobOffersApi.Modules.Users.Application.Commands.SignUpCommand;
 
 internal record SignUpCommand(
     string Email,

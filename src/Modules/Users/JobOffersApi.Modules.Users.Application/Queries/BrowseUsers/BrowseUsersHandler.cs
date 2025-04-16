@@ -2,7 +2,7 @@
 using JobOffersApi.Modules.Users.Core.Storages;
 using JobOffersApi.Modules.Users.Integration.DTO;
 
-namespace JobOffersApi.Modules.Users.Application.Queries.Handlers;
+namespace JobOffersApi.Modules.Users.Application.Queries.BrowseUsers;
 
 internal sealed class BrowseUsersHandler : IQueryHandler<BrowseUsers, Paged<UserDto>>
 {
