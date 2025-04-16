@@ -8,7 +8,9 @@ using JobOffersApi.Abstractions.Queries;
 using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
-using JobOffersApi.Modules.JobOffers.Application.Queries;
+using JobOffersApi.Modules.JobOffers.Application.Queries.JobApplicationsQuery;
+using JobOffersApi.Modules.JobOffers.Application.Queries.JobApplicationQuery;
+using JobOffersApi.Modules.JobOffers.Application.Queries.JobApplicationCVQuery;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 

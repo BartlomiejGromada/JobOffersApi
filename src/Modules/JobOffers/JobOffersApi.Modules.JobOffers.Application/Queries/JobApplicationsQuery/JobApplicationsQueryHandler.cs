@@ -3,7 +3,7 @@ using JobOffersApi.Modules.JobOffers.Application.Services;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
 using JobOffersApi.Modules.JobOffers.Core.Storages;
 
-namespace JobOffersApi.Modules.JobOffers.Application.Queries.Handlers;
+namespace JobOffersApi.Modules.JobOffers.Application.Queries.JobApplicationsQuery;
 
 internal sealed class JobApplicationsQueryHandler : IQueryHandler<JobApplicationsQuery, Paged<JobApplicationDto>>
 {

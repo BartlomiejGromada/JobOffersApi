@@ -8,7 +8,7 @@ using JobOffersApi.Modules.Users.Core.Events;
 using JobOffersApi.Modules.Users.Integration.Services;
 using Microsoft.Extensions.Logging;
 
-namespace JobOffersApi.Modules.JobOffers.Application.Commands;
+namespace JobOffersApi.Modules.JobOffers.Application.Commands.AddJobOfferCommand;
 
 internal class AddJobOfferCommandHandler : ICommandHandler<AddJobOfferCommand>
 {

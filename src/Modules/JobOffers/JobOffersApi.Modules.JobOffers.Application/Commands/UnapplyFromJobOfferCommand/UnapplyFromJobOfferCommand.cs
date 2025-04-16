@@ -1,6 +1,6 @@
 ﻿using JobOffersApi.Abstractions.Commands;
 
-namespace JobOffersApi.Modules.JobOffers.Application.Commands;
+namespace JobOffersApi.Modules.JobOffers.Application.Commands.UnapplyFromJobOfferCommand;
 
 internal class UnapplyFromJobOfferCommand : ICommand
 {

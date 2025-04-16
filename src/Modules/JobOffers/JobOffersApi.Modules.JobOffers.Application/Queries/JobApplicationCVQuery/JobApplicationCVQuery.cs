@@ -1,6 +1,6 @@
 ﻿using JobOffersApi.Abstractions.Queries;
 
-namespace JobOffersApi.Modules.JobOffers.Application.Queries;
+namespace JobOffersApi.Modules.JobOffers.Application.Queries.JobApplicationCVQuery;
 
 internal class JobApplicationCVQuery : IQuery<byte[]?>
 {

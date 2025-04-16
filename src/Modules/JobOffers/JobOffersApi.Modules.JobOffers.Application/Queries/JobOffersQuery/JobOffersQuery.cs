@@ -2,7 +2,7 @@
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 using JobOffersApi.Modules.JobOffers.Core.Entities;
 
-namespace JobOffersApi.Modules.JobOffers.Application.Queries;
+namespace JobOffersApi.Modules.JobOffers.Application.Queries.JobOffersQuery;
 
 internal class JobOffersQuery : PagedQuery<JobOfferDto>
 {

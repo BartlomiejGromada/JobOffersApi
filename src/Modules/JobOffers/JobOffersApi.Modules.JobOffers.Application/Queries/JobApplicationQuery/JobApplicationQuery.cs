@@ -1,7 +1,7 @@
 ﻿using JobOffersApi.Abstractions.Queries;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
 
-namespace JobOffersApi.Modules.JobOffers.Application.Queries;
+namespace JobOffersApi.Modules.JobOffers.Application.Queries.JobApplicationQuery;
 
 internal class JobApplicationQuery : IQuery<JobApplicationDto?>
 {

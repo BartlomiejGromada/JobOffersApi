@@ -11,7 +11,7 @@ using JobOffersApi.Modules.Users.Integration.DTO;
 using JobOffersApi.Modules.Users.Integration.Services;
 using Microsoft.Extensions.Logging;
 
-namespace JobOffersApi.Modules.JobOffers.Application.Commands.Handlers;
+namespace JobOffersApi.Modules.JobOffers.Application.Commands.ApplyForJobOfferCommand;
 
 internal sealed class ApplyForJobOfferCommandHandler : ICommandHandler<ApplyForJobOfferCommand>
 {
@@ -47,7 +47,7 @@ internal sealed class ApplyForJobOfferCommandHandler : ICommandHandler<ApplyForJ
         var jobOffer = await ValidateJobOfferAsync(command.JobOfferId, cancellationToken);
 
         var jobApplication = CreateJobApplication(
-            command, 
+            command,
             user,
             cvBytes);
 
@@ -63,7 +63,7 @@ internal sealed class ApplyForJobOfferCommandHandler : ICommandHandler<ApplyForJ
     }
 
     private async Task<JobOffer> ValidateJobOfferAsync(
-        Guid jobOfferId, 
+        Guid jobOfferId,
         CancellationToken cancellationToken)
     {
         var jobOffer = await _repository.GetAsync(jobOfferId, cancellationToken);
@@ -78,7 +78,7 @@ internal sealed class ApplyForJobOfferCommandHandler : ICommandHandler<ApplyForJ
 
     private JobApplication CreateJobApplication(
         ApplyForJobOfferCommand command,
-        UserDto user, 
+        UserDto user,
         byte[] cvBytes)
     {
         var dto = command.Dto;

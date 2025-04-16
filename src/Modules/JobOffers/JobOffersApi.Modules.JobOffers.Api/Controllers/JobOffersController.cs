@@ -9,8 +9,12 @@ using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
-using JobOffersApi.Modules.JobOffers.Application.Queries;
-using JobOffersApi.Modules.JobOffers.Application.Commands;
+using JobOffersApi.Modules.JobOffers.Application.Queries.JobOffersQuery;
+using JobOffersApi.Modules.JobOffers.Application.Commands.ApplyForJobOfferCommand;
+using JobOffersApi.Modules.JobOffers.Application.Commands.RemoveJobOfferCommand;
+using JobOffersApi.Modules.JobOffers.Application.Commands.AddJobOfferCommand;
+using JobOffersApi.Modules.JobOffers.Application.Queries.JobOfferQuery;
+using JobOffersApi.Modules.JobOffers.Application.Commands.UnapplyFromJobOfferCommand;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 

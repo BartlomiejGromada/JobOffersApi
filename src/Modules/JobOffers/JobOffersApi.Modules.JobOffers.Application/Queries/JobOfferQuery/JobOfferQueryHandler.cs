@@ -2,7 +2,7 @@
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 using JobOffersApi.Modules.JobOffers.Core.Storages;
 
-namespace JobOffersApi.Modules.JobOffers.Application.Queries.Handlers;
+namespace JobOffersApi.Modules.JobOffers.Application.Queries.JobOfferQuery;
 
 internal sealed class JobOfferQueryHandler : IQueryHandler<JobOfferQuery, JobOfferDetailsDto?>
 {

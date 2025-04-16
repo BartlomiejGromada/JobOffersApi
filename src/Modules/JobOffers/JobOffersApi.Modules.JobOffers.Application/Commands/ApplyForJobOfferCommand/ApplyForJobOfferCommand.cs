@@ -1,7 +1,7 @@
 ﻿using JobOffersApi.Abstractions.Commands;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
 
-namespace JobOffersApi.Modules.JobOffers.Application.Commands;
+namespace JobOffersApi.Modules.JobOffers.Application.Commands.ApplyForJobOfferCommand;
 
 internal class ApplyForJobOfferCommand : ICommand
 {
