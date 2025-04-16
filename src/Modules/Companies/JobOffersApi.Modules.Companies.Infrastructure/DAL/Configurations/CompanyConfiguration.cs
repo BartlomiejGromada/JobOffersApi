@@ -19,6 +19,16 @@ internal sealed class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.Property(c => c.CreatedDate)
             .IsRequired();
 
+        builder.OwnsOne(c => c.Location, cb =>
+        {
+            cb.Property(l => l.Country).HasMaxLength(100).IsRequired();
+            cb.Property(l => l.City).HasMaxLength(100).IsRequired();
+            cb.Property(l => l.Street).HasMaxLength(200).IsRequired(required: false);
+            cb.Property(l => l.HouseNumber).HasMaxLength(20).IsRequired();
+            cb.Property(l => l.ApartmentNumber).HasMaxLength(10).IsRequired(required: false);
+            cb.Property(l => l.PostalCode).HasMaxLength(15).IsRequired(required: false);
+        });
+
         builder.Navigation(c => c.CompaniesEmployers)
             .AutoInclude();
     }

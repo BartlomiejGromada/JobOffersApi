@@ -13,7 +13,7 @@ using JobOffersApi.Modules.Companies.Core.Services;
 using JobOffersApi.Modules.Users.Integration.Queries;
 using Microsoft.Extensions.Logging;
 
-namespace JobOffersApi.Modules.Companies.Application.Commands.Handlers;
+namespace JobOffersApi.Modules.Companies.Application.Commands.AddEmployerToCompanyCommand;
 
 internal sealed class AddEmployerToCompanyCommandHandler : ICommandHandler<AddEmployerToCompanyCommand>
 {
@@ -50,9 +50,9 @@ internal sealed class AddEmployerToCompanyCommandHandler : ICommandHandler<AddEm
     {
         var invokerId = _context.Identity.Id;
         var isWorkingInCompany = await _authorizationCompanyService.IsWorkingInCompanyAsync(
-            command.CompanyId, invokerId, cancellationToken);
+           invokerId, command.CompanyId, cancellationToken);
 
-        if(!isWorkingInCompany)
+        if (!isWorkingInCompany)
         {
             throw new EmployeeNotBelongToCompanyException(invokerId, command.CompanyId);
         }
@@ -60,19 +60,19 @@ internal sealed class AddEmployerToCompanyCommandHandler : ICommandHandler<AddEm
         var user = await _dispatcher.QueryAsync(
             new UserQuery { UserId = command.UserId }, cancellationToken);
 
-        if(user is null)
+        if (user is null)
         {
             throw new UserNotFoundException(command.UserId);
         }
 
-        if(user.RoleName != Roles.Employer || user.RoleName != Roles.OwnerCompany)
+        if (user.RoleName != Roles.Employer && user.RoleName != Roles.OwnerCompany)
         {
             throw new InvalidUserRoleException("A user with a role other than employer or owner-company cannot be added to a company.");
         }
 
         var employer = await _employersRepository.GetAsync(user.Id, cancellationToken);
 
-        if(employer is null)
+        if (employer is null)
         {
             employer = new Employer(user.Id, user.FirstName, user.LastName,
                 user.DateOfBirth, _clock.CurrentDateOffset());

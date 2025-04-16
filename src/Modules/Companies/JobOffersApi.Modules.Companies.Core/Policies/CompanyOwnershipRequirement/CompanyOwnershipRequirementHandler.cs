@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace JobOffersApi.Modules.Companies.Core.Policies.CompanyOwnershipRequirement;
 
-internal sealed class CompanyMembershipRequirementHandler : AuthorizationHandler<CompanyOwnershipRequirement>
+internal sealed class CompanyOwnershipRequirementHandler : AuthorizationHandler<CompanyOwnershipRequirement>
 {
     private readonly IAuthorizationCompanyService _authorizationCompanyService;
     private readonly IContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public CompanyMembershipRequirementHandler(
+    public CompanyOwnershipRequirementHandler(
         IAuthorizationCompanyService authorizationCompanyService,
         IContext context,
         IHttpContextAccessor httpContextAccessor)

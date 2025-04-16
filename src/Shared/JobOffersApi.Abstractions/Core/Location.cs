@@ -1,27 +1,26 @@
-﻿using JobOffersApi.Abstractions.Core;
-using JobOffersApi.Modules.JobOffers.Core.Exceptions;
+﻿using JobOffersApi.Modules.JobOffers.Core.Exceptions;
 using System.Collections.Generic;
 
-namespace JobOffersApi.Modules.JobOffers.Core.Entities;
+namespace JobOffersApi.Abstractions.Core;
 
 public class Location : ValueObject
 {
     public string Country { get; private set; }
     public string City { get; private set; }
-    public string? Street { get; private set; }
+    public string Street { get; private set; }
     public string HouseNumber { get; private set; }
-    public string? ApartmentNumber { get; private set; }
-    public string? PostalCode { get; private set; }
+    public string ApartmentNumber { get; private set; }
+    public string PostalCode { get; private set; }
 
     private Location() { }
 
     public Location(
         string country,
-        string city, 
+        string city,
         string houseNumber,
-        string? street = null,
-        string? apartmentNumber = null,
-        string? postalCode = null)
+        string street = null,
+        string apartmentNumber = null,
+        string postalCode = null)
     {
         if (string.IsNullOrWhiteSpace(country))
             throw new InvalidLocationException("Country cannot be null or empty.");
@@ -38,7 +37,7 @@ public class Location : ValueObject
         PostalCode = postalCode;
     }
 
-    protected override IEnumerable<object?> GetAtomicValues()
+    protected override IEnumerable<object> GetAtomicValues()
     {
         yield return Country;
         yield return City;

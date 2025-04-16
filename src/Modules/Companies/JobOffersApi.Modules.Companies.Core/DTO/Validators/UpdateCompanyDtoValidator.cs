@@ -5,9 +5,9 @@ using JobOffersApi.Modules.Companies.Core.DTO.Companies;
 
 namespace JobOffersApi.Modules.Companies.Core.DTO.Validators;
 
-internal sealed class AddCompanyDtoValidator : AbstractValidator<AddCompanyDto>
+internal sealed class UpdateCompanyDtoValidator : AbstractValidator<UpdateCompanyDto>
 {
-    public AddCompanyDtoValidator()
+    public UpdateCompanyDtoValidator()
     {
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage(Errors.Required);

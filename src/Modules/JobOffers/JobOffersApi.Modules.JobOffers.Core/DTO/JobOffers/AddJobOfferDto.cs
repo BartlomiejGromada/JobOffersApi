@@ -1,4 +1,5 @@
-﻿using JobOffersApi.Modules.JobOffers.Core.Entities.JobMenus;
+﻿using JobOffersApi.Abstractions.DTO;
+using JobOffersApi.Modules.JobOffers.Core.Entities.JobMenus;
 
 namespace JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 
@@ -14,15 +15,6 @@ internal class AddJobOfferDto
     public int? ValidityInDays { get; init; }
 }
 
-internal class AddLocationDto
-{
-    public string Country { get; init; }
-    public string City { get; init; }
-    public string? Street { get; init; }
-    public string HouseNumber { get; init; }
-    public string? ApartmentNumber { get; init; }
-    public string? PostalCode { get; init; }
-}
 
 internal class AddJobAttribute
 {

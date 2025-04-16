@@ -1,12 +1,12 @@
 ﻿using JobOffersApi.Abstractions.Commands;
 
-namespace JobOffersApi.Modules.Companies.Application.Commands;
+namespace JobOffersApi.Modules.Companies.Application.Commands.AddEmployerToCompanyCommand;
 
 internal class AddEmployerToCompanyCommand : ICommand
 {
     public AddEmployerToCompanyCommand(
         Guid companyId,
-        Guid userId, 
+        Guid userId,
         string position)
     {
         CompanyId = companyId;

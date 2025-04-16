@@ -13,9 +13,9 @@ using JobOffersApi.Modules.Companies.Core.Storages;
 using JobOffersApi.Modules.Users.Integration.Queries;
 using Microsoft.Extensions.Logging;
 
-namespace JobOffersApi.Modules.Companies.Application.Commands.Handlers;
+namespace JobOffersApi.Modules.Companies.Application.Commands.RemoveEmployerFromCompany;
 
-internal sealed class RemoveEmployerFromCompanyCommandHandler 
+internal sealed class RemoveEmployerFromCompanyCommandHandler
     : ICommandHandler<RemoveEmployerFromCompanyCommand>
 {
     private readonly ICompaniesRepository _companiesRepository;
@@ -46,7 +46,7 @@ internal sealed class RemoveEmployerFromCompanyCommandHandler
     {
         var invokerId = _context.Identity.Id;
         var isWorkingInCompany = await _authorizationCompanyService.IsWorkingInCompanyAsync(
-            command.CompanyId, invokerId, cancellationToken);
+            invokerId, command.CompanyId, cancellationToken);
 
         if (!isWorkingInCompany)
         {
@@ -67,7 +67,7 @@ internal sealed class RemoveEmployerFromCompanyCommandHandler
         }
 
         var company = await _companiesRepository.GetAsync(command.CompanyId, cancellationToken);
-       
+
         company!.RemoveEmployer(command.EmployerId);
 
         await _companiesRepository.UpdateAsync(company, cancellationToken);

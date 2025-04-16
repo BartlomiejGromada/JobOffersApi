@@ -4,6 +4,7 @@ using JobOffersApi.Modules.Companies.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobOffersApi.Modules.Companies.Infrastructure.DAL.Migartions
 {
     [DbContext(typeof(CompaniesDbContext))]
-    partial class CompaniesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250416141512_CompaniesDbContext_AddedLocationToCompany")]
+    partial class CompaniesDbContext_AddedLocationToCompany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

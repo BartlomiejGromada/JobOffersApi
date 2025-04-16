@@ -1,4 +1,5 @@
-﻿using JobOffersApi.Modules.JobOffers.Core.Entities;
+﻿using JobOffersApi.Abstractions.Core;
+using JobOffersApi.Modules.JobOffers.Core.Entities;
 using JobOffersApi.Modules.JobOffers.Core.Entities.JobMenus;
 using JobOffersApi.Modules.JobOffers.Core.Exceptions;
 

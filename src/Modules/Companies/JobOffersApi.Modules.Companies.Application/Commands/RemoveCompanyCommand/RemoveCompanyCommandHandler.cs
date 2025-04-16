@@ -7,7 +7,7 @@ using JobOffersApi.Modules.Companies.Core.Repositories;
 using JobOffersApi.Modules.Companies.Core.Services;
 using Microsoft.Extensions.Logging;
 
-namespace JobOffersApi.Modules.Companies.Application.Commands.Handlers;
+namespace JobOffersApi.Modules.Companies.Application.Commands.RemoveCompanyCommand;
 
 internal sealed class RemoveCompanyCommandHandler : ICommandHandler<RemoveCompanyCommand>
 {
@@ -34,14 +34,14 @@ internal sealed class RemoveCompanyCommandHandler : ICommandHandler<RemoveCompan
     public async Task HandleAsync(RemoveCompanyCommand command, CancellationToken cancellationToken = default)
     {
         var userId = _context.Identity.Id;
-        var companyId = command.Id;
+        var companyId = command.CompanyId;
 
         var isCompanyOwner = await _authorizationCompanyService.IsCompanyOwnerAsync(
             userId,
             companyId,
             cancellationToken);
 
-        if (isCompanyOwner)
+        if (!isCompanyOwner)
         {
             throw new NotCompanyOwnerException(userId, companyId);
         }

@@ -22,6 +22,7 @@ internal static class Extensions
             Id = company.Id,
             Name = company.Name,
             Description = company.Description,
+            Location = company.Location,
             Employers = company.CompaniesEmployers.Select(ce => ce.Employer.ToDto()).ToList(),
         };
 }

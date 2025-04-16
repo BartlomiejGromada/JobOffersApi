@@ -1,7 +1,11 @@
 ﻿using JobOffersApi.Abstractions.Api;
 using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Abstractions.Dispatchers;
-using JobOffersApi.Modules.Companies.Application.Commands;
+using JobOffersApi.Modules.Companies.Application.Commands.AddCompanyCommand;
+using JobOffersApi.Modules.Companies.Application.Commands.AddEmployerToCompanyCommand;
+using JobOffersApi.Modules.Companies.Application.Commands.RemoveCompanyCommand;
+using JobOffersApi.Modules.Companies.Application.Commands.RemoveEmployerFromCompany;
+using JobOffersApi.Modules.Companies.Application.Commands.UpdateCompanyCommand;
 using JobOffersApi.Modules.Companies.Core.DTO.Companies;
 using JobOffersApi.Modules.Companies.Core.DTO.Employers;
 using Microsoft.AspNetCore.Authorization;
@@ -36,6 +40,7 @@ internal class CompaniesController : BaseController
             new AddCompanyCommand {
                 Name = dto.Name,
                 Description = dto.Description,
+                Location = dto.Location
             },
             cancellationToken);
 
@@ -55,7 +60,29 @@ internal class CompaniesController : BaseController
         await dispatcher.SendAsync(
             new RemoveCompanyCommand
             {
-                Id = id,
+                CompanyId = id,
+            },
+            cancellationToken);
+
+        return NoContent();
+    }
+
+    [HttpPut("{id:guid}")]
+    [Authorize(Roles = $"{Roles.OwnerCompany}")]
+    [Authorize(Policy = "CompanyOwnershipRequirement")]
+    [SwaggerOperation("Update company")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> UpdateAsync(
+        [FromRoute] Guid id,
+        [FromBody] UpdateCompanyDto dto,
+        CancellationToken cancellationToken = default)
+    {
+        await dispatcher.SendAsync(
+            new UpdateCompanyCommand
+            {
+                CompanyId = id,
+                Dto = dto,
             },
             cancellationToken);
 

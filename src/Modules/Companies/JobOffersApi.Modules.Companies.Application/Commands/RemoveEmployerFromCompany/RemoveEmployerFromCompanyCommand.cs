@@ -1,6 +1,6 @@
 ﻿using JobOffersApi.Abstractions.Commands;
 
-namespace JobOffersApi.Modules.Companies.Application.Commands;
+namespace JobOffersApi.Modules.Companies.Application.Commands.RemoveEmployerFromCompany;
 
 internal class RemoveEmployerFromCompanyCommand : ICommand
 {
