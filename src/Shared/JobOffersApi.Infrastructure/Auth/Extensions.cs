@@ -12,8 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using JobOffersApi.Abstractions.Auth;
 using JobOffersApi.Abstractions.Modules;
-using System.Reflection;
-using Microsoft.AspNetCore.Authorization;
 
 namespace JobOffersApi.Infrastructure.Auth;
 
@@ -133,22 +131,11 @@ public static class Extensions
         var policies = modules?.SelectMany(x => x.Policies ?? Enumerable.Empty<string>()) ??
                        Enumerable.Empty<string>();
 
-        var authorizationRequirements = modules?.SelectMany(x => x.AuthorizationRequirements 
-            ?? Enumerable.Empty<IAuthorizationRequirement>()) ?? Enumerable.Empty<IAuthorizationRequirement>();
-
         services.AddAuthorization(authorization =>
         {
             foreach (var policy in policies)
             {
                 authorization.AddPolicy(policy, x => x.RequireClaim("permissions", policy));
-            }
-
-            foreach (var authorizationRequirement in authorizationRequirements)
-            {
-                authorization.AddPolicy(authorizationRequirement.GetType().Name, policy =>
-                {
-                    policy.Requirements.Add(authorizationRequirement);
-                });
             }
         });
 

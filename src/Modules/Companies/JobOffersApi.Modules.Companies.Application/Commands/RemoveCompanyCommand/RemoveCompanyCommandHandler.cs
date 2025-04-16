@@ -2,9 +2,8 @@
 using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Abstractions.Messaging;
 using JobOffersApi.Modules.Companies.Core.Events;
-using JobOffersApi.Modules.Companies.Core.Exceptions;
 using JobOffersApi.Modules.Companies.Core.Repositories;
-using JobOffersApi.Modules.Companies.Core.Services;
+using JobOffersApi.Modules.Companies.Integration.Services;
 using Microsoft.Extensions.Logging;
 
 namespace JobOffersApi.Modules.Companies.Application.Commands.RemoveCompanyCommand;
@@ -36,15 +35,10 @@ internal sealed class RemoveCompanyCommandHandler : ICommandHandler<RemoveCompan
         var userId = _context.Identity.Id;
         var companyId = command.CompanyId;
 
-        var isCompanyOwner = await _authorizationCompanyService.IsCompanyOwnerAsync(
+        await _authorizationCompanyService.ValidateCompanyOwnerAsync(
             userId,
             companyId,
             cancellationToken);
-
-        if (!isCompanyOwner)
-        {
-            throw new NotCompanyOwnerException(userId, companyId);
-        }
 
         var company = await _companiesRepository.GetAsync(companyId, cancellationToken)!;
 

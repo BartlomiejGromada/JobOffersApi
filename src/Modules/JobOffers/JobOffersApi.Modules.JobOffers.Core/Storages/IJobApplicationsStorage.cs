@@ -7,8 +7,6 @@ internal interface IJobApplicationsStorage
 {
     public Task<Paged<JobApplicationDto>> GetPagedAsync(
         Guid jobOfferId,
-        Guid invokerId,
-        string invokerRole,
         int page,
         int results,
         CancellationToken cancellationToken = default);

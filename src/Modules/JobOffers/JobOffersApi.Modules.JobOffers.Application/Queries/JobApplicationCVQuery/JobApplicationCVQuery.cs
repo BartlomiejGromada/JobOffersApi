@@ -6,18 +6,12 @@ internal class JobApplicationCVQuery : IQuery<byte[]?>
 {
     public JobApplicationCVQuery(
         Guid jobOfferId,
-        Guid jobApplicationId,
-        Guid invokerId,
-        string invokerRole)
+        Guid jobApplicationId)
     {
         JobOfferId = jobOfferId;
         JobApplicationId = jobApplicationId;
-        InvokerId = invokerId;
-        InvokerRole = invokerRole;
     }
 
     public Guid JobOfferId { get; init; }
     public Guid JobApplicationId { get; init; }
-    public Guid InvokerId { get; init; }
-    public string InvokerRole { get; init; }
 }

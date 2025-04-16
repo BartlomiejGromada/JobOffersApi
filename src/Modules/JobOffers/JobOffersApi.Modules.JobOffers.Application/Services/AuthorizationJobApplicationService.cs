@@ -1,56 +1,65 @@
 ﻿using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Abstractions.Core;
-using JobOffersApi.Abstractions.Queries;
 using JobOffersApi.Modules.Companies.Integration.Services;
-using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
 using JobOffersApi.Modules.JobOffers.Core.Exceptions;
 using JobOffersApi.Modules.JobOffers.Core.Services;
 using JobOffersApi.Modules.JobOffers.Core.Storages;
 
-namespace JobOffersApi.Modules.JobOffers.Application.Queries.JobApplicationsQuery;
+namespace JobOffersApi.Modules.JobOffers.Application.Services;
 
-internal sealed class JobApplicationsQueryHandler : IQueryHandler<JobApplicationsQuery, Paged<JobApplicationDto>>
+internal sealed class AuthorizationJobApplicationService : IAuthorizationJobApplicationService
 {
     private readonly IJobApplicationsStorage _jobApplicationStorage;
     private readonly IJobOffersStorage _jobOffersStorage;
     private readonly IAuthorizationCompanyService _authorizationCompanyService;
-    private readonly IAuthorizationJobApplicationService _authorizationJobApplicationService;
     private readonly IContext _context;
 
-    public JobApplicationsQueryHandler(
+    public AuthorizationJobApplicationService(
         IJobApplicationsStorage jobApplicationStorage,
         IJobOffersStorage jobOffersStorage,
         IAuthorizationCompanyService authorizationCompanyService,
-        IAuthorizationJobApplicationService authorizationJobApplicationService,
         IContext context)
     {
         _jobApplicationStorage = jobApplicationStorage;
         _jobOffersStorage = jobOffersStorage;
         _authorizationCompanyService = authorizationCompanyService;
-        _authorizationJobApplicationService = authorizationJobApplicationService;
         _context = context;
     }
 
-    public async Task<Paged<JobApplicationDto>> HandleAsync(JobApplicationsQuery query, CancellationToken cancellationToken = default)
+    public async Task ValidateAccessToJobApplication(
+        Guid jobOfferId, Guid jobApplicationId, CancellationToken cancellationToken = default)
     {
         var identity = _context.Identity;
-        var jobOffer = await _jobOffersStorage.GetAsync(query.JobOfferId, cancellationToken);
+
+        var jobOffer = await _jobOffersStorage.GetAsync(jobOfferId, cancellationToken);
 
         if (jobOffer == null)
         {
-            throw new JobOfferNotFoundException(query.JobOfferId);
+            throw new JobOfferNotFoundException(jobOfferId);
         }
 
-        if (identity.Role == Roles.Employer || identity.Role == Roles.OwnerCompany)
+        var jobApplication = await _jobApplicationStorage.GetAsync(
+             jobOfferId, jobApplicationId, cancellationToken);
+
+        if(jobApplication == null)
+        {
+            throw new JobApplicationNotFoundException(jobOfferId);
+        }
+
+        if(identity.Role == Roles.Admin)
+        {
+            return;
+        }
+
+        if (identity.Role == Roles.Candidate && jobApplication?.CandidateId != identity.Id)
+        {
+            throw new InvalidAccessToJobApplicationException(jobApplicationId, identity.Id);
+        }
+
+        if (identity.Role != Roles.Candidate)
         {
             await _authorizationCompanyService.ValidateWorkingInCompanyAsync(identity.Id,
                     jobOffer.CompanyId, cancellationToken);
         }
-
-        return await _jobApplicationStorage.GetPagedAsync(
-            query.JobOfferId,
-            query.Page,
-            query.Results,
-            cancellationToken);
     }
 }

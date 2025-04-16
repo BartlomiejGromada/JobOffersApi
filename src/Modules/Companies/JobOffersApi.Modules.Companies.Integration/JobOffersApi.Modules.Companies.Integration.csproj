@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JobOffersApi.Modules.Companies.Application\JobOffersApi.Modules.Companies.Application.csproj" />
+    <ProjectReference Include="..\..\..\Shared\JobOffersApi.Abstractions\JobOffersApi.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Users\JobOffersApi.Modules.Users.Integration\JobOffersApi.Modules.Users.Integration.csproj" />
+    <ProjectReference Include="..\JobOffersApi.Modules.Companies.Core\JobOffersApi.Modules.Companies.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,7 +9,7 @@ using JobOffersApi.Modules.Companies.Core.Entities;
 using JobOffersApi.Modules.Companies.Core.Events;
 using JobOffersApi.Modules.Companies.Core.Exceptions;
 using JobOffersApi.Modules.Companies.Core.Repositories;
-using JobOffersApi.Modules.Companies.Core.Services;
+using JobOffersApi.Modules.Companies.Integration.Services;
 using JobOffersApi.Modules.Users.Integration.Queries;
 using Microsoft.Extensions.Logging;
 
@@ -49,13 +49,8 @@ internal sealed class AddEmployerToCompanyCommandHandler : ICommandHandler<AddEm
     public async Task HandleAsync(AddEmployerToCompanyCommand command, CancellationToken cancellationToken = default)
     {
         var invokerId = _context.Identity.Id;
-        var isWorkingInCompany = await _authorizationCompanyService.IsWorkingInCompanyAsync(
+        await _authorizationCompanyService.ValidateWorkingInCompanyAsync(
            invokerId, command.CompanyId, cancellationToken);
-
-        if (!isWorkingInCompany)
-        {
-            throw new EmployeeNotBelongToCompanyException(invokerId, command.CompanyId);
-        }
 
         var user = await _dispatcher.QueryAsync(
             new UserQuery { UserId = command.UserId }, cancellationToken);

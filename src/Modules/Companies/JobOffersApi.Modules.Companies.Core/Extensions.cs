@@ -4,9 +4,6 @@ using JobOffersApi.Modules.Companies.Core.DTO.Validators;
 using Microsoft.Extensions.DependencyInjection;
 using JobOffersApi.Modules.Companies.Core.DTO.Employers;
 using JobOffersApi.Modules.Companies.Core.DTO.Companies;
-using Microsoft.AspNetCore.Authorization;
-using JobOffersApi.Modules.Companies.Core.Policies.CompanyOwnershipRequirement;
-using JobOffersApi.Modules.Companies.Core.Policies.CompanyMembershipRequirement;
 
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Infrastructure")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Integration")]
@@ -24,9 +21,6 @@ internal static class Extensions
         services.AddTransient<IValidator<AddEmployerToCompanyDto>, AddEmployerToCompanyDtoValidator>();
         services.AddTransient<IValidator<UpdateCompanyDto>, UpdateCompanyDtoValidator>();
         services.AddTransient<IValidator<AddCompanyDto>, AddCompanyDtoValidator>();
-
-        services.AddScoped<IAuthorizationHandler, CompanyMembershipRequirementHandler>();
-        services.AddScoped<IAuthorizationHandler, CompanyOwnershipRequirementHandler>();
 
         return services;
     }

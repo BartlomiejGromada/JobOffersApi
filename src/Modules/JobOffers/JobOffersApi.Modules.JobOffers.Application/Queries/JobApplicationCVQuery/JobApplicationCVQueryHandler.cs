@@ -1,34 +1,30 @@
 ﻿using JobOffersApi.Abstractions.Queries;
-using JobOffersApi.Modules.JobOffers.Application.Services;
-using JobOffersApi.Modules.JobOffers.Core.Exceptions;
+using JobOffersApi.Modules.JobOffers.Core.Services;
 using JobOffersApi.Modules.JobOffers.Core.Storages;
 
 namespace JobOffersApi.Modules.JobOffers.Application.Queries.JobApplicationCVQuery;
 
 internal sealed class JobApplicationCVQueryHandler : IQueryHandler<JobApplicationCVQuery, byte[]?>
 {
-    private readonly IJobApplicationsStorage _storage;
-    private readonly IJobOffersService _service;
+    private readonly IJobApplicationsStorage _jobApplicationStorage;
+    private readonly IAuthorizationJobApplicationService _authorizationJobApplicationService;
 
     public JobApplicationCVQueryHandler(
-        IJobApplicationsStorage storage,
-        IJobOffersService service)
+        IJobApplicationsStorage jobApplicationStorage,
+        IAuthorizationJobApplicationService authorizationJobApplicationService)
     {
-        _storage = storage;
-        _service = service;
+        _jobApplicationStorage = jobApplicationStorage;
+        _authorizationJobApplicationService = authorizationJobApplicationService;
     }
 
     public async Task<byte[]?> HandleAsync(JobApplicationCVQuery query, CancellationToken cancellationToken = default)
     {
-        await _service.ValidateAccessAsync(query.JobOfferId, query.InvokerId, query.InvokerRole, cancellationToken);
+        await _authorizationJobApplicationService.ValidateAccessToJobApplication(
+            query.JobOfferId, query.JobApplicationId, cancellationToken);
 
-        var jobApplication = await _storage.GetAsync(query.JobOfferId, query.JobApplicationId, cancellationToken);
+        var jobApplication = await _jobApplicationStorage.GetAsync(
+             query.JobOfferId, query.JobApplicationId, cancellationToken);
 
-        if (jobApplication?.CandidateId != query.InvokerId)
-        {
-            throw new InvalidAccessToJobApplicationException(query.JobApplicationId, query.InvokerId);
-        }
-
-        return await _storage.GetCVAsync(query.JobOfferId, query.JobApplicationId, cancellationToken);
+        return await _jobApplicationStorage.GetCVAsync(query.JobOfferId, query.JobApplicationId, cancellationToken);
     }
 }

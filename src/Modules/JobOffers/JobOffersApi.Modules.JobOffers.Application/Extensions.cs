@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using JobOffersApi.Modules.JobOffers.Application.Services;
+using JobOffersApi.Modules.JobOffers.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.JobOffers.Api")]
@@ -14,7 +15,8 @@ internal static class Extensions
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<IJobOffersService, JobOffersService>();
+        services.AddScoped<IAuthorizationJobOfferService,  AuthorizationJobOfferService>();
+        services.AddScoped<IAuthorizationJobApplicationService, AuthorizationJobApplicationService>();
 
         return services;
     }

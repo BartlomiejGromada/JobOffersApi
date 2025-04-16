@@ -2,9 +2,8 @@
 using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Abstractions.Messaging;
 using JobOffersApi.Modules.Companies.Core.Events;
-using JobOffersApi.Modules.Companies.Core.Exceptions;
 using JobOffersApi.Modules.Companies.Core.Repositories;
-using JobOffersApi.Modules.Companies.Core.Services;
+using JobOffersApi.Modules.Companies.Integration.Services;
 using Microsoft.Extensions.Logging;
 
 namespace JobOffersApi.Modules.Companies.Application.Commands.UpdateCompanyCommand;
@@ -37,15 +36,10 @@ internal sealed class UpdateCompanyCommandHandler : ICommandHandler<UpdateCompan
         var companyId = command.CompanyId;
         var updateDto = command.Dto;
 
-        var isCompanyOwner = await _authorizationCompanyService.IsCompanyOwnerAsync(
+        await _authorizationCompanyService.ValidateCompanyOwnerAsync(
          userId,
          companyId,
          cancellationToken);
-
-        if (!isCompanyOwner)
-        {
-            throw new NotCompanyOwnerException(userId, companyId);
-        }
 
         var company = await _companiesRepository.GetAsync(companyId, cancellationToken)!;
 

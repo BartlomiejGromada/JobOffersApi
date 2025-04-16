@@ -1,3 +1,4 @@
+using JobOffersApi.Abstractions.Exceptions;
 using JobOffersApi.Modules.Companies.Core.Entities;
 using JobOffersApi.Modules.Companies.Core.Exceptions;
 

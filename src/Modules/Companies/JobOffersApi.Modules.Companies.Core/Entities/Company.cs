@@ -1,5 +1,6 @@
 ﻿using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Abstractions.DTO;
+using JobOffersApi.Abstractions.Exceptions;
 using JobOffersApi.Modules.Companies.Core.Exceptions;
 
 namespace JobOffersApi.Modules.Companies.Core.Entities;

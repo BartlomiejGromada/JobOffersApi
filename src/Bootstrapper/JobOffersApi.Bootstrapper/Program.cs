@@ -19,7 +19,6 @@ public class Program
 }
 
 // TODO: 
-// - nowe funcjonalnoœci zgonde z prac¹
-// - IHttpContextAccessor _httpContextAccessor w pliku RemoveCompanyCommandHandler [lepiej zrobic role]; 
+// - nowe funcjonalnoœci zgonde z prac¹ -> W TRAKCIE
 // - poprawiæ Dockera
 // - wersjonowanie dodaæ moze - wtedy dopisac do rozdzailu 6 wersjonowanie api
