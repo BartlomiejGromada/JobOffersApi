@@ -4,14 +4,10 @@ namespace JobOffersApi.Modules.JobOffers.Application.Commands.RemoveJobOfferComm
 
 internal class RemoveJobOfferCommand : ICommand
 {
-    public RemoveJobOfferCommand(Guid jobOfferId, Guid invokerId, string invokerRole)
+    public RemoveJobOfferCommand(Guid jobOfferId)
     {
         JobOfferId = jobOfferId;
-        InvokerId = invokerId;
-        InvokerRole = invokerRole;
     }
 
     public Guid JobOfferId { get; init; }
-    public Guid InvokerId { get; init; }
-    public string InvokerRole { get; init; }
 }

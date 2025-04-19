@@ -60,7 +60,7 @@ internal sealed class AddEmployerToCompanyCommandHandler : ICommandHandler<AddEm
             throw new UserNotFoundException(command.UserId);
         }
 
-        if (user.RoleName != Roles.Employer && user.RoleName != Roles.OwnerCompany)
+        if (user.RoleName != Roles.Employer && user.RoleName != Roles.CompanyOwner)
         {
             throw new InvalidUserRoleException("A user with a role other than employer or owner-company cannot be added to a company.");
         }

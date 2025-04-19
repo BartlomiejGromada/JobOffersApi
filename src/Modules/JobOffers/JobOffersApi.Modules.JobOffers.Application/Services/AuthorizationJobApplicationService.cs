@@ -56,7 +56,7 @@ internal sealed class AuthorizationJobApplicationService : IAuthorizationJobAppl
             throw new InvalidAccessToJobApplicationException(jobApplicationId, identity.Id);
         }
 
-        if (identity.Role != Roles.Candidate)
+        if (identity.Role == Roles.Employer || identity.Role == Roles.CompanyOwner)
         {
             await _authorizationCompanyService.ValidateWorkingInCompanyAsync(identity.Id,
                     jobOffer.CompanyId, cancellationToken);

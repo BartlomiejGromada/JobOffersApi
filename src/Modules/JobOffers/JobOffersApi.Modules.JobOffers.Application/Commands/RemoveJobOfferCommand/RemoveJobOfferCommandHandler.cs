@@ -1,9 +1,9 @@
 ﻿using JobOffersApi.Abstractions.Commands;
+using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Abstractions.Messaging;
 using JobOffersApi.Modules.JobOffers.Core.Events;
 using JobOffersApi.Modules.JobOffers.Core.Repositories;
 using JobOffersApi.Modules.JobOffers.Core.Services;
-using JobOffersApi.Modules.Users.Integration.Services;
 using Microsoft.Extensions.Logging;
 
 namespace JobOffersApi.Modules.JobOffers.Application.Commands.RemoveJobOfferCommand;
@@ -11,28 +11,28 @@ namespace JobOffersApi.Modules.JobOffers.Application.Commands.RemoveJobOfferComm
 internal sealed class RemoveJobOfferCommandHandler : ICommandHandler<RemoveJobOfferCommand>
 {
     private readonly IJobOffersRepository _repository;
-    private readonly IUsersService _usersService;
     private readonly IMessageBroker _messageBroker;
     private readonly IAuthorizationJobOfferService _authorizationJobOfferService;
+    private readonly IContext _context;
     private readonly ILogger<RemoveJobOfferCommandHandler> _logger;
 
     public RemoveJobOfferCommandHandler(
         IJobOffersRepository repository,
-        IUsersService usersService,
         IMessageBroker messageBroker,
         IAuthorizationJobOfferService authorizationJobOfferService,
+        IContext context,
         ILogger<RemoveJobOfferCommandHandler> logger)
     {
         _repository = repository;
-        _usersService = usersService;
         _messageBroker = messageBroker;
         _authorizationJobOfferService = authorizationJobOfferService;
+        _context = context;
         _logger = logger;
     }
 
     public async Task HandleAsync(RemoveJobOfferCommand command, CancellationToken cancellationToken = default)
     {
-        var userDto = await _usersService.GetAsync(command.InvokerId, cancellationToken);
+        var identity = _context.Identity;
 
         await _authorizationJobOfferService.ValidateAccessToJobOffer(
             command.JobOfferId,
@@ -42,9 +42,9 @@ internal sealed class RemoveJobOfferCommandHandler : ICommandHandler<RemoveJobOf
 
         await _repository.RemoveAsync(jobOffer!, cancellationToken);
         await _messageBroker.PublishAsync(
-            new JobOffeRemoved(command.InvokerId, jobOffer!.Id), cancellationToken);
+            new JobOffeRemoved(identity.Id, jobOffer!.Id), cancellationToken);
 
-        _logger.LogInformation($"User with id: {command.InvokerId}" +
+        _logger.LogInformation($"User with id: {identity.Id}" +
              $"was removed successfully job offer with id: {command.JobOfferId}");
     }
 }

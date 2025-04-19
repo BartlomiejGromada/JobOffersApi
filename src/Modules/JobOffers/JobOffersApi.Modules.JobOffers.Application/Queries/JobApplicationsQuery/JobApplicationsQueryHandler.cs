@@ -41,7 +41,7 @@ internal sealed class JobApplicationsQueryHandler : IQueryHandler<JobApplication
             throw new JobOfferNotFoundException(query.JobOfferId);
         }
 
-        if (identity.Role == Roles.Employer || identity.Role == Roles.OwnerCompany)
+        if (identity.Role == Roles.Employer || identity.Role == Roles.CompanyOwner)
         {
             await _authorizationCompanyService.ValidateWorkingInCompanyAsync(identity.Id,
                     jobOffer.CompanyId, cancellationToken);

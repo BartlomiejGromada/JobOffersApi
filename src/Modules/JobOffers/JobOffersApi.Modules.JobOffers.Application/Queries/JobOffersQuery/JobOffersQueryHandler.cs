@@ -4,7 +4,7 @@ using JobOffersApi.Modules.JobOffers.Core.Storages;
 
 namespace JobOffersApi.Modules.JobOffers.Application.Queries.JobOffersQuery;
 
-internal class JobOffersQueryHandler : IQueryHandler<JobOffersQuery, Paged<JobOfferDto>>
+internal sealed class JobOffersQueryHandler : IQueryHandler<JobOffersQuery, Paged<JobOfferDto>>
 {
     private readonly IJobOffersStorage _storage;
 
@@ -19,7 +19,6 @@ internal class JobOffersQueryHandler : IQueryHandler<JobOffersQuery, Paged<JobOf
             query.CreatedFrom,
             query.CreatedTo,
             query.CompanyName,
-            query.JobAttributes,
             query.City,
             query.OnlyUnexpiredOffers,
             query.Page,

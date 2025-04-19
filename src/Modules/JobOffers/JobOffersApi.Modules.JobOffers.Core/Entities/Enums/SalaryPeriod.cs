@@ -2,8 +2,8 @@
 
 internal enum SalaryPeriod
 {
-    PerDay,      // dziennie
-    PerWeek,     // na tydzień
-    PerMonth,    // na miesiąc
-    PerYear      // na rok
+    PerDay = 0,      // Dziennie
+    PerWeek = 1,     // Na tydzień
+    PerMonth = 2,    // Na miesiąc
+    PerYear = 3      // Na rok
 }

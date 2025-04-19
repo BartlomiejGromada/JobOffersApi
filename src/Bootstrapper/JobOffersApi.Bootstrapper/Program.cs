@@ -9,8 +9,8 @@ namespace JobOffersApi.Bootstrapper;
 public class Program
 {
     public static Task Main(string[] args)
-        => CreateHostBuilder(args).Build().RunAsync();
-
+         => CreateHostBuilder(args).Build().RunAsync();
+       
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
@@ -20,5 +20,6 @@ public class Program
 
 // TODO: 
 // - nowe funcjonalnoœci zgonde z prac¹ -> W TRAKCIE
+// IUsersService _userValidationService -> sprawdza czy user jest aktywny (nie zablokowany)
 // - poprawiæ Dockera
 // - wersjonowanie dodaæ moze - wtedy dopisac do rozdzailu 6 wersjonowanie api

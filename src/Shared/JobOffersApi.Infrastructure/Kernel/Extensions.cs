@@ -13,7 +13,7 @@ public static class Extensions
         services.AddSingleton<IDomainEventDispatcher, DomainEventDispatcher>();
         services.Scan(s => s.FromAssemblies(assemblies)
             .AddClasses(c => c.AssignableTo(typeof(IDomainEventHandler<>))
-                .WithoutAttribute<DecoratorAttribute>())
+                .WithoutAttribute<DecoratorAttribute>(), publicOnly: false)
             .AsImplementedInterfaces()
             .WithScopedLifetime());
         return services;

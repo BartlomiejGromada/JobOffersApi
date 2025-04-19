@@ -31,6 +31,7 @@ public class Startup
     {
         services.AddModularInfrastructure(_assemblies, _modules);
         services.AddMsSqlServer();
+        services.AddTransactionalDecorators();
         services.AddOutbox();
         services.AddHostedService<DbContextAppInitializer>();
         foreach (var module in _modules)

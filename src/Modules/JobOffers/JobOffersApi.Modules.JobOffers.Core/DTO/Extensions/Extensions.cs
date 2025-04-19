@@ -3,6 +3,7 @@ using JobOffersApi.Abstractions.DTO;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobApplications;
 using JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 using JobOffersApi.Modules.JobOffers.Core.Entities;
+using JobOffersApi.Modules.JobOffers.Core.Entities.JobApplication;
 using JobOffersApi.Modules.JobOffers.Core.Entities.ValueObjects;
 
 namespace JobOffersApi.Modules.JobOffers.Core.DTO.Extensions;

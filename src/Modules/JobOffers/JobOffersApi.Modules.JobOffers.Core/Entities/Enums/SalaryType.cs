@@ -2,6 +2,6 @@
 
 internal enum SalaryType
 {
-    Netto,
-    Brutto
+    Netto = 0,
+    Brutto = 1
 }

@@ -1,8 +1,8 @@
 ﻿using JobOffersApi.Abstractions.Commands;
 using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Abstractions.Messaging;
-using JobOffersApi.Modules.Companies.Core.Events;
 using JobOffersApi.Modules.Companies.Core.Repositories;
+using JobOffersApi.Modules.Companies.Integration.Events;
 using JobOffersApi.Modules.Companies.Integration.Services;
 using Microsoft.Extensions.Logging;
 
@@ -44,8 +44,7 @@ internal sealed class RemoveCompanyCommandHandler : ICommandHandler<RemoveCompan
 
         await _companiesRepository.RemoveAsync(company!, cancellationToken);
 
-        await _messageBroker.PublishAsync(
-            new CompanyRemoved(userId, companyId), cancellationToken);
+        await _messageBroker.PublishAsync(new CompanyRemoved(userId, companyId), cancellationToken);
 
         _logger.LogInformation($"Company with id: {companyId} was successfully removed.");
     }

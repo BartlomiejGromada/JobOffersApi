@@ -3,4 +3,4 @@ using JobOffersApi.Abstractions.Events;
 
 namespace JobOffersApi.Modules.Users.Core.Events;
 
-internal record JobOfferAdded(Guid jobOfferId) : IEvent;
+internal record JobOfferAdded(Guid UserId, Guid JobOfferId) : IEvent;

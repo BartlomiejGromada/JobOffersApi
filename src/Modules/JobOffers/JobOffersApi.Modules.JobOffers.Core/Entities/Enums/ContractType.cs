@@ -2,9 +2,9 @@
 
 internal enum ContractType
 {
-    FullTime, // umowa o pracę
-    Mandate, // umowa zlecenie
-    ContractForWork, // umowa o dzieło
-    Apprenticeship, // staż
-    Internship, // praktyki
+    FullTime = 0,           // umowa o pracę
+    Mandate = 1,            // umowa zlecenie
+    ContractForWork = 2,    // umowa o dzieło
+    Apprenticeship = 3,     // staż
+    Internship = 4,         // praktyki
 }

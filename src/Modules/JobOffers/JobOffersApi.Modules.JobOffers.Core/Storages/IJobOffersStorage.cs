@@ -11,7 +11,6 @@ internal interface IJobOffersStorage
         DateTimeOffset? createdFrom,
         DateTimeOffset? createdTo,
         string? companyName,
-        List<JobAttribute>? jobAttributes,
         string? city,
         bool? onlyUnexpiredOffers,
         int page,

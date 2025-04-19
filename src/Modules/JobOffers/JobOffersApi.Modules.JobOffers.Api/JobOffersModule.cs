@@ -14,7 +14,7 @@ internal class JobOffersModule : IModule
 
     public IEnumerable<string> Policies { get; } = new[]
     {
-        "jobOffers", "jobApplications"
+        "job-offers", "job-applications"
     };
 
     public void Register(IServiceCollection services)

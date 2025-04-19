@@ -2,9 +2,9 @@
 
 internal enum Availability
 {
-    Immediately,
-    InOneWeek,
-    InTwoWeek,
-    InOneMonth,
-    PickedDate
+    Immediately = 0,
+    InOneWeek = 1,
+    InTwoWeek = 2,
+    InOneMonth = 3,
+    PickedDate = 4
 }

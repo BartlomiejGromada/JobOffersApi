@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using JobOffersApi.Infrastructure.Database;
 using JobOffersApi.Modules.JobOffers.Core.Entities;
+using JobOffersApi.Modules.JobOffers.Core.Entities.JobApplication;
 
 namespace JobOffersApi.Modules.Users.Infrastructure.DAL;
 

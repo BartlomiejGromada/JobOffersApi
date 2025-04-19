@@ -2,11 +2,14 @@
 using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Abstractions.Time;
 using JobOffersApi.Modules.Users.Core.DTO;
+using System.Linq;
 
 namespace JobOffersApi.Modules.Users.Core.Validators;
 
 internal sealed class SignUpDtoValidator : AbstractValidator<SignUpDto>
 {
+    private static readonly string[] AllowedRoles = { "employer", "company-owner", "candidate" };
+
     public SignUpDtoValidator(IClock clock)
     {
         RuleFor(x => x.Email)
@@ -28,7 +31,8 @@ internal sealed class SignUpDtoValidator : AbstractValidator<SignUpDto>
            .MaximumLength(150).WithMessage(Errors.MaxLengthExceeded(150));
 
         RuleFor(x => x.Role)
-            .NotEmpty().WithMessage(Errors.InvalidValue);
+            .NotEmpty().WithMessage(Errors.InvalidValue)
+             .Must(role => AllowedRoles.Contains(role)).WithMessage(Errors.InvalidValue);
 
         RuleFor(x => x.DateOfBirth)
             .NotNull().WithMessage(Errors.Required)

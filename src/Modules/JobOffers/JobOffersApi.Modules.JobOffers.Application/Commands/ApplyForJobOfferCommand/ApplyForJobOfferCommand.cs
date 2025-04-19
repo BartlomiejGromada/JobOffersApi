@@ -7,5 +7,4 @@ internal class ApplyForJobOfferCommand : ICommand
 {
     public Guid JobOfferId { get; init; }
     public AddJobApplicationDto Dto { get; init; }
-    public Guid CandidateId { get; init; }
 }

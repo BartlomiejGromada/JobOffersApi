@@ -1,12 +1,14 @@
 ﻿using JobOffersApi.Abstractions.Commands;
 using JobOffersApi.Abstractions.Contexts;
 using JobOffersApi.Abstractions.Core;
+using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Abstractions.Messaging;
 using JobOffersApi.Abstractions.Time;
 using JobOffersApi.Modules.Companies.Core.Entities;
 using JobOffersApi.Modules.Companies.Core.Events;
 using JobOffersApi.Modules.Companies.Core.Exceptions;
 using JobOffersApi.Modules.Companies.Core.Repositories;
+using JobOffersApi.Modules.Users.Integration.Queries;
 using Microsoft.Extensions.Logging;
 
 namespace JobOffersApi.Modules.Companies.Application.Commands.AddCompanyCommand;
@@ -18,6 +20,7 @@ internal sealed class AddCompanyCommandHandler : ICommandHandler<AddCompanyComma
     private readonly IClock _clock;
     private readonly IMessageBroker _messageBroker;
     private readonly IContext _context;
+    private readonly IDispatcher _dispatcher;
     private readonly ILogger<AddCompanyCommandHandler> _logger;
 
     public AddCompanyCommandHandler(
@@ -26,6 +29,7 @@ internal sealed class AddCompanyCommandHandler : ICommandHandler<AddCompanyComma
         IClock clock,
         IMessageBroker messageBroker,
         IContext context,
+        IDispatcher dispatcher,
         ILogger<AddCompanyCommandHandler> logger)
     {
         _companiesRepository = companiesRepository;
@@ -33,6 +37,7 @@ internal sealed class AddCompanyCommandHandler : ICommandHandler<AddCompanyComma
         _clock = clock;
         _messageBroker = messageBroker;
         _context = context;
+        _dispatcher = dispatcher;
         _logger = logger;
     }
 
@@ -42,7 +47,7 @@ internal sealed class AddCompanyCommandHandler : ICommandHandler<AddCompanyComma
         var userRole = _context.Identity.Role;
         var locationDto = command.Location;
 
-        if (userRole != Roles.OwnerCompany)
+        if (userRole != Roles.CompanyOwner)
         {
             throw new NotCompanyOwnerException(userId);
         }
@@ -55,13 +60,29 @@ internal sealed class AddCompanyCommandHandler : ICommandHandler<AddCompanyComma
                         locationDto.ApartmentNumber,
                         locationDto.PostalCode));
 
-        var employer = await _employersRepository.GetAsync(userId, cancellationToken);
-        if (employer == null)
+        var existedEmployer = await _employersRepository.GetAsync(userId, cancellationToken);
+
+        if (existedEmployer is null)
         {
-            throw new UserNotFoundException(userId);
+            var user = await _dispatcher.QueryAsync(new UserQuery()
+            {
+                UserId = userId,
+            }, cancellationToken);
+
+            var employer = new Employer(
+                userId,
+                user!.FirstName,
+                user!.LastName,
+                user!.DateOfBirth,
+                _clock.CurrentDateOffset());
+
+            company.AddEmployer(employer, userRole, _clock.CurrentDateOffset());
+        }
+        else
+        {
+            company.AddEmployer(existedEmployer, userRole, _clock.CurrentDateOffset());
         }
 
-        company.AddEmployer(employer, userRole, _clock.CurrentDateOffset());
         await _companiesRepository.AddAsync(company, cancellationToken);
 
         await _messageBroker.PublishAsync(

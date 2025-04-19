@@ -18,6 +18,7 @@ internal static class Extensions
     public static IServiceCollection AddCore(this IServiceCollection services)
     {
         services.AddTransient<IValidator<AddJobOfferDto>, AddJobOfferDtoValidator>();
+        services.AddTransient<IValidator<UpdateJobOfferDto>, UpdateJobOfferDtoValidator>();
         services.AddTransient<IValidator<AddJobApplicationDto>, AddJobApplicationDtoValidator>();
 
         return services;

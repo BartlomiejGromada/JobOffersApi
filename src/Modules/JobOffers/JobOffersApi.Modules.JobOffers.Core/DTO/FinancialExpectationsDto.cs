@@ -11,3 +11,11 @@ internal class AddFinancialExpectationsDto
     public SalaryType SalaryType { get; init; }
     public SalaryPeriod SalaryPeriod { get; init; }
 }
+
+internal class UpdateFinancialExpectationsDto
+{
+    public decimal Value { get; init; }
+    public CurrencyCode ConcurrencyCode { get; init; }
+    public SalaryType SalaryType { get; init; }
+    public SalaryPeriod SalaryPeriod { get; init; }
+}

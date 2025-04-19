@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
+﻿using JobOffersApi.Abstractions;
+using JobOffersApi.Abstractions.Commands;
+using JobOffersApi.Abstractions.Kernel;
+using JobOffersApi.Abstractions.Messaging;
+using JobOffersApi.Abstractions.Time;
+using JobOffersApi.Modules.Users.Core;
 using JobOffersApi.Modules.Users.Core.Entities;
 using JobOffersApi.Modules.Users.Core.Events;
 using JobOffersApi.Modules.Users.Core.Exceptions;
 using JobOffersApi.Modules.Users.Core.Repositories;
-using JobOffersApi.Abstractions;
-using JobOffersApi.Abstractions.Commands;
-using JobOffersApi.Abstractions.Messaging;
-using JobOffersApi.Abstractions.Time;
-using JobOffersApi.Abstractions.Kernel;
-using JobOffersApi.Modules.Users.Core;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace JobOffersApi.Modules.Users.Application.Commands.SignUpCommand;
 

@@ -6,5 +6,4 @@ namespace JobOffersApi.Modules.JobOffers.Application.Commands.AddJobOfferCommand
 internal class AddJobOfferCommand : ICommand
 {
     public AddJobOfferDto Dto { get; init; }
-    public Guid EmployerId { get; init; }
 }

@@ -10,7 +10,6 @@ internal class JobOffersQuery : PagedQuery<JobOfferDto>
     public DateTimeOffset? CreatedFrom { get; init; }
     public DateTimeOffset? CreatedTo { get; init; }
     public string? CompanyName { get; init; }
-    public List<JobAttribute> JobAttributes { get; init; } = new();
     public string? City { get; init; }
     public bool? OnlyUnexpiredOffers { get; init; }
 }

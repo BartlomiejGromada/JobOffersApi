@@ -10,7 +10,6 @@ using JobOffersApi.Abstractions.Events;
 using JobOffersApi.Abstractions.Queries;
 using JobOffersApi.Infrastructure.MsSqlServer.Decorators;
 using JobOffersApi.Infrastructure.Database;
-using Microsoft.Extensions.Configuration;
 
 namespace JobOffersApi.Infrastructure.MsSqlServer;
 
@@ -86,6 +85,7 @@ public static class Extensions
     public static IServiceCollection AddMsSqlServer<T>(this IServiceCollection services) where T : BaseDbContext
     {
         var options = services.GetOptions<MsSqlServerOptions>(nameof(MsSqlServer));
+
         services.AddDbContext<T>(x => x.UseSqlServer(options.ConnectionString));
 
         return services;

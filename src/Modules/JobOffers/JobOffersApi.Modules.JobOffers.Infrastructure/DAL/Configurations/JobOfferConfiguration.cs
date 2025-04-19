@@ -56,5 +56,8 @@ internal sealed class JobOfferConfiguration : IEntityTypeConfiguration<JobOffer>
 
         builder.HasMany(x => x.JobAttributes)
             .WithMany(y => y.JobOffers);
+
+        builder.Navigation(x => x.JobAttributes)
+            .AutoInclude();
     }
 }

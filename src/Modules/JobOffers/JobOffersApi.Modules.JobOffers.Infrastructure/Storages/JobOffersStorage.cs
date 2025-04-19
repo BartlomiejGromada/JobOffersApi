@@ -26,7 +26,6 @@ internal class JobOffersStorage : IJobOffersStorage
         DateTimeOffset? createdFrom,
         DateTimeOffset? createdTo,
         string? companyName,
-        List<JobAttribute>? jobAttributes,
         string? city,
         bool? onlyUnexpiredOffers,
         int page,
@@ -59,11 +58,6 @@ internal class JobOffersStorage : IJobOffersStorage
         if (!string.IsNullOrEmpty(companyName))
         {
             jobOffers = jobOffers.Where(jo => jo.CompanyName.ToLower().Contains(companyName.ToLower()));
-        }
-
-        if (jobAttributes is not null && jobAttributes.Any())
-        {
-            jobOffers = jobOffers.Where(jo => jo.JobAttributes.Any(ja => jobAttributes.Contains(ja)));
         }
 
         if (!string.IsNullOrEmpty(city))

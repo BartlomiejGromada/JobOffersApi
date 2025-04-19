@@ -57,7 +57,7 @@ internal sealed class AuthorizationCompanyService : IAuthorizationCompanyService
 
         var user = await _dispatcher.QueryAsync(new UserQuery() { UserId = userId }, cancellationToken);
 
-        var isOwnerCompany = user!.RoleName == Roles.OwnerCompany;
+        var isOwnerCompany = user!.RoleName == Roles.CompanyOwner;
 
         if(!isOwnerCompany)
         {

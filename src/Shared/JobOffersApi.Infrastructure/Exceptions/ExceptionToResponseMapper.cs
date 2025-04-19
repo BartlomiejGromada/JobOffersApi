@@ -17,6 +17,10 @@ public class ExceptionToResponseMapper : IExceptionToResponseMapper
                 , HttpStatusCode.BadRequest),
             ForbiddenException ex => new ExceptionResponse(new ErrorsResponse(new Error(GetErrorCode(ex), ex.Message))
                 , HttpStatusCode.Forbidden),
+            NotFoundException ex => new ExceptionResponse(new ErrorsResponse(new Error(GetErrorCode(ex), ex.Message))
+                , HttpStatusCode.NotFound),
+            InvalidOperationException ex => new ExceptionResponse(new ErrorsResponse(new Error(GetErrorCode(ex), ex.Message))
+                , HttpStatusCode.BadRequest),
             _ => new ExceptionResponse(new ErrorsResponse(new Error("error", "There was an error.")),
                 HttpStatusCode.InternalServerError)
         };

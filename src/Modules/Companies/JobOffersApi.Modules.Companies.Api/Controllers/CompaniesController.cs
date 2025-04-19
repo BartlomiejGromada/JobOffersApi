@@ -28,7 +28,7 @@ internal class CompaniesController : BaseController
 
 
     [HttpPost]
-    [Authorize(Roles = $"{Roles.OwnerCompany}")]
+    [Authorize(Roles = $"{Roles.CompanyOwner}")]
     [SwaggerOperation("Add company")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -48,7 +48,7 @@ internal class CompaniesController : BaseController
     }
 
     [HttpDelete("{id:guid}")]
-    [Authorize(Roles = $"{Roles.OwnerCompany}")]
+    [Authorize(Roles = $"{Roles.CompanyOwner}")]
     [SwaggerOperation("Remove company")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -67,7 +67,7 @@ internal class CompaniesController : BaseController
     }
 
     [HttpPut("{id:guid}")]
-    [Authorize(Roles = $"{Roles.OwnerCompany}")]
+    [Authorize(Roles = $"{Roles.CompanyOwner}")]
     [SwaggerOperation("Update company")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -88,7 +88,7 @@ internal class CompaniesController : BaseController
     }
 
     [HttpPost("{companyId:guid}/employers")]
-    [Authorize(Roles = $"{Roles.OwnerCompany},{Roles.Employer}")]
+    [Authorize(Roles = $"{Roles.CompanyOwner},{Roles.Employer}")]
     [SwaggerOperation("Add employer to company")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -108,7 +108,7 @@ internal class CompaniesController : BaseController
     }
 
     [HttpDelete("{companyId:guid}/employers/{employerId:guid}")]
-    [Authorize(Roles = $"{Roles.OwnerCompany},{Roles.Employer}")]
+    [Authorize(Roles = $"{Roles.CompanyOwner},{Roles.Employer}")]
     [SwaggerOperation("Remove employer from company")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

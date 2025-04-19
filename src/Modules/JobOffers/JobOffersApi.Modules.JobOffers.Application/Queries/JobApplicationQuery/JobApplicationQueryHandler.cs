@@ -5,7 +5,7 @@ using JobOffersApi.Modules.JobOffers.Core.Storages;
 
 namespace JobOffersApi.Modules.JobOffers.Application.Queries.JobApplicationQuery;
 
-internal class JobApplicationQueryHandler : IQueryHandler<JobApplicationQuery, JobApplicationDto?>
+internal sealed class JobApplicationQueryHandler : IQueryHandler<JobApplicationQuery, JobApplicationDto?>
 {
     private readonly IJobApplicationsStorage _jobApplicationStorage;
     private readonly IAuthorizationJobApplicationService _authorizationJobApplicationService;

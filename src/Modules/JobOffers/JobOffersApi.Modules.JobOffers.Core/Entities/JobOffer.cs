@@ -1,4 +1,6 @@
 ﻿using JobOffersApi.Abstractions.Core;
+using JobOffersApi.Modules.JobOffers.Core.DTO.Extensions;
+using JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 using JobOffersApi.Modules.JobOffers.Core.Entities.ValueObjects;
 using JobOffersApi.Modules.JobOffers.Core.Exceptions;
 
@@ -8,7 +10,7 @@ internal class JobOffer : AggregateRoot<Guid>
 {
     private const int DefaultValidityInDays = 30;
 
-    private List<JobApplication> jobApplications = new();
+    private List<JobApplication.JobApplication> jobApplications = new();
     private List<JobAttribute> jobAttributes = new();
     private List<FinancialCondition> financialConditions = new();
 
@@ -47,7 +49,7 @@ internal class JobOffer : AggregateRoot<Guid>
     public Guid CompanyId { get; private set; }
     public string CompanyName { get; private set; }
 
-    public IReadOnlyCollection<JobApplication> JobApplications => jobApplications;
+    public IReadOnlyCollection<JobApplication.JobApplication> JobApplications => jobApplications;
     public IReadOnlyCollection<JobAttribute> JobAttributes => jobAttributes;
     public IReadOnlyCollection<FinancialCondition> FinancialConditions => financialConditions;
 
@@ -56,7 +58,9 @@ internal class JobOffer : AggregateRoot<Guid>
 
     public bool UserDidNotApply(Guid userId) => !UserAlreadyApplied(userId);
 
-    public void ApplyForJob(JobApplication jobApplication)
+    public bool IsExpired(DateTimeOffset now) => ExpirationDate < now;
+
+    public void ApplyForJob(JobApplication.JobApplication jobApplication)
     {
         var candidateId = jobApplication.CandidateId;
 
@@ -75,7 +79,7 @@ internal class JobOffer : AggregateRoot<Guid>
         jobApplications.Add(jobApplication);
     }
 
-    public void UnapplyFromJob(JobApplication jobApplication)
+    public void UnapplyFromJob(JobApplication.JobApplication jobApplication, DateTimeOffset withdrawDate)
     {
         var candidateId = jobApplication.CandidateId;
 
@@ -84,6 +88,32 @@ internal class JobOffer : AggregateRoot<Guid>
             throw new UserDidNotApplyForJobException(candidateId, Id);
         }
 
-        jobApplications.Remove(jobApplication);
+        if (ExpirationDate < withdrawDate)
+        {
+            throw new JobOfferExpiredException(ExpirationDate);
+        }
+
+        jobApplication.Withdraw();
+    }
+
+    public void Update(UpdateJobOfferDto dto, DateTimeOffset updateDate)
+    {
+        if (ExpirationDate < updateDate)
+        {
+            throw new JobOfferExpiredException(ExpirationDate);
+        }
+
+        Title = dto.Title;
+        DescriptionHtml = dto.DescriptionHtml;
+        Location = dto.Location.ToValueObject();
+        ExpirationDate = CreatedDate.AddDays(dto.ValidityInDays ?? DefaultValidityInDays);
+        CompanyId = dto.CompanyId;
+        CompanyName = dto.CompanyName;
+
+        financialConditions.Clear();
+        financialConditions = dto.FinancialConditions?.Select(f => f.ToValueObject()).ToList();
+
+        jobApplications.Clear();
+        jobAttributes = dto.Attributes.Select(a => a.ToEntity()).ToList();
     }
 }

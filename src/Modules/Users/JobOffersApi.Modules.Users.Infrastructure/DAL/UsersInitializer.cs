@@ -30,10 +30,10 @@ internal sealed class UsersInitializer : IInitializer
 
     private async Task AddRolesAsync()
     {
-        await _dbContext.Roles.AddAsync(new Role(Roles.Admin, new List<string>() { "users", "job-offers", "companies" }));
-        await _dbContext.Roles.AddAsync(new Role(Roles.OwnerCompany, new List<string>() { "job-offers", "companies" }));
-        await _dbContext.Roles.AddAsync(new Role(Roles.Employer, new List<string>() { "job-offers", "companies" }));
-        await _dbContext.Roles.AddAsync(new Role(Roles.Candidate, new List<string>() { "job-offers", "companies" }));
+        await _dbContext.Roles.AddAsync(new Role(Roles.Admin, new List<string>() { "users", "job-offers", "job-applications", "companies" }));
+        await _dbContext.Roles.AddAsync(new Role(Roles.CompanyOwner, new List<string>() { "job-offers", "job-applications", "companies" }));
+        await _dbContext.Roles.AddAsync(new Role(Roles.Employer, new List<string>() { "job-offers", "job-applications", "companies" }));
+        await _dbContext.Roles.AddAsync(new Role(Roles.Candidate, new List<string>() { "job-offers", "job-applications", "companies" }));
 
         _logger.LogInformation("Initialized roles.");
     }

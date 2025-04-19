@@ -12,9 +12,10 @@ public static class Extensions
         services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
         services.Scan(s => s.FromAssemblies(assemblies)
             .AddClasses(c => c.AssignableTo(typeof(ICommandHandler<>))
-                .WithoutAttribute<DecoratorAttribute>())
+                .WithoutAttribute<DecoratorAttribute>(), publicOnly: false)
             .AsImplementedInterfaces()
             .WithScopedLifetime());
+
         return services;
     }
 }

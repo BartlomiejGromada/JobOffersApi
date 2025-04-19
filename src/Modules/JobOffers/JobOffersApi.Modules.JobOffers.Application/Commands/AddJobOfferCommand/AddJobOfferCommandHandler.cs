@@ -6,16 +6,14 @@ using JobOffersApi.Modules.Companies.Integration.Services;
 using JobOffersApi.Modules.JobOffers.Core.DTO.Extensions;
 using JobOffersApi.Modules.JobOffers.Core.Repositories;
 using JobOffersApi.Modules.Users.Core.Events;
-using JobOffersApi.Modules.Users.Integration.Services;
 using Microsoft.Extensions.Logging;
 
 namespace JobOffersApi.Modules.JobOffers.Application.Commands.AddJobOfferCommand;
 
-internal class AddJobOfferCommandHandler : ICommandHandler<AddJobOfferCommand>
+internal sealed class AddJobOfferCommandHandler : ICommandHandler<AddJobOfferCommand>
 {
     private readonly IJobOffersRepository _repository;
     private readonly IClock _clock;
-    private readonly IUsersService _usersService;
     private readonly IMessageBroker _messageBroker;
     private readonly IAuthorizationCompanyService _authorizationCompanyService;
     private readonly IContext _context;
@@ -24,7 +22,6 @@ internal class AddJobOfferCommandHandler : ICommandHandler<AddJobOfferCommand>
     public AddJobOfferCommandHandler(
         IJobOffersRepository repository,
         IClock clock,
-        IUsersService usersService,
         IMessageBroker messageBroker,
         IAuthorizationCompanyService authorizationCompanyService,
         IContext context,
@@ -32,7 +29,6 @@ internal class AddJobOfferCommandHandler : ICommandHandler<AddJobOfferCommand>
     {
         _repository = repository;
         _clock = clock;
-        _usersService = usersService;
         _messageBroker = messageBroker;
         _authorizationCompanyService = authorizationCompanyService;
         _context = context;
@@ -43,24 +39,21 @@ internal class AddJobOfferCommandHandler : ICommandHandler<AddJobOfferCommand>
     {
         var identity = _context.Identity;
 
-        var userDto = await _usersService.GetAsync(
-            command.EmployerId,
-            cancellationToken);
+        var dto = command.Dto;
 
         await _authorizationCompanyService.ValidateWorkingInCompanyAsync(
             identity.Id,
             command.Dto.CompanyId,
             cancellationToken);
 
-        var dto = command.Dto;
-
         var jobOffer = dto.ToEntity(_clock.CurrentDateOffset());
 
         await _repository.AddAsync(jobOffer, cancellationToken);
 
-        await _messageBroker.PublishAsync(new JobOfferAdded(jobOffer.Id), cancellationToken);
+        await _messageBroker.PublishAsync(
+            new JobOfferAdded(identity.Id, jobOffer.Id), cancellationToken);
 
-        _logger.LogInformation($"User with id: {command.EmployerId}" +
+        _logger.LogInformation($"User with id: {identity.Id}" +
              $"was added successfully job offer for company with id: {dto.CompanyId}");
     }
 }
