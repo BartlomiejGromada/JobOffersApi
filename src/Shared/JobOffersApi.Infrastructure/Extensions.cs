@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Abstractions.Modules;
 using JobOffersApi.Abstractions.Storage;
@@ -36,6 +35,9 @@ using System.Text.Json.Serialization;
 using JobOffersApi.Abstractions.Helpers;
 using JobOffersApi.Infrastructure.Helpers;
 using FluentValidation.AspNetCore;
+using JobOffersApi.Infrastructure.Versioning;
+using JobOffersApi.Infrastructure.Swagger;
+using Asp.Versioning.ApiExplorer;
 
 namespace JobOffersApi.Infrastructure;
 
@@ -70,16 +72,9 @@ public static class Extensions
         services.AddCorsPolicy();
 
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen(swagger =>
-        {
-            swagger.EnableAnnotations();
-            swagger.CustomSchemaIds(x => x.FullName);
-            swagger.SwaggerDoc("v1", new OpenApiInfo
-            {
-                Title = "Jobs Offers API",
-                Version = "v1"
-            });
-        });
+        services.AddVersioningForApi();
+        services.AddSwaggerGen();
+        services.ConfigureOptions<ConfigureSwaggerOptions>();
 
         var appOptions = services.GetOptions<AppOptions>("app");
         services.AddSingleton(appOptions);
@@ -148,11 +143,15 @@ public static class Extensions
 
         if (env.IsDevelopment())
         {
+            var provider = app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Jobs Offer API");
-                c.RoutePrefix = string.Empty;
+                foreach (var description in provider.ApiVersionDescriptions)
+                {
+                    c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                }
             });
         }
 

@@ -14,10 +14,12 @@ using JobOffersApi.Modules.JobOffers.Application.Commands.ApplyForJobOfferComman
 using JobOffersApi.Modules.JobOffers.Application.Commands.WithdrawJobApplicationCommand;
 using JobOffersApi.Modules.JobOffers.Core.Entities.JobMenus;
 using JobOffersApi.Modules.JobOffers.Application.Commands.ChangeStatusOfJobApplicationCommand;
+using Asp.Versioning;
 
 namespace JobOffersApi.Modules.JobOffers.Api.Controllers;
 
-[Route("api/job-offers")]
+[ApiVersion(1)]
+[Route("api/v{v:apiVersion}/job-offers")]
 [Authorize(Policy)]
 internal class JobApplicationsController : BaseController
 {

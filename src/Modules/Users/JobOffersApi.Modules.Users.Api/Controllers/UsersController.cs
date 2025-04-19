@@ -10,13 +10,14 @@ using JobOffersApi.Modules.Users.Core.DTO;
 using JobOffersApi.Abstractions.Api;
 using JobOffersApi.Modules.Users.Integration.DTO;
 using JobOffersApi.Abstractions.Core;
-using JobOffersApi.Modules.Users.Application.Queries;
 using JobOffersApi.Modules.Users.Application.Queries.BrowseUsers;
 using JobOffersApi.Modules.Users.Application.Queries.UserDetailsQuery;
+using Asp.Versioning;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
-[Route("api/users")]
+[ApiVersion(1)]
+[Route("api/v{v:apiVersion}/users")]
 [Authorize(Policy)]
 internal class UsersController : BaseController
 {

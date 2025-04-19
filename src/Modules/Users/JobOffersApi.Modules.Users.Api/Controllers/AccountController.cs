@@ -15,10 +15,13 @@ using JobOffersApi.Modules.Users.Application.Commands.SignOutCommand;
 using JobOffersApi.Modules.Users.Application.Queries.UserDetailsQuery;
 using JobOffersApi.Modules.Users.Application.Commands.SignUpCommand;
 using JobOffersApi.Modules.Users.Application.Commands.SignInCommand;
+using Asp.Versioning;
 
 namespace JobOffersApi.Modules.Users.Api.Controllers;
 
-[Route("api/accounts")]
+
+[ApiVersion(1)]
+[Route("api/v{v:apiVersion}/accounts")]
 internal class AccountController : BaseController
 {
     private const string AccessTokenCookie = "__access-token";

@@ -1,4 +1,5 @@
-﻿using JobOffersApi.Abstractions.Api;
+﻿using Asp.Versioning;
+using JobOffersApi.Abstractions.Api;
 using JobOffersApi.Abstractions.Core;
 using JobOffersApi.Abstractions.Dispatchers;
 using JobOffersApi.Modules.Companies.Application.Commands.AddCompanyCommand;
@@ -16,7 +17,9 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace JobOffersApi.Modules.Companies.Api.Controllers;
 
 
-[Route("api/companies")]
+[ApiVersion(1)]
+[ApiVersion(2)]
+[Route("api/v{v:apiVersion}/companies")]
 [Authorize(Policy)]
 internal class CompaniesController : BaseController
 {
@@ -28,6 +31,7 @@ internal class CompaniesController : BaseController
 
 
     [HttpPost]
+    [MapToApiVersion(1)]
     [Authorize(Roles = $"{Roles.CompanyOwner}")]
     [SwaggerOperation("Add company")]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -48,6 +52,7 @@ internal class CompaniesController : BaseController
     }
 
     [HttpDelete("{id:guid}")]
+    [MapToApiVersion(2)]
     [Authorize(Roles = $"{Roles.CompanyOwner}")]
     [SwaggerOperation("Remove company")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
