@@ -10,8 +10,8 @@ using JobOffersApi.Modules.Users.Core.DTO;
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Users.Api")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Users.Infrastructure")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Users.Application")]
-[assembly: InternalsVisibleTo("JobOffersApi.Modules.Users.Tests.Integration")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Users.Tests.Unit")]
+[assembly: InternalsVisibleTo("JobOffersApi.Modules.Users.Tests.Integration")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace JobOffersApi.Modules.Users.Core;

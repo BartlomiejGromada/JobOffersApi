@@ -4,6 +4,7 @@ namespace JobOffersApi.Modules.JobOffers.Core.DTO.JobOffers;
 
 internal class JobOfferDto
 {
+    public Guid Id { get; set; }
     public string Title { get; set; }
     public LocationDto Location { get; set; }
     public DateTimeOffset CreatedDate { get; set; }

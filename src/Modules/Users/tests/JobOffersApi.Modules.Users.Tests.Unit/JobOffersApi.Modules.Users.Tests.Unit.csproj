@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JobOffersApi.Modules.Users.Core\JobOffersApi.Modules.Users.Core.csproj" />
+    <ProjectReference Include="..\..\JobOffersApi.Modules.Users.Core\JobOffersApi.Modules.Users.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

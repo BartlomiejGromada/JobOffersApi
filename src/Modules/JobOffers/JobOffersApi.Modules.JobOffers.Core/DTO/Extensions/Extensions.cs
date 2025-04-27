@@ -23,6 +23,7 @@ internal static class Extensions
     private static T Map<T>(this JobOffer jobOffer) where T : JobOfferDto, new()
         => new()
         {
+            Id = jobOffer.Id,
             Title = jobOffer.Title,
             Location = jobOffer.Location.ToDto(),
             CreatedDate = jobOffer.CreatedDate,

@@ -31,7 +31,6 @@ internal class CompaniesController : BaseController
 
 
     [HttpPost]
-    [MapToApiVersion(1)]
     [Authorize(Roles = $"{Roles.CompanyOwner}")]
     [SwaggerOperation("Add company")]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -52,7 +51,6 @@ internal class CompaniesController : BaseController
     }
 
     [HttpDelete("{id:guid}")]
-    [MapToApiVersion(2)]
     [Authorize(Roles = $"{Roles.CompanyOwner}")]
     [SwaggerOperation("Remove company")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

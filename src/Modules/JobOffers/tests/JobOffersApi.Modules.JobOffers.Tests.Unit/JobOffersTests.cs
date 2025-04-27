@@ -4,7 +4,7 @@ using JobOffersApi.Modules.JobOffers.Core.Entities.JobApplication;
 using JobOffersApi.Modules.JobOffers.Core.Entities.JobMenus;
 using JobOffersApi.Modules.JobOffers.Core.Exceptions;
 
-namespace JobOffersApi.Modules.JobOffers.Tests;
+namespace JobOffersApi.Modules.JobOffers.Tests.Unit;
 
 public sealed class JobOffersTests
 {
@@ -33,7 +33,7 @@ public sealed class JobOffersTests
             string.Empty,
             new Core.Entities.ValueObjects.Disposition(
                 Availability.InTwoWeek, null),
-            null, 
+            null,
             null,
             DateTimeOffset.UtcNow,
             new byte[1]);

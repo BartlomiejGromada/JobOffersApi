@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using JobOffersApi.Modules.JobOffers.Core.Repositories;
 using JobOffersApi.Modules.JobOffers.Core.Entities;
-using System.Linq.Expressions;
+using JobOffersApi.Modules.Users.Infrastructure.DAL;
 
-namespace JobOffersApi.Modules.Users.Infrastructure.DAL.Repositories;
+namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Repositories;
 
 internal class JobOffersRepository : IJobOffersRepository
 {
@@ -16,7 +16,7 @@ internal class JobOffersRepository : IJobOffersRepository
         _jobOffers = context.JobOffers;
     }
 
-    public Task<JobOffer?> GetAsync(Guid id, CancellationToken cancellationToken = default) 
+    public Task<JobOffer?> GetAsync(Guid id, CancellationToken cancellationToken = default)
         => _jobOffers.SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
     public Task<JobOffer?> GetWithJobApplicationsAsync(Guid id, CancellationToken cancellationToken = default)

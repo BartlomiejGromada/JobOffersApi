@@ -1,25 +1,24 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace JobOffersApi.Shared.Tests
+namespace JobOffersApi.Shared.Tests;
+
+public static class OptionsHelper
 {
-    public static class OptionsHelper
+    private const string AppSettings = "appsettings.test.json";
+
+    public static TOptions GetOptions<TOptions>(string sectionName) where TOptions : class, new()
     {
-        private const string AppSettings = "appsettings.test.json";
-        
-        public static TOptions GetOptions<TOptions>(string sectionName) where TOptions : class, new()
-        {
-            var options = new TOptions();
-            var configuration = GetConfigurationRoot();
-            var section = configuration.GetSection(sectionName);
-            section.Bind(options);
+        var options = new TOptions();
+        var configuration = GetConfigurationRoot();
+        var section = configuration.GetSection(sectionName);
+        section.Bind(options);
 
-            return options;
-        }
-
-        public static IConfigurationRoot GetConfigurationRoot()
-            => new ConfigurationBuilder()
-                .AddJsonFile(AppSettings)
-                .AddEnvironmentVariables()
-                .Build();
+        return options;
     }
+
+    public static IConfigurationRoot GetConfigurationRoot()
+        => new ConfigurationBuilder()
+            .AddJsonFile(AppSettings, true)
+            .AddEnvironmentVariables()
+            .Build();
 }

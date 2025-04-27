@@ -1,7 +1,7 @@
 ﻿using JobOffersApi.Modules.JobOffers.Core.Entities.ValueObjects;
 using JobOffersApi.Modules.JobOffers.Core.Exceptions;
 
-namespace JobOffersApi.Modules.JobOffers.Tests;
+namespace JobOffersApi.Modules.JobOffers.Tests.Unit;
 
 public sealed class DispositionTests
 {
@@ -26,9 +26,9 @@ public sealed class DispositionTests
     public void Should_Throw_Invalid_Availability_Exception()
     {
         // Arrange & Act & Assert
-       Assert.Throws<InvalidAvailabilityException>(() =>
-            new Disposition(Core.Entities.JobMenus.Availability.InOneWeek, 
-            DateOnly.MinValue));
+        Assert.Throws<InvalidAvailabilityException>(() =>
+             new Disposition(Core.Entities.JobMenus.Availability.InOneWeek,
+             DateOnly.MinValue));
     }
 
     [Fact]

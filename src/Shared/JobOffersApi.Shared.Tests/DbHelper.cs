@@ -6,11 +6,12 @@ namespace JobOffersApi.Shared.Tests;
 public static class DbHelper
 {
     private static readonly IConfiguration Configuration = OptionsHelper.GetConfigurationRoot();
-    private const string MsSqlServerConfiguration = $"{JobOffersApi.Infrastructure.MsSqlServer.Extensions.MsSqlServer}:connectionString";
 
-    public static DbContextOptions<T> GetOptions<T>() where T : DbContext
-        => new DbContextOptionsBuilder<T>()
-            .UseSqlServer(Configuration[MsSqlServerConfiguration])
+    public static DbContextOptions<T> GetOptions<T>(string? connectionString = null, bool useRandomDatabaseIdentifier = true) where T : DbContext
+    {
+        return new DbContextOptionsBuilder<T>()
+            .UseSqlServer(connectionString)
             .EnableSensitiveDataLogging()
             .Options;
+    }
 }

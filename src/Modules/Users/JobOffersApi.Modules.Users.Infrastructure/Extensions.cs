@@ -10,8 +10,8 @@ using JobOffersApi.Modules.Users.Core.Storages;
 using JobOffersApi.Modules.Users.Infrastructure.Storages;
 
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Users.Api")]
-[assembly: InternalsVisibleTo("JobOffersApi.Modules.Users.Tests.Integration")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Users.Tests.Unit")]
+[assembly: InternalsVisibleTo("JobOffersApi.Modules.Users.Tests.Integration")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace JobOffersApi.Modules.Users.Infrastructure;

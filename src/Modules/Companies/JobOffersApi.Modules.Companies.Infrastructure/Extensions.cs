@@ -10,8 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Api")]
-[assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Tests.Integration")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Tests.Unit")]
+[assembly: InternalsVisibleTo("JobOffersApi.Modules.Companies.Tests.Integration")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace JobOffersApi.Modules.Companies.Infrastructure;

@@ -3,10 +3,10 @@ using Microsoft.Extensions.DependencyInjection;
 using JobOffersApi.Infrastructure.Messaging.Outbox;
 using JobOffersApi.Infrastructure.MsSqlServer;
 using JobOffersApi.Modules.JobOffers.Core.Repositories;
-using JobOffersApi.Modules.Users.Infrastructure.DAL.Repositories;
 using JobOffersApi.Modules.Users.Infrastructure.DAL;
 using JobOffersApi.Modules.JobOffers.Infrastructure.Storages;
 using JobOffersApi.Modules.JobOffers.Core.Storages;
+using JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Repositories;
 
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.JobOffers.Api")]
 [assembly: InternalsVisibleTo("JobOffersApi.Modules.JobOffers.Tests.Integration")]
