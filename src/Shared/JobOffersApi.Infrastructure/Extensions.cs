@@ -141,19 +141,17 @@ public static class Extensions
         app.UseCorrelationId();
         app.UseErrorHandling();
 
-        if (env.IsDevelopment())
-        {
-            var provider = app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
+        var provider = app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
+
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
             {
                 foreach (var description in provider.ApiVersionDescriptions)
                 {
                     c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
                 }
-            });
-        }
+        });
 
         app.UseAuth();
         app.UseContext();
