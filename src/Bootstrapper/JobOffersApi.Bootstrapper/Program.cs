@@ -17,9 +17,3 @@ public class Program
             .ConfigureModules()
             .UseLogging();
 }
-
-// TODO: 
-// - nowe funcjonalnoœci zgonde z prac¹ -> W TRAKCIE
-// IUsersService _userValidationService -> sprawdza czy user jest aktywny (nie zablokowany)
-// - poprawiæ Dockera
-// - wersjonowanie dodaæ moze - wtedy dopisac do rozdzailu 6 wersjonowanie api
