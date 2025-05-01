@@ -36,16 +36,13 @@ jobs:
         run: dotnet restore ${{ env.WORKING_DIRECTORY }}
 
       - name: Build
-        run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+        run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
 
-      - name: Test Unit Users
-        run: dotnet test src/Modules/Users/tests/JobOffersApi.Modules.Users.Tests.Unit/JobOffersApi.Modules.Users.Tests.Unit.csproj --verbosity normal
-
-      - name: Test Integration Users
-        run: dotnet test src/Modules/Users/tests/JobOffersApi.Modules.Users.Tests.Integration/JobOffersApi.Modules.Users.Tests.Integration.csproj --verbosity normal
+      - name: Test
+        run: dotnet test ${{ env.SOLUTION_FILE }} --configuration Release --verbosity normal
 
       - name: Publish
-        run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+        run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
       # Store the published output as an artifact for later jobs
       - name: Publish Artifacts
