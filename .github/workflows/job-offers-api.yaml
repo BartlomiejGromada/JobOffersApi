@@ -11,7 +11,7 @@ on:
 # Environment variables used throughout the workflow
 env:
   AZURE_WEBAPP_NAME: job-offers-api
-  AZURE_WEBAPP_PACKAGE_PATH: rc\Bootstrapper\JobOffersApi.Bootstrapper\published
+  AZURE_WEBAPP_PACKAGE_PATH: src\Bootstrapper\JobOffersApi.Bootstrapper\published
   CONFIGURATION: Release
   DOTNET_VERSION: 8.0.x
   WORKING_DIRECTORY: src\Bootstrapper\JobOffersApi.Bootstrapper
