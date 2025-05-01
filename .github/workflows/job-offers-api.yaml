@@ -15,6 +15,7 @@ env:
   CONFIGURATION: Release
   DOTNET_VERSION: 8.0.x
   WORKING_DIRECTORY: src/Bootstrapper/JobOffersApi.Bootstrapper
+  SOLUTION_FILE: JobOffersApi.sln
 
 # Define the separate jobs that make up this workflow
 jobs:
@@ -38,7 +39,7 @@ jobs:
         run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
 
       - name: Test
-        run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-restore --no-build --verbosity normal
+        run: dotnet test ${{ env.SOLUTION_FILE }} --no-restore --no-build --verbosity normal
 
       - name: Publish
         run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
