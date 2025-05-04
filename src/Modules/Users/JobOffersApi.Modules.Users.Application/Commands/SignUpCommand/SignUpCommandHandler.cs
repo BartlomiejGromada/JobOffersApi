@@ -76,7 +76,7 @@ internal sealed class SignUpCommandHandler : ICommandHandler<SignUpCommand>
             command.FirstName,
             command.LastName,
             role,
-            DateOnly.Parse(command.DateOfBirth.ToString("dd-MM-yyyy")),
+            DateOnly.FromDateTime(command.DateOfBirth.DateTime),
             now);
 
         await _userRepository.AddAsync(user);
