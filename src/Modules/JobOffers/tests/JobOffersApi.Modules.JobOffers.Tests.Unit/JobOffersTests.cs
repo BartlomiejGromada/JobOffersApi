@@ -19,6 +19,7 @@ public sealed class JobOffersTests
         var jobOffer = new JobOffer(
             "Praca 1",
             string.Empty,
+            1,
             new Location("Poland", "Poznań", "10"),
             DateTimeOffset.UtcNow,
             Guid.NewGuid(),
@@ -53,6 +54,7 @@ public sealed class JobOffersTests
         var jobOffer = new JobOffer(
             "Praca 1",
             string.Empty,
+            vacancies: 1,
             new Location("Poland", "Poznań", "10"),
             DateTimeOffset.UtcNow.AddDays(-10),
             Guid.NewGuid(),
@@ -88,6 +90,7 @@ public sealed class JobOffersTests
         var jobOffer = new JobOffer(
             "Praca 1",
             string.Empty,
+            1,
             new Location("Poland", "Poznań", "10"),
             DateTimeOffset.UtcNow,
             Guid.NewGuid(),

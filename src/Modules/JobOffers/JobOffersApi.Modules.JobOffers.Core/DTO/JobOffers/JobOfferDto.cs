@@ -6,6 +6,7 @@ internal class JobOfferDto
 {
     public Guid Id { get; set; }
     public string Title { get; set; }
+    public int Vacancies { get; init; }
     public LocationDto Location { get; set; }
     public DateTimeOffset CreatedDate { get; set; }
     public DateTimeOffset ExpirationDate { get; set; }

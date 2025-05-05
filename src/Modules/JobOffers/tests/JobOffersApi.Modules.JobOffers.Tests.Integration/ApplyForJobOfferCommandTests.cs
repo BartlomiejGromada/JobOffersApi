@@ -44,6 +44,7 @@ public class ApplyForJobOfferCommandTests : IntegrationTestBase, IDisposable
             new JobOffer(
                 "Software Engineer",
                 "<p>Join our team and work on exciting projects!</p>",
+                1,
                 new Location("Poland", "Warsaw", "Main Street", "123", "00-001"),
                 createdDate: DateTimeOffset.UtcNow,
                 companyId: Guid.NewGuid(),

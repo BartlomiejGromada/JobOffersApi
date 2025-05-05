@@ -7,6 +7,7 @@ internal class AddJobOfferDto
 {
     public string Title { get; init; }
     public string DescriptionHtml { get; init; }
+    public int Vacancies { get; init; }
     public AddLocationDto Location { get; init; }
     public Guid CompanyId { get; init; }
     public string CompanyName { get; init; }

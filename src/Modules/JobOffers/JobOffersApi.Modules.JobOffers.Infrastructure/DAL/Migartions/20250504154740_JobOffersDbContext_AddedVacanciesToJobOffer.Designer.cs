@@ -4,6 +4,7 @@ using JobOffersApi.Modules.Users.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migartions
 {
     [DbContext(typeof(JobOffersDbContext))]
-    partial class JobOffersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250504154740_JobOffersDbContext_AddedVacanciesToJobOffer")]
+    partial class JobOffersDbContext_AddedVacanciesToJobOffer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

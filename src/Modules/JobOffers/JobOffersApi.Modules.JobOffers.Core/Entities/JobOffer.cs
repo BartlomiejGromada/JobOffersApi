@@ -22,6 +22,7 @@ internal class JobOffer : AggregateRoot<Guid>
     public JobOffer(
         string title,
         string descriptionHtml,
+        int vacancies,
         Location location,
         DateTimeOffset createdDate,
         Guid companyId,
@@ -32,6 +33,7 @@ internal class JobOffer : AggregateRoot<Guid>
     {
         Title = title;
         DescriptionHtml = descriptionHtml;
+        Vacancies = vacancies;
         Location = location;
         CreatedDate = createdDate;
         ExpirationDate = CreatedDate.AddDays(validityInDays ?? DefaultValidityInDays);
@@ -43,6 +45,7 @@ internal class JobOffer : AggregateRoot<Guid>
 
     public string Title { get; private set; }
     public string DescriptionHtml { get; private set; }
+    public int Vacancies { get; private set; }
     public Location Location { get; private set; }
     public DateTimeOffset CreatedDate { get; private set; }
     public DateTimeOffset ExpirationDate { get; private set; }

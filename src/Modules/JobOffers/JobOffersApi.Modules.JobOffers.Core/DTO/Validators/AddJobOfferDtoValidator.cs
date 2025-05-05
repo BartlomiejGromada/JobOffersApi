@@ -16,6 +16,10 @@ internal class AddJobOfferDtoValidator : AbstractValidator<AddJobOfferDto>
         RuleFor(x => x.DescriptionHtml)
             .NotEmpty().WithMessage(errorMessage: Errors.Required);
 
+        RuleFor(x => x.Vacancies)
+            .NotNull().WithMessage(errorMessage: Errors.Required)
+            .GreaterThanOrEqualTo(1).WithMessage(Errors.GreaterThen(0));
+
         RuleFor(x => x.Location)
             .SetValidator(new LocationValidator());
 

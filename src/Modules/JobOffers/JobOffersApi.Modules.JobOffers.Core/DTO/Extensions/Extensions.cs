@@ -25,6 +25,7 @@ internal static class Extensions
         {
             Id = jobOffer.Id,
             Title = jobOffer.Title,
+            Vacancies = jobOffer.Vacancies,
             Location = jobOffer.Location.ToDto(),
             CreatedDate = jobOffer.CreatedDate,
             ExpirationDate = jobOffer.ExpirationDate,
@@ -79,6 +80,7 @@ internal static class Extensions
         var jobOffer = new JobOffer(
             dto.Title,
             dto.DescriptionHtml,
+            dto.Vacancies,
             dto.Location.ToValueObject(),
             createdAt,
             dto.CompanyId,
