@@ -16,7 +16,7 @@ namespace JobOffersApi.Modules.JobOffers.Infrastructure.DAL.Migartions
                 table: "JobOffers",
                 type: "int",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 1);
         }
 
         /// <inheritdoc />
