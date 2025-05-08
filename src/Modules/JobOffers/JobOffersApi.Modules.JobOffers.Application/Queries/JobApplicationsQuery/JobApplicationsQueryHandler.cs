@@ -14,20 +14,17 @@ internal sealed class JobApplicationsQueryHandler : IQueryHandler<JobApplication
     private readonly IJobApplicationsStorage _jobApplicationStorage;
     private readonly IJobOffersStorage _jobOffersStorage;
     private readonly IAuthorizationCompanyService _authorizationCompanyService;
-    private readonly IAuthorizationJobApplicationService _authorizationJobApplicationService;
     private readonly IContext _context;
 
     public JobApplicationsQueryHandler(
         IJobApplicationsStorage jobApplicationStorage,
         IJobOffersStorage jobOffersStorage,
         IAuthorizationCompanyService authorizationCompanyService,
-        IAuthorizationJobApplicationService authorizationJobApplicationService,
         IContext context)
     {
         _jobApplicationStorage = jobApplicationStorage;
         _jobOffersStorage = jobOffersStorage;
         _authorizationCompanyService = authorizationCompanyService;
-        _authorizationJobApplicationService = authorizationJobApplicationService;
         _context = context;
     }
 

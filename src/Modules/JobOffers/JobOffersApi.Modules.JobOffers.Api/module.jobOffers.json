@@ -1,7 +1,7 @@
 {
   "jobOffers": {
     "module": {
-      "name": "jobOffers",
+      "name": "JobOffers",
       "enabled": true
     }
   }

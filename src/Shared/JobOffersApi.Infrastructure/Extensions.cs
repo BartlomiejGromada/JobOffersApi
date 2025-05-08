@@ -105,7 +105,7 @@ public static class Extensions
                 var removedParts = new List<ApplicationPart>();
                 foreach (var disabledModule in disabledModules)
                 {
-                    var parts = manager.ApplicationParts.Where(x => x.Name.Contains(disabledModule,
+                    var parts = manager.ApplicationParts.Where(x => x.Name.StartsWith($"JobOffersApi.Modules.{disabledModule}",
                         StringComparison.InvariantCultureIgnoreCase));
                     removedParts.AddRange(parts);
                 }

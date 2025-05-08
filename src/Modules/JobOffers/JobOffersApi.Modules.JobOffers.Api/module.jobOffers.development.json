@@ -1,4 +1,8 @@
 {
   "jobOffers": {
+    "module": {
+      "name": "JobOffers",
+      "enabled": true
+    }
   }
 }

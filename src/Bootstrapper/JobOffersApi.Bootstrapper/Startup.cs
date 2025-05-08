@@ -23,7 +23,7 @@ public class Startup
 
     public Startup(IConfiguration configuration)
     {
-        _assemblies = ModuleLoader.LoadAssemblies(configuration, "JobsOffersApi.Modules.");
+        _assemblies = ModuleLoader.LoadAssemblies(configuration, "JobOffersApi.Modules.");
         _modules = ModuleLoader.LoadModules(_assemblies);
     }
 
