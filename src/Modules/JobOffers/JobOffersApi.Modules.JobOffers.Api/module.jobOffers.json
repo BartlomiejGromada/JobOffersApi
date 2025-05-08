@@ -2,7 +2,7 @@
   "jobOffers": {
     "module": {
       "name": "JobOffers",
-      "enabled": true
+      "enabled": false
     }
   }
 }
